@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\qinshilin\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\qinshilin\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_TreeViewExamples.321780061.00" t="ExcludeRecursive" />
+    <e p="E:\KyleFiles\UnityRelated\TreeViewExamples" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assets\Editor" t="Include">
+        <e p="TreeDataModel" t="Include">
+          <e p="TreeElement.cs" t="Include" />
+          <e p="TreeElementUtility.cs" t="Include" />
+          <e p="TreeModel.cs" t="Include" />
+        </e>
+        <e p="TreeViewExamples" t="Include">
+          <e p="BackendData" t="Include">
+            <e p="MyTreeAsset.cs" t="Include" />
+            <e p="MyTreeAssetEditor.cs" t="Include" />
+            <e p="MyTreeElement.cs" t="Include" />
+            <e p="MyTreeElementGenerator.cs" t="Include" />
+            <e p="TreeViewWithTreeModel.cs" t="Include" />
+          </e>
+          <e p="CustomHeightTreeView.cs" t="Include" />
+          <e p="CustomHeightWindow.cs" t="Include" />
+          <e p="MultiColumnTreeView.cs" t="Include" />
+          <e p="MultiColumnWindow.cs" t="Include" />
+          <e p="SimpleTreeView.cs" t="Include" />
+          <e p="SimpleTreeViewWindow.cs" t="Include" />
+          <e p="TransformsTreeView.cs" t="Include" />
+          <e p="TransformsTreeViewWindow.cs" t="Include" />
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="TreeViewExamples.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
