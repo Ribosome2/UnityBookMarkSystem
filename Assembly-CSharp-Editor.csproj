@@ -81,6 +81,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\LinBookMark\Data\LinBookMarkElement.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\LinBookMarkTreeView.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\LinBookMarkWindow.cs" />
     <Compile Include="Assets\Editor\TreeDataModel\TreeElement.cs" />
     <Compile Include="Assets\Editor\TreeDataModel\TreeElementUtility.cs" />
     <Compile Include="Assets\Editor\TreeDataModel\TreeModel.cs" />

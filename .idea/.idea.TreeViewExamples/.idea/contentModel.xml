@@ -6,6 +6,13 @@
     <e p="E:\KyleFiles\UnityRelated\TreeViewExamples" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assets\Editor" t="Include">
+        <e p="LinBookMark" t="Include">
+          <e p="Data" t="Include">
+            <e p="LinBookMarkElement.cs" t="Include" />
+          </e>
+          <e p="LinBookMarkTreeView.cs" t="Include" />
+          <e p="LinBookMarkWindow.cs" t="Include" />
+        </e>
         <e p="TreeDataModel" t="Include">
           <e p="TreeElement.cs" t="Include" />
           <e p="TreeElementUtility.cs" t="Include" />
