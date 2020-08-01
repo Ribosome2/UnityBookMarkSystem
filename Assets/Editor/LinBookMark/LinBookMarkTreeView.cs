@@ -15,11 +15,19 @@ namespace LinBookMark
         List<LinBookMarkElement> bookMarks = new List<LinBookMarkElement>();
         private int autoId = 1;
 
+        int NextId
+        {
+            get
+            { 
+                return autoId++;
+            }
+        }
+
         private void InitBookMarkList()
         {
-            var bookMark = new LinBookMarkElement(){name = "Root",depth = -1};
+            var bookMark = new LinBookMarkElement(){name = "Root",depth = 0,id = NextId };
             bookMarks.Add(bookMark);
-            var bookM2 = new LinBookMarkElement(){name = "Rooeeet",depth = 0};
+            var bookM2 = new LinBookMarkElement(){name = "Rooeeet",depth = 1 ,id = NextId };
             bookMarks.Add(bookM2);
         }
         
@@ -27,7 +35,7 @@ namespace LinBookMark
                 : base(treeViewState)
             {
                 InitBookMarkList();
-                bookMarkDataModel =new TreeModel<LinBookMarkElement>(bookMarks);
+//                bookMarkDataModel =new TreeModel<LinBookMarkElement>(bookMarks);
                 Reload();
             }
 		
@@ -49,7 +57,7 @@ namespace LinBookMark
 
                 // This section illustrates that IDs should be unique and that the root item is required to 
                 // have a depth of -1 and the rest of the items increment from that.
-                var root = new TreeViewItem {id = 0, depth = -1, displayName = "Root"};
+                var root = new TreeViewItem {id = 0, depth = -1, displayName = "Root233"};
                 var allItems = new List<TreeViewItem>();
                 int Id = 1;
                 for (int i = 0; i < bookMarks.Count; i++)
@@ -123,7 +131,7 @@ namespace LinBookMark
                         for (int i = 0; i <  DragAndDrop.objectReferences.Length; i++)
                         {
                             var obj = DragAndDrop.objectReferences[i];
-                            var addElement  = new LinBookMarkElement(){name = obj.name,depth = args.parentItem.depth+1,id = 44};
+                            var addElement  = new LinBookMarkElement(){name = obj.name,depth = args.parentItem.depth+1,id = NextId };
                             bookMarks.Add(addElement);
                         }
                         Debug.Log("dragDrop  " + args.parentItem.id);

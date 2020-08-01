@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelUserStore">
+    <attachedFolders />
+    <explicitIncludes>
+      <Path>ProjectSettings</Path>
+    </explicitIncludes>
+    <explicitExcludes>
+      <Path>.git</Path>
+      <Path>.idea</Path>
+      <Path>.vs</Path>
+      <Path>Library</Path>
+      <Path>Temp</Path>
+      <Path>UnityPackageManager</Path>
+    </explicitExcludes>
+  </component>
+</project>

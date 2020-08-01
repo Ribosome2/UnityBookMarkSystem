@@ -2,3 +2,13 @@
 Library/*
 *.cache
 Temp/*
+*.vs/*
+.idea/*
+.idea/.idea.UnityBookMarkSystem/.idea/.idea.UnityBookMarkSystem.iml
+.idea/.idea.UnityBookMarkSystem/.idea/encodings.xml
+.idea/.idea.UnityBookMarkSystem/.idea/indexLayout.xml
+.idea/.idea.UnityBookMarkSystem/.idea/misc.xml
+.idea/.idea.UnityBookMarkSystem/.idea/modules.xml
+.idea/.idea.UnityBookMarkSystem/.idea/projectSettingsUpdater.xml
+.idea/.idea.UnityBookMarkSystem/.idea/vcs.xml
+.idea/.idea.UnityBookMarkSystem/riderModule.iml
