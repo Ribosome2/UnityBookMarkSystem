@@ -87,20 +87,33 @@ namespace LinBookMark
 
                 var sortedDraggedIDs = SortItemIDsInRowOrder (args.draggedItemIDs);
 
-                List<UnityObject> objList = new List<UnityObject> (sortedDraggedIDs.Count);
-                foreach (var id in sortedDraggedIDs)
+                var objList = GetUnityObjectList(sortedDraggedIDs);
+                DragAndDrop.objectReferences = objList.ToArray ();
+                if (objList.Count > 0)
                 {
-                    UnityObject obj = EditorUtility.InstanceIDToObject (id);
-                    if (obj != null)
-                        objList.Add (obj);
+                    string title = objList.Count > 1 ? "<Multiple>" : objList[0].name;
+                    DragAndDrop.StartDrag (title);
+                }
+                else
+                {
+                    DragAndDrop.StartDrag ("No Unity GameObject");
                 }
 
-                DragAndDrop.objectReferences = objList.ToArray ();
-
-                string title = objList.Count > 1 ? "<Multiple>" : objList[0].name;
-                DragAndDrop.StartDrag (title);
             }
-            
+
+            private static List<UnityObject> GetUnityObjectList(IList<int> sortedDraggedIDs)
+            {
+                List<UnityObject> objList = new List<UnityObject>(sortedDraggedIDs.Count);
+                foreach (var id in sortedDraggedIDs)
+                {
+                    UnityObject obj = EditorUtility.InstanceIDToObject(id);
+                    if (obj != null)
+                        objList.Add(obj);
+                }
+
+                return objList;
+            }
+
             protected override DragAndDropVisualMode HandleDragAndDrop (DragAndDropArgs args)
             {
                 // First check if the dragged objects are GameObjects
@@ -128,18 +141,11 @@ namespace LinBookMark
                 {
                     case DragAndDropPosition.UponItem:
                     case DragAndDropPosition.BetweenItems:
-                        for (int i = 0; i <  DragAndDrop.objectReferences.Length; i++)
-                        {
-                            var obj = DragAndDrop.objectReferences[i];
-                            var addElement  = new LinBookMarkElement(){name = obj.name,depth = args.parentItem.depth+1,id = NextId };
-                            bookMarks.Add(addElement);
-                        }
-                        Debug.Log("dragDrop  " + args.parentItem.id);
-                        Reload();
+                        HandleDropWithParentItem(args);
                         break;
                         
                     case DragAndDropPosition.OutsideItems:
-                        Debug.Log("drag outside  ");
+                        HandleDropOutsideRoot(args);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -147,6 +153,32 @@ namespace LinBookMark
                 
                 Reload();
                 // SetSelection (transforms.Select (t => t.gameObject.GetInstanceID ()).ToList (), TreeViewSelectionOptions.RevealAndFrame);
+            }
+
+            private void HandleDropWithParentItem(DragAndDropArgs args)
+            {
+                for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
+                {
+                    var obj = DragAndDrop.objectReferences[i];
+                    //todo add to parent item as child ,not just add to list
+                    var addElement = new LinBookMarkElement() {name = obj.name, depth = args.parentItem.depth + 1, id = NextId};
+                    bookMarks.Add(addElement);
+                }
+
+                Debug.Log("dragDrop  " + args.parentItem.id);
+                Reload();
+            }
+
+            private void HandleDropOutsideRoot(DragAndDropArgs args)
+            {
+                for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
+                {
+                    var obj = DragAndDrop.objectReferences[i];
+                    var addElement = new LinBookMarkElement() {name = obj.name, depth = 0, id = NextId};
+                    bookMarks.Add(addElement);
+                }
+                Reload();
+                Debug.Log("drag outside  ");
             }
     }
 }

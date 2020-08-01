@@ -2,8 +2,6 @@
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.TreeViewExamples;
 using UnityEngine;
-// ReSharper disable All
-
 namespace LinBookMark
 {
     public class LinBookMarkWindow : EditorWindow

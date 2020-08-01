@@ -3,6 +3,7 @@
   <component name="ContentModelUserStore">
     <attachedFolders />
     <explicitIncludes>
+      <Path>Assets</Path>
       <Path>ProjectSettings</Path>
     </explicitIncludes>
     <explicitExcludes>
@@ -12,6 +13,7 @@
       <Path>Library</Path>
       <Path>Temp</Path>
       <Path>UnityPackageManager</Path>
+      <Path>obj</Path>
     </explicitExcludes>
   </component>
 </project>
