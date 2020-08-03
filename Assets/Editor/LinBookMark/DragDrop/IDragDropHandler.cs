@@ -10,6 +10,6 @@ namespace LinBookMark
 {
     public interface IDragDropHandler
     {
-        void SetupDragAndDrop();
+        void SetupDragAndDrop(IList<int> sortedDraggedIDs);
     }
 }
