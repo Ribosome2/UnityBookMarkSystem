@@ -11,26 +11,14 @@ namespace LinBookMark
 {
     public class LinBookMarkTreeView : TreeView
     {
-        private TreeModel<LinBookMarkElement> bookMarkDataModel;
+       
         BookMarkTreeBuilder _treeBuilder = new BookMarkTreeBuilder();
         BookMarkDragDropHandler _dragDropHandler = new BookMarkDragDropHandler();
-        List<LinBookMarkElement> bookMarks = new List<LinBookMarkElement>();
-
-
-        private void InitBookMarkList()
-        {
-            var bookMark = new LinBookMarkElement() {name = "Root", depth = -1, id = TreeItemIdGenerator.NextId};
-            bookMarks.Add(bookMark);
-            var bookM2 = new LinBookMarkElement() {name = "customChild1", depth = 0, id = TreeItemIdGenerator.NextId};
-            bookMarks.Add(bookM2);
-            bookMarks.Add(new LinBookMarkElement() {name = "Kyle ", depth = 1, id = TreeItemIdGenerator.NextId});
-        }
 
         public LinBookMarkTreeView(TreeViewState treeViewState)
             : base(treeViewState)
         {
-            InitBookMarkList();
-            bookMarkDataModel = new TreeModel<LinBookMarkElement>(bookMarks);
+            BookMarkDataCenter.instance.Init();
             Reload();
         }
 
@@ -39,7 +27,7 @@ namespace LinBookMark
         {
             // BuildRoot is called every time Reload is called to ensure
             List<TreeViewItem> allItems = new List<TreeViewItem>();
-            var root = _treeBuilder.BuildRoot(bookMarkDataModel, allItems);
+            var root = _treeBuilder.BuildRoot( allItems);
             // Utility method that initializes the TreeViewItem.children and -parent for all items.
             SetupParentsAndChildrenFromDepths(root, allItems);
             return root;
@@ -82,11 +70,11 @@ namespace LinBookMark
             {
                 case DragAndDropPosition.UponItem:
                 case DragAndDropPosition.BetweenItems:
-                    _dragDropHandler.HandleDropWithParentItem(args.insertAtIndex, args.parentItem, bookMarkDataModel);
+                    _dragDropHandler.HandleDropWithParentItem(args.insertAtIndex, args.parentItem);
                     break;
 
                 case DragAndDropPosition.OutsideItems:
-                    _dragDropHandler.HandleDropOutsideRoot(args.insertAtIndex, bookMarkDataModel);
+                    _dragDropHandler.HandleDropOutsideRoot(args.insertAtIndex);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -9,11 +9,17 @@ namespace LinBookMark
 {
     public class BookMarkDragDropHandler : IDragDropHandler
     {
+
+        public BookMarkDragDropHandler()
+        {
+            
+        }
+        
         public void SetupDragAndDrop(IList<int> sortedDraggedIDs)
         {
             DragAndDrop.PrepareStartDrag();
-
-            var objList = GetUnityObjectList(sortedDraggedIDs);
+            DragAndDrop.paths = new string[0];
+            var objList =BookMarkDataCenter.instance. GetUnityObjectList(sortedDraggedIDs);
             DragAndDrop.objectReferences = objList.ToArray();
             if (objList.Count > 0)
             {
@@ -27,25 +33,19 @@ namespace LinBookMark
         }
 
 
-        private static List<UnityObject> GetUnityObjectList(IList<int> sortedDraggedIDs)
-        {
-            List<UnityObject> objList = new List<UnityObject>(sortedDraggedIDs.Count);
-            foreach (var id in sortedDraggedIDs)
-            {
-                UnityObject obj = EditorUtility.InstanceIDToObject(id);
-                if (obj != null)
-                    objList.Add(obj);
-            }
 
-            return objList;
-        }
 
-        private void AddObjectToParent(int insertIndex, UnityObject obj, LinBookMarkElement parentElement,
-            TreeModel<LinBookMarkElement> bookMarkDataModel)
+        private void AddObjectToParent(int insertIndex, UnityObject obj, LinBookMarkElement parentElement)
         {
             var addElement = new LinBookMarkElement()
                 {name = obj.name, depth = parentElement.depth + 1, id = TreeItemIdGenerator.NextId};
             Debug.Log("try add to " + parentElement.name);
+            insertIndex = CovertInsertIndex(insertIndex, parentElement);
+            BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
+        }
+
+        private static int CovertInsertIndex(int insertIndex, LinBookMarkElement parentElement)
+        {
             if (insertIndex < 0)
             {
                 if (parentElement.hasChildren)
@@ -58,29 +58,34 @@ namespace LinBookMark
                 }
             }
 
-            bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
+            return insertIndex;
         }
 
-        public void HandleDropWithParentItem(int insertIndex, TreeViewItem parentItem,
-            TreeModel<LinBookMarkElement> bookMarkDataModel)
+        public void HandleDropWithParentItem(int insertIndex, TreeViewItem parentItem)
         {
+            var bookMarkDataModel = BookMarkDataCenter.instance.bookMarkDataModel;
+            if (DragAndDrop.paths.Length > 0)
+            {
+                var path = DragAndDrop.paths[0];
+                Debug.Log("dddddd "+path);
+            }
             var parentElement = bookMarkDataModel.Find(parentItem.id);
             if (parentElement != null)
             {
                 for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
                 {
                     var obj = DragAndDrop.objectReferences[i];
-                    AddObjectToParent(insertIndex, obj, parentElement, bookMarkDataModel);
+                    AddObjectToParent(insertIndex, obj, parentElement);
                 }
             }
         }
 
-        public void HandleDropOutsideRoot(int insertIndex, TreeModel<LinBookMarkElement> bookMarkDataModel)
+        public void HandleDropOutsideRoot(int insertIndex)
         {
             for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
             {
                 var obj = DragAndDrop.objectReferences[i];
-                AddObjectToParent(insertIndex, obj, bookMarkDataModel.root, bookMarkDataModel);
+                AddObjectToParent(insertIndex, obj,BookMarkDataCenter.instance.bookMarkDataModel.root);
             }
 
             Debug.Log("drag outside  ");

@@ -7,8 +7,9 @@ namespace LinBookMark
 {
     public class BookMarkTreeBuilder
     {
-        public TreeViewItem BuildRoot(TreeModel<LinBookMarkElement> bookMarkDataModel, List<TreeViewItem> allItems )
+        public TreeViewItem BuildRoot( List<TreeViewItem> allItems )
         {
+            var bookMarkDataModel = BookMarkDataCenter.instance.bookMarkDataModel;
             var root =CreateTreeViewItemForBookMarkElement(bookMarkDataModel.root);
             List<TreeElement> elements = new List<TreeElement>();
             TreeElementUtility.TreeToList<TreeElement>(bookMarkDataModel.root,elements);
@@ -17,7 +18,7 @@ namespace LinBookMark
                 var element = elements[i];
                 var bookMarkElement = element as LinBookMarkElement;
                 var treeItem = CreateTreeViewItemForBookMarkElement(bookMarkElement);
-                Debug.Log("re add "+treeItem.displayName + "depth"+ treeItem.depth);
+                // Debug.Log("re add "+treeItem.displayName + "depth"+ treeItem.depth);
                 allItems.Add(treeItem);
             }
 
