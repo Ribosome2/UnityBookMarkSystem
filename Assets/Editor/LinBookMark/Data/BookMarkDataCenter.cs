@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.TreeViewExamples;
 using UnityEngine;
@@ -26,10 +27,15 @@ namespace LinBookMark
         List<LinBookMarkElement> bookMarks = new List<LinBookMarkElement>();
         public TreeModel<LinBookMarkElement> bookMarkDataModel;
         public ExpandDataMgr ExpandDataMgr = new ExpandDataMgr();
-        
+        public Action BookMarkDataChangeEvent ;
         public void  Init()
         {
             InitBookMarkList();
+            ConvertBookMarkListToTreeModel();
+        }
+
+        void ConvertBookMarkListToTreeModel()
+        {
             bookMarkDataModel = new TreeModel<LinBookMarkElement>(bookMarks);
         }
         
@@ -39,8 +45,21 @@ namespace LinBookMark
             bookMarks.Clear();
             var bookMark = new LinBookMarkElement() {name = "Root", depth = -1, id = TreeItemIdGenerator.NextId};
             bookMarks.Add(bookMark);
-            // var bookM2 = new LinBookMarkElement() {name = "ExampleGroup", depth = 0, id = TreeItemIdGenerator.NextId};
-            // bookMarks.Add(bookM2);
+          
+        }
+
+        public void CreateOneBookMarkItem()
+        {
+            if (bookMarks.Count > 0)
+            {
+                var bookM2 = new LinBookMarkElement() {name = "BookMarkGroup", depth = 0, id = TreeItemIdGenerator.NextId};
+                bookMarks.Add(bookM2);
+                ConvertBookMarkListToTreeModel();
+                if (BookMarkDataChangeEvent!=null)
+                {
+                    BookMarkDataChangeEvent.Invoke();
+                }
+            }
         }
         
 

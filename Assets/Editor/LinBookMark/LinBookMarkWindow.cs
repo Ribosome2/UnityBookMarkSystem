@@ -23,6 +23,7 @@ namespace LinBookMark
         // The TreeView is not serializable it should be reconstructed from the tree data.
         LinBookMarkTreeView m_TreeView;
         SearchField m_SearchField;
+        public GUIContent m_CreateDropdownContent = new GUIContent("Create");
 
         void OnEnable ()
         {
@@ -34,6 +35,7 @@ namespace LinBookMark
             m_TreeView = new LinBookMarkTreeView(m_TreeViewState);
             m_SearchField = new SearchField ();
             m_SearchField.downOrUpArrowKeyPressed += m_TreeView.SetFocusAndEnsureSelectedItem;
+            BookMarkDataCenter.instance.BookMarkDataChangeEvent += m_TreeView.Reload;
             Debug.Log("view "+m_TreeView);
         }
 
@@ -45,17 +47,26 @@ namespace LinBookMark
 
         void DoToolbar()
         {
-          
+            
             if (m_TreeView != null)
             {
                 GUILayout.BeginHorizontal (EditorStyles.toolbar);
+                this.CreateDropdown();
                 GUILayout.Space (100);
                 GUILayout.FlexibleSpace();
+                
                 m_TreeView.searchString = m_SearchField.OnToolbarGUI (m_TreeView.searchString);
                 GUILayout.EndHorizontal();
             }
         }
-
+        private void CreateDropdown()
+        {
+            Rect rect = GUILayoutUtility.GetRect(m_CreateDropdownContent, EditorStyles.toolbarDropDown);
+            if (!EditorGUI.DropdownButton(rect, m_CreateDropdownContent, FocusType.Passive, EditorStyles.toolbarDropDown))
+                return;
+            GUIUtility.hotControl = 0;
+            EditorUtility.DisplayPopupMenu(rect, "LinBookMark/Create", (MenuCommand) null);
+        }
         void DoTreeView()
         {
             if (m_TreeView != null)
