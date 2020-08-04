@@ -32,6 +32,12 @@ namespace LinBookMark
             SetupParentsAndChildrenFromDepths(root, allItems);
             return root;
         }
+        
+        protected override void RowGUI(RowGUIArgs args)
+        {
+            base.RowGUI(args);
+            
+        }
 
         protected override bool CanStartDrag(CanStartDragArgs args)
         {
@@ -83,6 +89,7 @@ namespace LinBookMark
             Reload();
             // SetSelection (transforms.Select (t => t.gameObject.GetInstanceID ()).ToList (), TreeViewSelectionOptions.RevealAndFrame);
         }
+
 
         protected override void DoubleClickedItem(int id)
         {

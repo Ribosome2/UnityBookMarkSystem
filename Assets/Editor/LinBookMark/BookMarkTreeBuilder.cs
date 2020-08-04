@@ -29,6 +29,7 @@ namespace LinBookMark
                 if (bookMarkElement.type == BookMarkType.AssetFolder)
                 {
                     var assetPath = AssetDatabase.GUIDToAssetPath(bookMarkElement.AssetGuild);
+                    treeItem.icon =(Texture2D) AssetDatabase.GetCachedIcon(assetPath);
                     AutoAddSubAssetToTree(allItems, assetPath, treeItem);
                 }
                 
@@ -46,13 +47,7 @@ namespace LinBookMark
                 var subDirectories = Directory.GetDirectories(assetPath);
                 foreach (var subDirectory in subDirectories)
                 {
-                    Debug.Log("sub Folder " + subDirectory);
-                    var dirInfo = new DirectoryInfo(subDirectory);
-                    var treeItemId = TreeItemIdGenerator.NextId;
-                    TreeViewItem subItem = new TreeViewItem(treeItemId, treeItemParent.depth + 1, dirInfo.Name);
-                    
-                    var expandData = new ExpandData(){AssetPath = subDirectory};
-                    BookMarkDataCenter.instance.ExpandDataMgr.SetExpandData(treeItemId,expandData);
+                    var subItem = CreateFolderTreeItem(treeItemParent, subDirectory);
                     allItems.Add(subItem);
                     AutoAddSubAssetToTree(allItems, subDirectory, subItem);
                 }
@@ -61,14 +56,33 @@ namespace LinBookMark
                 foreach (var subFile in subFiles)
                 {
                     var fileInfo = new FileInfo(subFile);
-                    var treeItemId = TreeItemIdGenerator.NextId;
-                    TreeViewItem subItem = new TreeViewItem(treeItemId, treeItemParent.depth + 1, fileInfo.Name);
-                    var expandData = new ExpandData(){AssetPath = subFile};
-                    BookMarkDataCenter.instance.ExpandDataMgr.SetExpandData(treeItemId,expandData);
+                    var subItem = CreateFileTreeItem(treeItemParent, fileInfo, subFile);
                     allItems.Add(subItem);
                 }
                 
             }
+        }
+
+        private static TreeViewItem CreateFileTreeItem(TreeViewItem treeItemParent, FileInfo fileInfo, string subFile)
+        {
+            var treeItemId = TreeItemIdGenerator.NextId;
+            TreeViewItem subItem = new TreeViewItem(treeItemId, treeItemParent.depth + 1, fileInfo.Name);
+            var expandData = new ExpandData() {AssetPath = subFile};
+            BookMarkDataCenter.instance.ExpandDataMgr.SetExpandData(treeItemId, expandData);
+            subItem.icon = (Texture2D) AssetDatabase.GetCachedIcon(subFile);
+            return subItem;
+        }
+
+        private static TreeViewItem CreateFolderTreeItem(TreeViewItem treeItemParent, string subDirectory)
+        {
+            var dirInfo = new DirectoryInfo(subDirectory);
+            var treeItemId = TreeItemIdGenerator.NextId;
+            TreeViewItem subItem = new TreeViewItem(treeItemId, treeItemParent.depth + 1, dirInfo.Name);
+
+            var expandData = new ExpandData() {AssetPath = subDirectory};
+            BookMarkDataCenter.instance.ExpandDataMgr.SetExpandData(treeItemId, expandData);
+            subItem.icon = (Texture2D) AssetDatabase.GetCachedIcon(subDirectory);
+            return subItem;
         }
 
         static TreeViewItem CreateTreeViewItemForBookMarkElement (LinBookMarkElement element)
