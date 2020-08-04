@@ -86,17 +86,10 @@ namespace LinBookMark
             
             if (DragAndDrop.paths.Length > 0 && DragAndDrop.objectReferences.Length== DragAndDrop.paths.Length)
             {
-                //drag from project assets 
-                var path = DragAndDrop.paths[0];
-                BookMarkType bookMarkType = GetBookMarkTypeForAsset(path);
-                Debug.Log("drop path "+ path+" asset type "+bookMarkType );
-                var addElement = ProjectPathToBookMarkElement(path);
-                addElement.depth = parentElement.depth + 1;
-                addElement.id = TreeItemIdGenerator.NextId;
-                insertIndex = CovertInsertIndex(insertIndex, parentElement);
-                Debug.Log("try add to " + parentElement.name);
-                BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
-                
+                foreach (var path in DragAndDrop.paths)
+                {
+                    insertIndex = HandleDropToParentTreeItem(insertIndex, parentElement, path);
+                }
             }
             else
             {
@@ -114,6 +107,39 @@ namespace LinBookMark
             
           
             
+        }
+
+        private int HandleDropToParentTreeItem(int insertIndex, LinBookMarkElement parentElement, string path)
+        {
+            if (parentElement.type == BookMarkType.AssetFolder)
+            {
+                MoveAssets(parentElement, path);
+            }
+            else if (parentElement.type == BookMarkType.CustomRoot)
+            {
+                BookMarkType bookMarkType = GetBookMarkTypeForAsset(path);
+                Debug.Log("drop path " + path + " asset type " + bookMarkType);
+                var addElement = ProjectPathToBookMarkElement(path);
+                addElement.depth = parentElement.depth + 1;
+                addElement.id = TreeItemIdGenerator.NextId;
+                insertIndex = CovertInsertIndex(insertIndex, parentElement);
+                Debug.Log("try add to " + parentElement.name);
+                BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
+            }
+            return insertIndex;
+        }
+
+        private static void MoveAssets(LinBookMarkElement parentElement, string path)
+        {
+            var assetObj = AssetDatabase.LoadAssetAtPath<Object>(path);
+            if (assetObj)
+            {
+                var fileInfo = new FileInfo(path);
+                var parentPath = AssetDatabase.GUIDToAssetPath(parentElement.AssetGuild);
+                var newPath = Path.Combine(parentPath, fileInfo.Name);
+                Debug.Log("move " + path + " to " + newPath);
+                AssetDatabase.MoveAsset(path, newPath);
+            }
         }
 
         private static int CovertInsertIndex(int insertIndex, LinBookMarkElement parentElement)
