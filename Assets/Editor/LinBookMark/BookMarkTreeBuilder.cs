@@ -48,6 +48,7 @@ namespace LinBookMark
                     var dirInfo = new DirectoryInfo(subDirectory);
                     TreeViewItem subItem = new TreeViewItem(TreeItemIdGenerator.NextId, treeItemParent.depth + 1, dirInfo.Name);
                     allItems.Add(subItem);
+                    AutoAddSubAssetToTree(allItems, subDirectory, subItem);
                 }
 
                 var subFiles = Directory.GetFiles(assetPath).Where(x => x.EndsWith(".meta")==false);
