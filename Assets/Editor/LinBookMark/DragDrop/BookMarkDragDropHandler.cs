@@ -11,11 +11,6 @@ namespace LinBookMark
     public class BookMarkDragDropHandler : IDragDropHandler
     {
 
-        public BookMarkDragDropHandler()
-        {
-            
-        }
-        
         public void SetupDragAndDrop(IList<int> sortedDraggedIDs)
         {
             DragAndDrop.PrepareStartDrag();
@@ -63,7 +58,6 @@ namespace LinBookMark
             {
                 return  BookMarkType.SingleAsset;
             }
-            return BookMarkType.None;
         }
 
         LinBookMarkElement ProjectPathToBookMarkElement(string path)
