@@ -83,6 +83,8 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\LinBookMark\BookMarkTreeBuilder.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkDataCenter.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Data\ExpandData.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Data\ExpandDataMgr.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\LinBookMarkElement.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\TreeItemIdGenerator.cs" />
     <Compile Include="Assets\Editor\LinBookMark\DragDrop\BookMarkDragDropHandler.cs" />

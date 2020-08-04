@@ -83,5 +83,30 @@ namespace LinBookMark
             Reload();
             // SetSelection (transforms.Select (t => t.gameObject.GetInstanceID ()).ToList (), TreeViewSelectionOptions.RevealAndFrame);
         }
+
+        protected override void DoubleClickedItem(int id)
+        {
+            base.DoubleClickedItem(id);
+            var expandData = BookMarkDataCenter.instance.ExpandDataMgr.GetExpandData(id);
+            if (string.IsNullOrEmpty(expandData.AssetPath )==false)
+            {
+                var obj = AssetDatabase.LoadAssetAtPath<UnityObject>(expandData.AssetPath);
+                EditorGUIUtility.PingObject(obj);
+            }
+            else
+            {
+                var bookMarkElement = BookMarkDataCenter.instance.bookMarkDataModel.Find(id);
+                if (bookMarkElement != null)
+                {
+                    if (bookMarkElement.type == BookMarkType.AssetFolder ||
+                        bookMarkElement.type == BookMarkType.SingleAsset)
+                    {
+                        var assetPath =AssetDatabase.GUIDToAssetPath(bookMarkElement.AssetGuild);
+                        var obj = AssetDatabase.LoadAssetAtPath<UnityObject>(assetPath);
+                        EditorGUIUtility.PingObject(obj);
+                    }
+                }
+            }
+        }
     }
 }

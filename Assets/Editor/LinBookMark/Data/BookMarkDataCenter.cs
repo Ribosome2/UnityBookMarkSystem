@@ -25,7 +25,8 @@ namespace LinBookMark
         
         List<LinBookMarkElement> bookMarks = new List<LinBookMarkElement>();
         public TreeModel<LinBookMarkElement> bookMarkDataModel;
-
+        public ExpandDataMgr ExpandDataMgr = new ExpandDataMgr();
+        
         public void  Init()
         {
             InitBookMarkList();
@@ -41,6 +42,10 @@ namespace LinBookMark
             bookMarks.Add(bookM2);
             bookMarks.Add(new LinBookMarkElement() {name = "Kyle ", depth = 1, id = TreeItemIdGenerator.NextId});
         }
+
+
+
+        
         
         public List<UnityObject> GetUnityObjectList(IList<int> sortedDraggedIDs)
         {

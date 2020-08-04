@@ -13,6 +13,8 @@ namespace LinBookMark
         public TreeViewItem BuildRoot( List<TreeViewItem> allItems )
         {
             var bookMarkDataModel = BookMarkDataCenter.instance.bookMarkDataModel;
+            BookMarkDataCenter.instance.ExpandDataMgr.ClearExpandDataMap();
+            
             var root =CreateTreeViewItemForBookMarkElement(bookMarkDataModel.root);
             List<TreeElement> elements = new List<TreeElement>();
             TreeElementUtility.TreeToList<TreeElement>(bookMarkDataModel.root,elements);
@@ -46,7 +48,11 @@ namespace LinBookMark
                 {
                     Debug.Log("sub Folder " + subDirectory);
                     var dirInfo = new DirectoryInfo(subDirectory);
-                    TreeViewItem subItem = new TreeViewItem(TreeItemIdGenerator.NextId, treeItemParent.depth + 1, dirInfo.Name);
+                    var treeItemId = TreeItemIdGenerator.NextId;
+                    TreeViewItem subItem = new TreeViewItem(treeItemId, treeItemParent.depth + 1, dirInfo.Name);
+                    
+                    var expandData = new ExpandData(){AssetPath = subDirectory};
+                    BookMarkDataCenter.instance.ExpandDataMgr.SetExpandData(treeItemId,expandData);
                     allItems.Add(subItem);
                     AutoAddSubAssetToTree(allItems, subDirectory, subItem);
                 }
@@ -55,7 +61,10 @@ namespace LinBookMark
                 foreach (var subFile in subFiles)
                 {
                     var fileInfo = new FileInfo(subFile);
-                    TreeViewItem subItem = new TreeViewItem(TreeItemIdGenerator.NextId, treeItemParent.depth + 1, fileInfo.Name);
+                    var treeItemId = TreeItemIdGenerator.NextId;
+                    TreeViewItem subItem = new TreeViewItem(treeItemId, treeItemParent.depth + 1, fileInfo.Name);
+                    var expandData = new ExpandData(){AssetPath = subFile};
+                    BookMarkDataCenter.instance.ExpandDataMgr.SetExpandData(treeItemId,expandData);
                     allItems.Add(subItem);
                 }
                 
