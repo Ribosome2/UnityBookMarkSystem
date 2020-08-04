@@ -87,7 +87,9 @@ namespace LinBookMark
 
         static TreeViewItem CreateTreeViewItemForBookMarkElement (LinBookMarkElement element)
         {
-            return new TreeViewItem(element.id, element.depth, element.name);
+            var item = new TreeViewItem(element.id, element.depth, element.name);
+            item.icon = (Texture2D) EditorGUIUtility.Load(("node3 hex"));
+            return item;
         }
         
     }
