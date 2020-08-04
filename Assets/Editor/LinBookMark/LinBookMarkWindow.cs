@@ -10,7 +10,7 @@ namespace LinBookMark
         private static void ShowWindow()
         {
             var window = GetWindow<LinBookMarkWindow>();
-            window.titleContent = new GUIContent("LinMark");
+            window.titleContent = new GUIContent("BookMark", (Texture2D) EditorGUIUtility.Load(("FilterByLabel")));
             window.Show();
         }
 
@@ -36,7 +36,6 @@ namespace LinBookMark
             m_SearchField = new SearchField ();
             m_SearchField.downOrUpArrowKeyPressed += m_TreeView.SetFocusAndEnsureSelectedItem;
             BookMarkDataCenter.instance.BookMarkDataChangeEvent += m_TreeView.Reload;
-            Debug.Log("view "+m_TreeView);
         }
 
         void OnGUI ()
