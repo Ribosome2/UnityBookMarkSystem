@@ -24,7 +24,7 @@ namespace LinBookMark
                 var bookMarkElement = element as LinBookMarkElement;
                 var treeItem = CreateTreeViewItemForBookMarkElement(bookMarkElement);
                 // Debug.Log("re add "+treeItem.displayName + "depth"+ treeItem.depth);
-                allItems.Add(treeItem);
+                AddToTreeItemList(allItems, treeItem);
 
                 if (bookMarkElement.type == BookMarkType.AssetFolder)
                 {
@@ -39,6 +39,16 @@ namespace LinBookMark
 
         }
 
+        private static void AddToTreeItemList(List<TreeViewItem> allItems, TreeViewItem treeItem)
+        {
+            if (allItems.Count > 0 && treeItem.depth < 0)
+            {
+                Debug.LogError("error node depth , I dont want you ! : "+treeItem.displayName);
+                return;
+            }
+            allItems.Add(treeItem);
+        }
+
         private static void AutoAddSubAssetToTree(List<TreeViewItem> allItems, string assetPath, TreeViewItem treeItemParent)
         {
            
@@ -48,7 +58,7 @@ namespace LinBookMark
                 foreach (var subDirectory in subDirectories)
                 {
                     var subItem = CreateFolderTreeItem(treeItemParent, subDirectory);
-                    allItems.Add(subItem);
+                    AddToTreeItemList(allItems, subItem);
                     AutoAddSubAssetToTree(allItems, subDirectory, subItem);
                 }
 
@@ -57,7 +67,7 @@ namespace LinBookMark
                 {
                     var fileInfo = new FileInfo(subFile);
                     var subItem = CreateFileTreeItem(treeItemParent, fileInfo, subFile);
-                    allItems.Add(subItem);
+                    AddToTreeItemList(allItems, subItem);
                 }
                 
             }

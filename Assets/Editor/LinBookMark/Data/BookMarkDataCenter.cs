@@ -36,29 +36,13 @@ namespace LinBookMark
         
         private void InitBookMarkList()
         {
+            bookMarks.Clear();
             var bookMark = new LinBookMarkElement() {name = "Root", depth = -1, id = TreeItemIdGenerator.NextId};
             bookMarks.Add(bookMark);
-            var bookM2 = new LinBookMarkElement() {name = "customChild1", depth = 0, id = TreeItemIdGenerator.NextId};
-            bookMarks.Add(bookM2);
-            bookMarks.Add(new LinBookMarkElement() {name = "Kyle ", depth = 1, id = TreeItemIdGenerator.NextId});
+            // var bookM2 = new LinBookMarkElement() {name = "ExampleGroup", depth = 0, id = TreeItemIdGenerator.NextId};
+            // bookMarks.Add(bookM2);
         }
-
-
-
         
-        
-        public List<UnityObject> GetUnityObjectList(IList<int> sortedDraggedIDs)
-        {
-            List<UnityObject> objList = new List<UnityObject>(sortedDraggedIDs.Count);
-            foreach (var id in sortedDraggedIDs)
-            {
-                Debug.Log("drag "+id );
-                UnityObject obj = EditorUtility.InstanceIDToObject(id);
-                if (obj != null)
-                    objList.Add(obj);
-            }
 
-            return objList;
-        }
     }
 }

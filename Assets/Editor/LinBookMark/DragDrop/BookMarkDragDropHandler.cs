@@ -19,8 +19,25 @@ namespace LinBookMark
         public void SetupDragAndDrop(IList<int> sortedDraggedIDs)
         {
             DragAndDrop.PrepareStartDrag();
-            DragAndDrop.paths = new string[0];
-            var objList =BookMarkDataCenter.instance. GetUnityObjectList(sortedDraggedIDs);
+            
+            List<string> pathList = new List<string>();
+            List<UnityObject> objList = new List<Object>();
+            foreach (int draggedId in sortedDraggedIDs)
+            {
+                var expandData = BookMarkDataCenter.instance.ExpandDataMgr.GetExpandData(draggedId);
+                if (string.IsNullOrEmpty(expandData.AssetPath)==false)
+                {
+                    var assetPath = expandData.AssetPath;
+                    var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
+                    if (obj)
+                    {
+                        pathList.Add(assetPath);
+                        objList.Add(obj);
+                    }
+                }
+            }
+
+            DragAndDrop.paths = pathList.ToArray();
             DragAndDrop.objectReferences = objList.ToArray();
             if (objList.Count > 0)
             {
