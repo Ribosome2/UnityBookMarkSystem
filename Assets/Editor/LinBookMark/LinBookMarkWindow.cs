@@ -45,14 +45,15 @@ namespace LinBookMark
 
         void DoToolbar()
         {
-            GUILayout.BeginHorizontal (EditorStyles.toolbar);
-            GUILayout.Space (100);
-            GUILayout.FlexibleSpace();
+          
             if (m_TreeView != null)
             {
-                 m_TreeView.searchString = m_SearchField.OnToolbarGUI (m_TreeView.searchString);
+                GUILayout.BeginHorizontal (EditorStyles.toolbar);
+                GUILayout.Space (100);
+                GUILayout.FlexibleSpace();
+                m_TreeView.searchString = m_SearchField.OnToolbarGUI (m_TreeView.searchString);
+                GUILayout.EndHorizontal();
             }
-            GUILayout.EndHorizontal();
         }
 
         void DoTreeView()
