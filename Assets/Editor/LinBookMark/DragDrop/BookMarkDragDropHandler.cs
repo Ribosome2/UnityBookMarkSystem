@@ -119,6 +119,7 @@ namespace LinBookMark
                 insertIndex = CovertInsertIndex(insertIndex, parentElement);
                 Debug.Log("try add to " + parentElement.name);
                 BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
+                BookMarkDataCenter.instance.SaveCurrentTreeModel();
             }
             return insertIndex;
         }

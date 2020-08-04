@@ -45,8 +45,33 @@ namespace LinBookMark
             bookMarks.Clear();
             var bookMark = new LinBookMarkElement() {name = "Root", depth = -1, id = TreeItemIdGenerator.NextId};
             bookMarks.Add(bookMark);
-          
+            var saveList = DataSaver.ReadFromDisk<List<LinBookMarkElement>>(DataSaver.DataFileName);
+            if (saveList != null)
+            {
+                for (int i = 0; i < saveList.Count; i++)
+                {
+                    var item = saveList[i];
+                    bookMarks.Add(bookMark);
+                }
+            }
         }
+
+        public void SaveCurrentTreeModel()
+        {
+            List<LinBookMarkElement> allList = new List<LinBookMarkElement>();
+            TreeElementUtility.TreeToList(bookMarkDataModel.root, allList);
+            List<LinBookMarkElement> listToSave = new List<LinBookMarkElement>();
+            for (int i = 0; i < allList.Count; i++)
+            {
+                var element = allList[i];
+                if (element.depth > 0)
+                {
+                    listToSave.Add(element);
+                }
+            }
+            DataSaver.WriteToDisk(DataSaver.DataFileName,listToSave);
+        }
+        
 
         public void CreateOneBookMarkItem()
         {
@@ -59,6 +84,8 @@ namespace LinBookMark
                 {
                     BookMarkDataChangeEvent.Invoke();
                 }
+
+                SaveCurrentTreeModel();
             }
         }
         

@@ -37,6 +37,7 @@ namespace LinBookMark
             m_SearchField.downOrUpArrowKeyPressed += m_TreeView.SetFocusAndEnsureSelectedItem;
             BookMarkDataCenter.instance.BookMarkDataChangeEvent += m_TreeView.Reload;
         }
+        
 
         void OnGUI ()
         {
