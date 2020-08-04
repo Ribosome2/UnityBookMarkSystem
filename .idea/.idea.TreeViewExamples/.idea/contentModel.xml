@@ -12,6 +12,7 @@
             <e p="BookMarkCreateCommand.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
+            <e p="BookMarkData.cs" t="Include" />
             <e p="BookMarkDataCenter.cs" t="Include" />
             <e p="DataSaver.cs" t="Include" />
             <e p="ExpandData.cs" t="Include" />

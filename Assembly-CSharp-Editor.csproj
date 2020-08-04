@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\LinBookMark\BookMarkTreeBuilder.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Commands\BookMarkCreateCommand.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkData.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkDataCenter.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\DataSaver.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\ExpandData.cs" />

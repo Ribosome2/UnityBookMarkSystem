@@ -45,13 +45,14 @@ namespace LinBookMark
             bookMarks.Clear();
             var bookMark = new LinBookMarkElement() {name = "Root", depth = -1, id = TreeItemIdGenerator.NextId};
             bookMarks.Add(bookMark);
-            var saveList = DataSaver.ReadFromDisk<List<LinBookMarkElement>>(DataSaver.DataFileName);
-            if (saveList != null)
+            var bookMarkData = DataSaver.ReadFromDisk<BookMarkData>(DataSaver.DataFileName);
+            if (bookMarkData != null)
             {
+                var saveList = bookMarkData.bookMarks;
                 for (int i = 0; i < saveList.Count; i++)
                 {
                     var item = saveList[i];
-                    bookMarks.Add(bookMark);
+                    bookMarks.Add(item);
                 }
             }
         }
@@ -64,12 +65,14 @@ namespace LinBookMark
             for (int i = 0; i < allList.Count; i++)
             {
                 var element = allList[i];
-                if (element.depth > 0)
+                if (element.depth >= 0)
                 {
                     listToSave.Add(element);
                 }
             }
-            DataSaver.WriteToDisk(DataSaver.DataFileName,listToSave);
+            BookMarkData bookMarkData =new BookMarkData();
+            bookMarkData.bookMarks = listToSave;
+            DataSaver.WriteToDisk(DataSaver.DataFileName,bookMarkData);
         }
         
 
