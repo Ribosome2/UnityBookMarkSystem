@@ -9,11 +9,10 @@ namespace LinBookMark
         AssetFolder =2,
         SingleAsset =3,
     }
+    [System.Serializable]
     public class LinBookMarkElement:TreeElement
     {
-
         public BookMarkType type = BookMarkType.CustomRoot;
-        public int ExtraId;
         public string AssetGuild = string.Empty;
     }
 }
