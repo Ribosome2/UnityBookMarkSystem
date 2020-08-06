@@ -92,6 +92,7 @@
     <Compile Include="Assets\Editor\LinBookMark\Data\TreeItemIdGenerator.cs" />
     <Compile Include="Assets\Editor\LinBookMark\DragDrop\BookMarkDragDropHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\DragDrop\IDragDropHandler.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\InputHandle\TreeViewInputHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\LinBookMarkTreeView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\LinBookMarkWindow.cs" />
     <Compile Include="Assets\Editor\TreeDataModel\TreeElement.cs" />

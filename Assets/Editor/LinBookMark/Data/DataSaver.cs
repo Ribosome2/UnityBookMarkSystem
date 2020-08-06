@@ -15,7 +15,6 @@ namespace LinBookMark
             string path = Application.persistentDataPath + "/" + fileName + ".dat";
 #if UNITY_5_4_OR_NEWER
 			string str = JsonUtility.ToJson(serializeObject);
-            Debug.Log("dddddddd "+ str);
             File.AppendAllText(path, str + Environment.NewLine);
 #else
 			BinaryFormatter bf = new BinaryFormatter();

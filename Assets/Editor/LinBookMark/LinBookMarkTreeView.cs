@@ -90,6 +90,30 @@ namespace LinBookMark
             // SetSelection (transforms.Select (t => t.gameObject.GetInstanceID ()).ToList (), TreeViewSelectionOptions.RevealAndFrame);
         }
 
+        protected override bool CanRename(TreeViewItem item)
+        {
+            var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(item.id);
+            if (element != null && element.type == BookMarkType.CustomRoot)
+            {
+                return true;
+            }
+            
+            return base.CanRename(item);
+        }
+
+        protected override void RenameEnded(RenameEndedArgs args)
+        {
+            base.RenameEnded(args);
+            var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(args.itemID);
+            if (element != null && element.type == BookMarkType.CustomRoot)
+            {
+                element.name = args.newName;
+                Reload();
+                BookMarkDataCenter.instance.SaveCurrentTreeModel();
+            }
+        }
+
+
 
         protected override void DoubleClickedItem(int id)
         {
