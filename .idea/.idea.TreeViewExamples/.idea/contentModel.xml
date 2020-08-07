@@ -21,6 +21,7 @@
             <e p="TreeItemIdGenerator.cs" t="Include" />
           </e>
           <e p="DragDrop" t="Include">
+            <e p="AssetOperationUtil.cs" t="Include" />
             <e p="BookMarkDragDropHandler.cs" t="Include" />
             <e p="IDragDropHandler.cs" t="Include" />
           </e>

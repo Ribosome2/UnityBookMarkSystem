@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.TreeViewExamples;
 using UnityEngine;
@@ -25,48 +26,52 @@ namespace LinBookMark
         SearchField m_SearchField;
         public GUIContent m_CreateDropdownContent = new GUIContent("Create");
 
-        void OnEnable ()
+        void OnEnable()
         {
             // Check if we already had a serialized view state (state 
             // that survived assembly reloading)
             if (m_TreeViewState == null)
-                m_TreeViewState = new TreeViewState ();
+                m_TreeViewState = new TreeViewState();
 
             m_TreeView = new LinBookMarkTreeView(m_TreeViewState);
-            m_SearchField = new SearchField ();
+            m_SearchField = new SearchField();
             m_SearchField.downOrUpArrowKeyPressed += m_TreeView.SetFocusAndEnsureSelectedItem;
             BookMarkDataCenter.instance.BookMarkDataChangeEvent += m_TreeView.Reload;
         }
-        
 
-        void OnGUI ()
+
+        void OnGUI()
         {
-            DoToolbar ();
-            DoTreeView ();
+            DoToolbar();
+            DoTreeView();
+            HandleCommandEvents();
         }
 
         void DoToolbar()
         {
-            
+
             if (m_TreeView != null)
             {
-                GUILayout.BeginHorizontal (EditorStyles.toolbar);
+                GUILayout.BeginHorizontal(EditorStyles.toolbar);
                 this.CreateDropdown();
-                GUILayout.Space (100);
+                GUILayout.Space(100);
                 GUILayout.FlexibleSpace();
-                
-                m_TreeView.searchString = m_SearchField.OnToolbarGUI (m_TreeView.searchString);
+
+                m_TreeView.searchString = m_SearchField.OnToolbarGUI(m_TreeView.searchString);
                 GUILayout.EndHorizontal();
             }
         }
+
         private void CreateDropdown()
         {
             Rect rect = GUILayoutUtility.GetRect(m_CreateDropdownContent, EditorStyles.toolbarDropDown);
-            if (!EditorGUI.DropdownButton(rect, m_CreateDropdownContent, FocusType.Passive, EditorStyles.toolbarDropDown))
+            if (!EditorGUI.DropdownButton(rect, m_CreateDropdownContent, FocusType.Passive,
+                EditorStyles.toolbarDropDown))
                 return;
             GUIUtility.hotControl = 0;
             EditorUtility.DisplayPopupMenu(rect, "LinBookMark/Create", (MenuCommand) null);
         }
+
         void DoTreeView()
         {
             if (m_TreeView != null)
@@ -74,6 +79,33 @@ namespace LinBookMark
                 Rect rect = GUILayoutUtility.GetRect(0, 100000, 0, 100000);
                 m_TreeView.OnGUI(rect);
             }
+        }
+
+        private bool HandleCommandEvents()
+        {
+            UnityEngine.EventType type = Event.current.type;
+            switch (type)
+            {
+                case UnityEngine.EventType.ValidateCommand:
+                case UnityEngine.EventType.ExecuteCommand:
+                    bool flag = type == UnityEngine.EventType.ExecuteCommand;
+                    if (Event.current.commandName == "Delete" || Event.current.commandName == "SoftDelete")
+                    {
+                        Event.current.Use();
+                        if (flag)
+                        {
+                            bool askIfSure = Event.current.commandName == "SoftDelete";
+                            AssetOperationUtil.DeleteAssets(m_TreeView.GetSelection(), askIfSure);
+                            if (askIfSure)
+                                this.Focus();
+                        }
+                        GUIUtility.ExitGUI();
+                    }
+
+                    break;
+            }
+
+            return false;
         }
     }
 }
