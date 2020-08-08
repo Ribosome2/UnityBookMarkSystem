@@ -10,5 +10,7 @@ namespace LinBookMark
         {
             BookMarkDataCenter.instance.CreateOneBookMarkItem();
         }
+        
+      
     }
 }

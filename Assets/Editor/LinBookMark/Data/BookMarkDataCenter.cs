@@ -92,6 +92,34 @@ namespace LinBookMark
             }
         }
         
+        public  List<string> GetMainPathsOfAssets(IList<int> treeItemIds)
+        {
+            List<string> result = new List<string>();
+            foreach (int treeItemId in treeItemIds)
+            {
+                var item = ExpandDataMgr.GetExpandData(treeItemId);
+                if (!string.IsNullOrEmpty(item.AssetPath) )
+                {
+                    result.Add(item.AssetPath);
+                }
+            }
+            return result;
+        }
+
+        public  List<int> GetNoProjectProjectNodes(IList<int> treeItemIds)
+        {
+            List<int> result = new List<int>();
+            foreach (int treeItemId in treeItemIds)
+            {
+                var item = bookMarkDataModel.Find(treeItemId);
+                if (item != null)
+                {
+                    result.Add(treeItemId);
+                }
+            }
+
+            return result;
+        }
 
     }
 }

@@ -95,7 +95,10 @@ namespace LinBookMark
                         if (flag)
                         {
                             bool askIfSure = Event.current.commandName == "SoftDelete";
-                            AssetOperationUtil.DeleteAssets(m_TreeView.GetSelection(), askIfSure);
+                            if (AssetOperationUtil.DeleteAssets(m_TreeView.GetSelection(), askIfSure))
+                            {
+                                m_TreeView.Reload();
+                            }
                             if (askIfSure)
                                 this.Focus();
                         }
