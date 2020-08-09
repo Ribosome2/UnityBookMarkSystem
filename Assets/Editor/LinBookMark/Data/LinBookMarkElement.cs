@@ -24,7 +24,7 @@ namespace LinBookMark
                 var assetPath = AssetDatabase.GUIDToAssetPath(AssetGuild);
                 return (Texture2D) AssetDatabase.GetCachedIcon(assetPath);
             }
-            return (Texture2D) EditorGUIUtility.Load(("node3 hex"));
+            return (Texture2D) EditorGUIUtility.Load(("d_EditCollider"));
         }
     }
 }
