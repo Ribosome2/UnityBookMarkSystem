@@ -44,6 +44,7 @@ namespace LinBookMark
                 Debug.LogError("error node depth , I dont want you ! : "+treeItem.displayName);
                 return;
             }
+            Debug.Log("add "+treeItem.id+treeItem.displayName);
             allItems.Add(treeItem);
         }
 
@@ -96,6 +97,7 @@ namespace LinBookMark
         static TreeViewItem CreateTreeViewItemForBookMarkElement (LinBookMarkElement element)
         {
             var item = new TreeViewItem(element.id, element.depth, element.name);
+            item.id = TreeItemIdGenerator.NextId;
             item.icon = element.GetIcon();
             return item;
         }
