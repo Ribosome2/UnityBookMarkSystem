@@ -119,17 +119,26 @@ namespace LinBookMark
                     BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
                 }
 
-                int dragStartId = (int)DragAndDrop.GetGenericData("BookMarkNodeDragging");
-                if (dragStartId != 0)
-                {
-                    List<TreeElement> elements = new List<TreeElement>();
-                    elements.Add(BookMarkDataCenter.instance.bookMarkDataModel.Find(dragStartId));
-                    BookMarkDataCenter.instance.bookMarkDataModel.MoveElements(parentElement,insertIndex,elements);
-                }
+                CheckDropCustomBookMarkNode(insertIndex, parentElement);
             }
             
           
             
+        }
+
+        private static void CheckDropCustomBookMarkNode(int insertIndex, LinBookMarkElement parentElement)
+        {
+            int dragStartId = (int) DragAndDrop.GetGenericData("BookMarkNodeDragging");
+            if (dragStartId != 0 && parentElement.type== BookMarkType.CustomRoot)
+            {
+                List<TreeElement> elements = new List<TreeElement>();
+                var startItem = BookMarkDataCenter.instance.bookMarkDataModel.Find(dragStartId);
+                if (startItem != null)
+                {
+                    elements.Add(startItem);
+                    BookMarkDataCenter.instance.bookMarkDataModel.MoveElements(parentElement, insertIndex, elements);
+                }
+            }
         }
 
         private int HandleDropToParentTreeItem(int insertIndex, LinBookMarkElement parentElement, string path)
