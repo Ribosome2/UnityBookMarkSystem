@@ -55,7 +55,6 @@
      <Compile Include="Assets\Editor\LinBookMark\Commands\BookMarkCreateCommand.cs" />
      <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkData.cs" />
      <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkDataCenter.cs" />
-     <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkDragData.cs" />
      <Compile Include="Assets\Editor\LinBookMark\Data\DataSaver.cs" />
      <Compile Include="Assets\Editor\LinBookMark\Data\ExpandData.cs" />
      <Compile Include="Assets\Editor\LinBookMark\Data\ExpandDataMgr.cs" />
@@ -145,9 +144,6 @@
  </Reference>
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>F:/Program Files/Unity2017431/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
- <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/Administrator/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>

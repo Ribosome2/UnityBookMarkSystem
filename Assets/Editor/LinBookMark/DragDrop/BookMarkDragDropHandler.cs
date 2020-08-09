@@ -53,9 +53,7 @@ namespace LinBookMark
                     var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(draggedId);
                     if (element != null)
                     {
-                        var dragObject = (Object)(new BookMarkDragData {dataElement = element});
-                        Debug.Log("drag "+ dragObject);
-                       objList.Add(dragObject );
+                        DragAndDrop.SetGenericData("BookMarkNodeDragging",draggedId);
                     }
                 }
             }
@@ -104,6 +102,7 @@ namespace LinBookMark
             }
             else
             {
+                insertIndex = CovertInsertIndex(insertIndex, parentElement);
                 //not project assets 
                 for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
                 {
@@ -113,23 +112,19 @@ namespace LinBookMark
                         Debug.LogError("null obj, WTH ?");
                         continue;
                     }
-                    var dragElementInTree = obj as BookMarkDragData;
-                    if (dragElementInTree != null)
-                    {
-                        List<TreeElement> elements = new List<TreeElement>();
-                        elements.Add(dragElementInTree.dataElement);
-                        BookMarkDataCenter.instance.bookMarkDataModel.MoveElements(parentElement,insertIndex,elements);
-                    }
-                    else
-                    {
                         
-                        var addElement = new LinBookMarkElement()
-                            {name = obj.name, depth = parentElement.depth + 1, id = TreeItemIdGenerator.NextId};
-                        Debug.Log("try add to " + parentElement.name);
-                        insertIndex = CovertInsertIndex(insertIndex, parentElement);
-                        BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
-                    }
-                    
+                    var addElement = new LinBookMarkElement()
+                        {name = obj.name, depth = parentElement.depth + 1, id = TreeItemIdGenerator.NextId};
+                    Debug.Log("try add to " + parentElement.name);
+                    BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
+                }
+
+                int dragStartId = (int)DragAndDrop.GetGenericData("BookMarkNodeDragging");
+                if (dragStartId != 0)
+                {
+                    List<TreeElement> elements = new List<TreeElement>();
+                    elements.Add(BookMarkDataCenter.instance.bookMarkDataModel.Find(dragStartId));
+                    BookMarkDataCenter.instance.bookMarkDataModel.MoveElements(parentElement,insertIndex,elements);
                 }
             }
             
