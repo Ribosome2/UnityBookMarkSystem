@@ -29,10 +29,8 @@ namespace LinBookMark
                 if (bookMarkElement.type == BookMarkType.AssetFolder)
                 {
                     var assetPath = AssetDatabase.GUIDToAssetPath(bookMarkElement.AssetGuild);
-                    treeItem.icon =(Texture2D) AssetDatabase.GetCachedIcon(assetPath);
                     AutoAddSubAssetToTree(allItems, assetPath, treeItem);
                 }
-                
             }
 
             return root;
@@ -98,7 +96,7 @@ namespace LinBookMark
         static TreeViewItem CreateTreeViewItemForBookMarkElement (LinBookMarkElement element)
         {
             var item = new TreeViewItem(element.id, element.depth, element.name);
-            item.icon = (Texture2D) EditorGUIUtility.Load(("node3 hex"));
+            item.icon = element.GetIcon();
             return item;
         }
         

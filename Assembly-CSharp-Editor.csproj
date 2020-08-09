@@ -313,9 +313,6 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
-      <HintPath>E:/MyProjects/U3D/UnityBookMarkSystem/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>C:/Users/Administrator/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>

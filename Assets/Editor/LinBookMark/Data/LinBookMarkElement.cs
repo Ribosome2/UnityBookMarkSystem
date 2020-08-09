@@ -1,4 +1,6 @@
-﻿using UnityEditor.TreeViewExamples;
+﻿using UnityEditor;
+using UnityEditor.TreeViewExamples;
+using UnityEngine;
 
 namespace LinBookMark
 {
@@ -14,5 +16,15 @@ namespace LinBookMark
     {
         public BookMarkType type = BookMarkType.CustomRoot;
         public string AssetGuild = string.Empty;
+
+        public virtual Texture2D GetIcon()
+        {
+            if (type == BookMarkType.AssetFolder || type == BookMarkType.SingleAsset)
+            {
+                var assetPath = AssetDatabase.GUIDToAssetPath(AssetGuild);
+                return (Texture2D) AssetDatabase.GetCachedIcon(assetPath);
+            }
+            return (Texture2D) EditorGUIUtility.Load(("node3 hex"));
+        }
     }
 }
