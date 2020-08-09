@@ -14,13 +14,31 @@ namespace LinBookMark
         public void SetupDragAndDrop(IList<int> sortedDraggedIDs)
         {
             DragAndDrop.PrepareStartDrag();
-            
+
+            List<Object> objList;
+            var pathList = ExtractObjectListAndPathList(sortedDraggedIDs, out objList);
+
+            DragAndDrop.paths = pathList.ToArray();
+            DragAndDrop.objectReferences = objList.ToArray();
+            if (objList.Count > 0)
+            {
+                string title = objList.Count > 1 ? "<Multiple>" : objList.GetType().Name;
+                DragAndDrop.StartDrag(title);
+            }
+            else
+            {
+                DragAndDrop.StartDrag("No Unity GameObject");
+            }
+        }
+
+        private static List<string> ExtractObjectListAndPathList(IList<int> sortedDraggedIDs, out List<Object> objList)
+        {
             List<string> pathList = new List<string>();
-            List<UnityObject> objList = new List<Object>();
+            objList = new List<Object>();
             foreach (int draggedId in sortedDraggedIDs)
             {
                 var expandData = BookMarkDataCenter.instance.ExpandDataMgr.GetExpandData(draggedId);
-                if (string.IsNullOrEmpty(expandData.AssetPath)==false)
+                if (string.IsNullOrEmpty(expandData.AssetPath) == false)
                 {
                     var assetPath = expandData.AssetPath;
                     var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
@@ -30,21 +48,20 @@ namespace LinBookMark
                         objList.Add(obj);
                     }
                 }
+                else
+                {
+                    var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(draggedId);
+                    if (element != null)
+                    {
+                        var dragObject = (Object)(new BookMarkDragData {dataElement = element});
+                        Debug.Log("drag "+ dragObject);
+                       objList.Add(dragObject );
+                    }
+                }
             }
 
-            DragAndDrop.paths = pathList.ToArray();
-            DragAndDrop.objectReferences = objList.ToArray();
-            if (objList.Count > 0)
-            {
-                string title = objList.Count > 1 ? "<Multiple>" : objList[0].name;
-                DragAndDrop.StartDrag(title);
-            }
-            else
-            {
-                DragAndDrop.StartDrag("No Unity GameObject");
-            }
+            return pathList;
         }
-
 
 
         BookMarkType GetBookMarkTypeForAsset(string path)
@@ -91,11 +108,28 @@ namespace LinBookMark
                 for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
                 {
                     var obj = DragAndDrop.objectReferences[i];
-                    var addElement = new LinBookMarkElement()
-                        {name = obj.name, depth = parentElement.depth + 1, id = TreeItemIdGenerator.NextId};
-                    Debug.Log("try add to " + parentElement.name);
-                    insertIndex = CovertInsertIndex(insertIndex, parentElement);
-                    BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
+                    if (obj == null)
+                    {
+                        Debug.LogError("null obj, WTH ?");
+                        continue;
+                    }
+                    var dragElementInTree = obj as BookMarkDragData;
+                    if (dragElementInTree != null)
+                    {
+                        List<TreeElement> elements = new List<TreeElement>();
+                        elements.Add(dragElementInTree.dataElement);
+                        BookMarkDataCenter.instance.bookMarkDataModel.MoveElements(parentElement,insertIndex,elements);
+                    }
+                    else
+                    {
+                        
+                        var addElement = new LinBookMarkElement()
+                            {name = obj.name, depth = parentElement.depth + 1, id = TreeItemIdGenerator.NextId};
+                        Debug.Log("try add to " + parentElement.name);
+                        insertIndex = CovertInsertIndex(insertIndex, parentElement);
+                        BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
+                    }
+                    
                 }
             }
             

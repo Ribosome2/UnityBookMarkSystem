@@ -55,7 +55,7 @@ namespace LinBookMark
         {
             // First check if the dragged objects are GameObjects
             var draggedObjects = DragAndDrop.objectReferences;
-            if (draggedObjects.Length == 0)
+            if (draggedObjects.Length == 0 && DragAndDrop.paths.Length==0)
             {
                 return DragAndDropVisualMode.None;
             }
