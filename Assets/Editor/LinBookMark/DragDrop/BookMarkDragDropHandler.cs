@@ -201,6 +201,10 @@ namespace LinBookMark
             {
                 AddObjectToParent(insertIndex, parentElement);
             }
+            else
+            {
+                Debug.LogError("Can't find parent with Id "+parentItem.id);
+            }
         }
 
         public void HandleDropOutsideRoot(int insertIndex)

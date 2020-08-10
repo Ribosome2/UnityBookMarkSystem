@@ -10,6 +10,11 @@
             { 
                 return autoId++;
             }
-        }       
+        }
+
+        public static void ResetId()
+        {
+            autoId = 1;
+        }
     }
 }

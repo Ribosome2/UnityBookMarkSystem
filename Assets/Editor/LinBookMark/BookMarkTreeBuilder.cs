@@ -14,7 +14,6 @@ namespace LinBookMark
         {
             var bookMarkDataModel = BookMarkDataCenter.instance.bookMarkDataModel;
             BookMarkDataCenter.instance.ExpandDataMgr.ClearExpandDataMap();
-            
             var root =CreateTreeViewItemForBookMarkElement(bookMarkDataModel.root);
             List<TreeElement> elements = new List<TreeElement>();
             TreeElementUtility.TreeToList<TreeElement>(bookMarkDataModel.root,elements);
@@ -96,8 +95,8 @@ namespace LinBookMark
 
         static TreeViewItem CreateTreeViewItemForBookMarkElement (LinBookMarkElement element)
         {
-            var item = new TreeViewItem(element.id, element.depth, element.name);
-            item.id = TreeItemIdGenerator.NextId;
+            var id = element.id;
+            var item = new TreeViewItem(id, element.depth, element.name);
             item.icon = element.GetIcon();
             return item;
         }

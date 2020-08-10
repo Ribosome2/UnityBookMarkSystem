@@ -42,16 +42,19 @@ namespace LinBookMark
         
         private void InitBookMarkList()
         {
+            TreeItemIdGenerator.ResetId();
             bookMarks.Clear();
             var bookMark = new LinBookMarkElement() {name = "Root", depth = -1, id = TreeItemIdGenerator.NextId};
             bookMarks.Add(bookMark);
             var bookMarkData = DataSaver.ReadFromDisk<BookMarkData>(DataSaver.DataFileName);
             if (bookMarkData != null)
             {
+                Debug.Log("read list from file ");
                 var saveList = bookMarkData.bookMarks;
                 for (int i = 0; i < saveList.Count; i++)
                 {
                     var item = saveList[i];
+                    item.id = TreeItemIdGenerator.NextId;
                     bookMarks.Add(item);
                 }
             }
