@@ -8,11 +8,18 @@ namespace LinBookMark
 {
     public static class DataSaver
     {
-        public const string DataFileName = "LinBookMarkTreeHiLoJ";
+        public const string DataFileName = "LinBookMarkTree";
+
+        public static string GetBookMarkFilePath(string fileName)
+        {
+            var projPath = Application.dataPath.Replace('/', '_');
+            projPath = projPath.Replace(':', '_');
+            return string.Format("{0}_{1}.dat",projPath, fileName);
+        }
         
          public static void WriteToDisk(string fileName, object serializeObject)
         {
-            string path = Application.persistentDataPath + "/" + fileName + ".dat";
+            string path = Application.persistentDataPath + "/" + GetBookMarkFilePath( fileName);
 #if UNITY_5_4_OR_NEWER
 			string str = JsonUtility.ToJson(serializeObject);
             File.AppendAllText(path, str + Environment.NewLine);
@@ -25,7 +32,7 @@ namespace LinBookMark
 		}
         public static T ReadFromDisk<T>(string fileName)
         {
-            string path = Application.persistentDataPath + "/" + fileName + ".dat";
+            string path = Application.persistentDataPath + "/" + GetBookMarkFilePath( fileName);
             T returnObject = default(T);
             if (File.Exists(path))
             {
@@ -71,7 +78,7 @@ namespace LinBookMark
 #endif
 		public static void ClearData(string fileName)
         {
-            string path = Application.persistentDataPath + "/" + fileName + ".dat";
+            string path = Application.persistentDataPath + "/" + GetBookMarkFilePath( fileName);
             if (File.Exists(path))
             {
                 using (FileStream fileStream = File.Open(path, FileMode.Open))
