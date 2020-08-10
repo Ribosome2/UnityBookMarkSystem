@@ -98,14 +98,6 @@
     <Compile Include="Assets\Editor\TreeViewExamples\BackendData\MyTreeElement.cs" />
     <Compile Include="Assets\Editor\TreeViewExamples\BackendData\MyTreeElementGenerator.cs" />
     <Compile Include="Assets\Editor\TreeViewExamples\BackendData\TreeViewWithTreeModel.cs" />
-    <Compile Include="Assets\Editor\TreeViewExamples\CustomHeightTreeView.cs" />
-    <Compile Include="Assets\Editor\TreeViewExamples\CustomHeightWindow.cs" />
-    <Compile Include="Assets\Editor\TreeViewExamples\MultiColumnTreeView.cs" />
-    <Compile Include="Assets\Editor\TreeViewExamples\MultiColumnWindow.cs" />
-    <Compile Include="Assets\Editor\TreeViewExamples\SimpleTreeView.cs" />
-    <Compile Include="Assets\Editor\TreeViewExamples\SimpleTreeViewWindow.cs" />
-    <Compile Include="Assets\Editor\TreeViewExamples\TransformsTreeView.cs" />
-    <Compile Include="Assets\Editor\TreeViewExamples\TransformsTreeViewWindow.cs" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>C:/Program Files/Unity2017_4_3/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
