@@ -50,7 +50,7 @@ namespace LinBookMark
         private static void AutoAddSubAssetToTree(List<TreeViewItem> allItems, string assetPath, TreeViewItem treeItemParent)
         {
            
-            if (!string.IsNullOrEmpty(assetPath))
+            if (!string.IsNullOrEmpty(assetPath) && Directory.Exists(assetPath))
             {
                 var subDirectories = Directory.GetDirectories(assetPath);
                 foreach (var subDirectory in subDirectories)
