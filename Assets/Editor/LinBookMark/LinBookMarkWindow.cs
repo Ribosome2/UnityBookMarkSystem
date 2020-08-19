@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.TreeViewExamples;
@@ -37,7 +38,28 @@ namespace LinBookMark
             m_SearchField = new SearchField();
             m_SearchField.downOrUpArrowKeyPressed += m_TreeView.SetFocusAndEnsureSelectedItem;
             BookMarkDataCenter.instance.BookMarkDataChangeEvent += m_TreeView.Reload;
+            EditorApplication.projectWindowChanged += new EditorApplication.CallbackFunction(this.OnProjectChanged);
+            AssemblyReloadEvents.afterAssemblyReload += new AssemblyReloadEvents.AssemblyReloadCallback(this.OnAfterAssemblyReload);
 
+        }
+
+        private void OnAfterAssemblyReload()
+        {
+            RebuildTreeView();
+        }
+
+        private void RebuildTreeView()
+        {
+            if (m_TreeView != null)
+            {
+                m_TreeView.Reload();
+            }
+        }
+
+
+        private void OnProjectChanged()
+        {
+            RebuildTreeView();
         }
 
 

@@ -10,7 +10,6 @@ namespace LinBookMark
     public class BookMarkDataCenter
     {
         private static BookMarkDataCenter _instance;
-
         public static BookMarkDataCenter instance
         {
             get
