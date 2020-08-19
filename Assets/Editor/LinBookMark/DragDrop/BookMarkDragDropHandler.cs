@@ -95,10 +95,14 @@ namespace LinBookMark
             
             if (DragAndDrop.paths.Length > 0 && DragAndDrop.objectReferences.Length== DragAndDrop.paths.Length)
             {
+                //drag from project browser
                 foreach (var path in DragAndDrop.paths)
                 {
                     insertIndex = HandleDropToParentTreeItem(insertIndex, parentElement, path);
                 }
+            }else if (DragAndDrop.paths.Length == 0 && DragAndDrop.objectReferences.Length > 0)
+            {
+                CheckCreatePrefabFromHierarchy(parentElement);
             }
             else
             {
@@ -126,17 +130,40 @@ namespace LinBookMark
             
         }
 
+        private static void CheckCreatePrefabFromHierarchy(LinBookMarkElement parentElement)
+        {
+            var parentProjectPath = parentElement.GetProjectPath();
+            if (string.IsNullOrEmpty(parentProjectPath) == false)
+            {
+                foreach (var objectReference in DragAndDrop.objectReferences)
+                {
+                    var go = objectReference as GameObject;
+                    if (go)
+                    {
+                        var prefabPath = string.Format("{0}/{1}.prefab", parentProjectPath, go.name);
+                        PrefabUtility.CreatePrefab(prefabPath, go);
+                    }
+                }
+            }
+
+            Debug.Log("dragFrom hierarchy");
+        }
+
         private static void CheckDropCustomBookMarkNode(int insertIndex, LinBookMarkElement parentElement)
         {
-            int dragStartId = (int) DragAndDrop.GetGenericData("BookMarkNodeDragging");
-            if (dragStartId != 0 && parentElement.type== BookMarkType.CustomRoot)
+            var dragData = DragAndDrop.GetGenericData("BookMarkNodeDragging");
+            if (dragData != null)
             {
-                List<TreeElement> elements = new List<TreeElement>();
-                var startItem = BookMarkDataCenter.instance.bookMarkDataModel.Find(dragStartId);
-                if (startItem != null)
+                int dragStartId = (int) dragData;
+                if (dragStartId != 0 && parentElement.type== BookMarkType.CustomRoot)
                 {
-                    elements.Add(startItem);
-                    BookMarkDataCenter.instance.bookMarkDataModel.MoveElements(parentElement, insertIndex, elements);
+                    List<TreeElement> elements = new List<TreeElement>();
+                    var startItem = BookMarkDataCenter.instance.bookMarkDataModel.Find(dragStartId);
+                    if (startItem != null)
+                    {
+                        elements.Add(startItem);
+                        BookMarkDataCenter.instance.bookMarkDataModel.MoveElements(parentElement, insertIndex, elements);
+                    }
                 }
             }
         }

@@ -21,7 +21,7 @@ namespace LinBookMark
         {
             if (type == BookMarkType.AssetFolder || type == BookMarkType.SingleAsset)
             {
-                var assetPath = AssetDatabase.GUIDToAssetPath(AssetGuild);
+                var assetPath = GetProjectPath();
                 var iconTex =(Texture2D) AssetDatabase.GetCachedIcon(assetPath);
                 if (iconTex==null)
                 {
@@ -31,6 +31,11 @@ namespace LinBookMark
                 return iconTex;
             }
             return (Texture2D) EditorGUIUtility.Load(("d_EditCollider"));
+        }
+
+        public string GetProjectPath()
+        {
+            return  AssetDatabase.GUIDToAssetPath(AssetGuild);
         }
     }
 }
