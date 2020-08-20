@@ -25,9 +25,6 @@
             <e p="BookMarkDragDropHandler.cs" t="Include" />
             <e p="IDragDropHandler.cs" t="Include" />
           </e>
-          <e p="GUIStyles" t="Include">
-            <e p="BookMarkGUIStyles.cs" t="Include" />
-          </e>
           <e p="InputHandle" t="Include">
             <e p="TreeViewInputHandler.cs" t="Include" />
           </e>

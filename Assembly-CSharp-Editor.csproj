@@ -93,7 +93,6 @@
     <Compile Include="Assets\Editor\LinBookMark\DragDrop\AssetOperationUtil.cs" />
     <Compile Include="Assets\Editor\LinBookMark\DragDrop\BookMarkDragDropHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\DragDrop\IDragDropHandler.cs" />
-    <Compile Include="Assets\Editor\LinBookMark\GUIStyles\BookMarkGUIStyles.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\TreeViewInputHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\LinBookMarkTreeView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\LinBookMarkWindow.cs" />
