@@ -30,28 +30,14 @@
           </e>
           <e p="LinBookMarkTreeView.cs" t="Include" />
           <e p="LinBookMarkWindow.cs" t="Include" />
+          <e p="Util" t="Include">
+            <e p="BookMarkGuiUtil.cs" t="Include" />
+          </e>
         </e>
         <e p="TreeDataModel" t="Include">
           <e p="TreeElement.cs" t="Include" />
           <e p="TreeElementUtility.cs" t="Include" />
           <e p="TreeModel.cs" t="Include" />
-        </e>
-        <e p="TreeViewExamples" t="Include">
-          <e p="BackendData" t="Include">
-            <e p="MyTreeAsset.cs" t="Include" />
-            <e p="MyTreeAssetEditor.cs" t="Include" />
-            <e p="MyTreeElement.cs" t="Include" />
-            <e p="MyTreeElementGenerator.cs" t="Include" />
-            <e p="TreeViewWithTreeModel.cs" t="Include" />
-          </e>
-          <e p="CustomHeightTreeView.cs" t="Include" />
-          <e p="CustomHeightWindow.cs" t="Include" />
-          <e p="MultiColumnTreeView.cs" t="Include" />
-          <e p="MultiColumnWindow.cs" t="Include" />
-          <e p="SimpleTreeView.cs" t="Include" />
-          <e p="SimpleTreeViewWindow.cs" t="Include" />
-          <e p="TransformsTreeView.cs" t="Include" />
-          <e p="TransformsTreeViewWindow.cs" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
