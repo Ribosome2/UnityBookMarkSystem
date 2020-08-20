@@ -131,7 +131,7 @@ namespace LinBookMark
 
             float width = this.position.width - this.m_DirectoriesAreaWidth;
             this.m_ListAreaRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight + listHeaderHeight, width, this.position.height - this.m_ToolbarHeight - listHeaderHeight - bottomBarHeight);
-            this.m_TreeViewRect = new Rect(0.0f, this.m_ToolbarHeight, this.m_DirectoriesAreaWidth, this.position.height - this.m_ToolbarHeight);
+            this.m_TreeViewRect = new Rect(0.0f, 18, this.m_DirectoriesAreaWidth, this.position.height - this.m_ToolbarHeight);
             this.m_BottomBarRect = new Rect(this.m_DirectoriesAreaWidth, this.position.height - bottomBarHeight, width, bottomBarHeight);
             this.m_ListHeaderRect = new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, this.m_ListAreaRect.width, listHeaderHeight);
         }
@@ -205,8 +205,7 @@ namespace LinBookMark
         {
             if (m_TreeView != null)
             {
-                Rect rect = GUILayoutUtility.GetRect(0, 100000, 0, 100000);
-                m_TreeView.OnGUI(rect);
+                m_TreeView.OnGUI(m_TreeViewRect);
             }
         }
 
