@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.TreeViewExamples;
@@ -8,11 +9,12 @@ namespace LinBookMark
 {
     public class LinBookMarkWindow : EditorWindow
     {
-        [MenuItem("KyleKit/LinBookMark %k")]
+        [MenuItem("KyleKit/LinBookMarkd %k")]
         private static void ShowWindow()
         {
             var window = GetWindow<LinBookMarkWindow>();
             window.titleContent = new GUIContent("BookMark", (Texture2D) EditorGUIUtility.Load(("FilterByLabel")));
+            window.position = new Rect(0,100f,500f,500f);
             window.Show();
         }
 
@@ -26,7 +28,7 @@ namespace LinBookMark
         LinBookMarkTreeView m_TreeView;
         SearchField m_SearchField;
         public GUIContent m_CreateDropdownContent = new GUIContent("Create");
-
+        private BookMarkGUIStyles guiStyles;
         void OnEnable()
         {
             // Check if we already had a serialized view state (state 
@@ -66,12 +68,18 @@ namespace LinBookMark
 
         void OnGUI()
         {
-            DoToolbar();
-            DoTreeView();
-            CalculateRects();
-            this.ResizeHandling(this.position.width, this.position.height - this.m_ToolbarHeight);
-            BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
-            HandleCommandEvents();
+            // if (guiStyles == null)
+            // {
+            //     guiStyles= new BookMarkGUIStyles();
+            // }
+            
+            // DoToolbar();
+            // DoTreeView();
+            // CalculateRects();
+            // this.ResizeHandling(this.position.width, this.position.height - this.m_ToolbarHeight);
+            // BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
+            // // this.BottomBar();
+            // HandleCommandEvents();
             
         }
 
@@ -97,6 +105,11 @@ namespace LinBookMark
         private string m_SelectedPath;
         private float m_LastListWidth;
         private List<GUIContent> m_SelectedPathSplitted = new List<GUIContent>();
+        private string m_AssetStoreError = "";
+        private int m_MinIconSize = 32;
+        private int gridSize = 20;
+        private int m_MinGridSize = 16;
+        private int m_MaxGridSize = 96;
         
         private void ResizeHandling(float width, float height)
         {
@@ -107,15 +120,14 @@ namespace LinBookMark
             float num = this.position.width - this.m_DirectoriesAreaWidth;
             if ((double) num != (double) this.m_LastListWidth)
             {
-                
                 // this.RefreshSplittedSelectedPath();
             }
             this.m_LastListWidth = num;
         }
         private float GetBottomBarHeight()
         {
-            // if (this.m_SelectedPathSplitted.Count == 0)
-            //     this.RefreshSplittedSelectedPath();
+            if (this.m_SelectedPathSplitted.Count == 0)
+                this.RefreshSplittedSelectedPath();
             return   17f * (float) this.m_SelectedPathSplitted.Count;
         }
 
@@ -135,45 +147,69 @@ namespace LinBookMark
             this.m_BottomBarRect = new Rect(this.m_DirectoriesAreaWidth, this.position.height - bottomBarHeight, width, bottomBarHeight);
             this.m_ListHeaderRect = new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, this.m_ListAreaRect.width, listHeaderHeight);
         }
+        
+        private void BottomBar()
+        {
+            if ((double) this.m_BottomBarRect.height == 0.0)
+                return;
+            Rect bottomBarRect = this.m_BottomBarRect;
+            GUI.Label(bottomBarRect, GUIContent.none, guiStyles.bottomBarBg);
+            this.IconSizeSlider(new Rect((float) ((double) bottomBarRect.x + (double) bottomBarRect.width - 55.0 - 16.0), (float) ((double) bottomBarRect.y + (double) bottomBarRect.height - 17.0), 55f, 17f));
+            EditorGUIUtility.SetIconSize(new Vector2(16f, 16f));
+            bottomBarRect.width -= 4f;
+            bottomBarRect.x += 2f;
+            bottomBarRect.height = 17f;
+            for (int index = this.m_SelectedPathSplitted.Count - 1; index >= 0; --index)
+            {
+                if (index == 0)
+                    bottomBarRect.width = (float) ((double) bottomBarRect.width - 55.0 - 14.0);
+                GUI.Label(bottomBarRect, this.m_SelectedPathSplitted[index], guiStyles.selectedPathLabel);
+                bottomBarRect.y += 17f;
+            }
+            EditorGUIUtility.SetIconSize(new Vector2(0.0f, 0.0f));
+        }
+        private void IconSizeSlider(Rect r)
+        {
+            EditorGUI.BeginChangeCheck();
+            int num = (int) GUI.HorizontalSlider(r, (float) gridSize, (float) m_MinGridSize, (float) m_MaxGridSize);
+            if (!EditorGUI.EndChangeCheck())
+                return;
+            this.gridSize = num;
+        }
 
-        // private void RefreshSplittedSelectedPath()
-        // {
-        //     if (ProjectBrowser.s_Styles == null)
-        //         ProjectBrowser.s_Styles = new ProjectBrowser.Styles();
-        //     this.m_SelectedPathSplitted.Clear();
-        //     if (string.IsNullOrEmpty(this.m_SelectedPath))
-        //     {
-        //         this.m_SelectedPathSplitted.Add(new GUIContent());
-        //     }
-        //     else
-        //     {
-        //         string str1 = this.m_SelectedPath;
-        //         if (this.m_SelectedPath.StartsWith("assets/", StringComparison.CurrentCultureIgnoreCase))
-        //             str1 = this.m_SelectedPath.Substring("assets/".Length);
-        //         if (this.m_SearchFilter.GetState() == SearchFilter.State.FolderBrowsing)
-        //         {
-        //             this.m_SelectedPathSplitted.Add(new GUIContent(Path.GetFileName(this.m_SelectedPath), AssetDatabase.GetCachedIcon(this.m_SelectedPath)));
-        //         }
-        //         else
-        //         {
-        //             float num = (float) ((double) this.position.width - (double) this.m_DirectoriesAreaWidth - 55.0 - 16.0);
-        //             if ((double) ProjectBrowser.s_Styles.selectedPathLabel.CalcSize(GUIContent.Temp(str1)).x + 25.0 > (double) num)
-        //             {
-        //                 string[] strArray = str1.Split('/');
-        //                 string str2 = "Assets/";
-        //                 for (int index = 0; index < strArray.Length; ++index)
-        //                 {
-        //                     string path = str2 + strArray[index];
-        //                     Texture cachedIcon = AssetDatabase.GetCachedIcon(path);
-        //                     this.m_SelectedPathSplitted.Add(new GUIContent(strArray[index], cachedIcon));
-        //                     str2 = path + "/";
-        //                 }
-        //             }
-        //             else
-        //                 this.m_SelectedPathSplitted.Add(new GUIContent(str1, AssetDatabase.GetCachedIcon(this.m_SelectedPath)));
-        //         }
-        //     }
-        // }
+        private void RefreshSplittedSelectedPath()
+        {
+     
+            this.m_SelectedPathSplitted.Clear();
+            if (string.IsNullOrEmpty(this.m_SelectedPath))
+            {
+                this.m_SelectedPathSplitted.Add(new GUIContent());
+            }
+            else
+            {
+                string str1 = this.m_SelectedPath;
+                if (this.m_SelectedPath.StartsWith("assets/", StringComparison.CurrentCultureIgnoreCase))
+                    str1 = this.m_SelectedPath.Substring("assets/".Length);
+              
+                {
+                    float num = (float) ((double) this.position.width - (double) this.m_DirectoriesAreaWidth - 55.0 - 16.0);
+                    if ((double) GUI.skin.label.CalcSize(new GUIContent(str1)).x + 25.0 > (double) num)
+                    {
+                        string[] strArray = str1.Split('/');
+                        string str2 = "Assets/";
+                        for (int index = 0; index < strArray.Length; ++index)
+                        {
+                            string path = str2 + strArray[index];
+                            Texture cachedIcon = AssetDatabase.GetCachedIcon(path);
+                            this.m_SelectedPathSplitted.Add(new GUIContent(strArray[index], cachedIcon));
+                            str2 = path + "/";
+                        }
+                    }
+                    else
+                        this.m_SelectedPathSplitted.Add(new GUIContent(str1, AssetDatabase.GetCachedIcon(this.m_SelectedPath)));
+                }
+            }
+        }
         
         
         void DoToolbar()
