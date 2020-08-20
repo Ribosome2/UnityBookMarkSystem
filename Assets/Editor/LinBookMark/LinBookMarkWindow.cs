@@ -120,7 +120,7 @@ namespace LinBookMark
             float num = this.position.width - this.m_DirectoriesAreaWidth;
             if ((double) num != (double) this.m_LastListWidth)
             {
-                // this.RefreshSplittedSelectedPath();
+                this.RefreshSplittedSelectedPath();
             }
             this.m_LastListWidth = num;
         }
