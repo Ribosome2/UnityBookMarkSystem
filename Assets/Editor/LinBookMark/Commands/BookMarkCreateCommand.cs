@@ -10,7 +10,16 @@ namespace LinBookMark
         {
             BookMarkDataCenter.instance.CreateOneBookMarkItem();
         }
-        
-      
+
+         [MenuItem("KyleKit/Create/Group", true)]
+        static bool ValidateCreateBookMarkGroup()
+        {
+             LinBookMarkWindow[] windows = Resources.FindObjectsOfTypeAll<LinBookMarkWindow>();
+            if(windows != null && windows.Length > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
