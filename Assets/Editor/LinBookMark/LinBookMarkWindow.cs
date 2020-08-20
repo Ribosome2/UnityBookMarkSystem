@@ -68,18 +68,18 @@ namespace LinBookMark
 
         void OnGUI()
         {
-            // if (guiStyles == null)
-            // {
-            //     guiStyles= new BookMarkGUIStyles();
-            // }
+            if (guiStyles == null)
+            {
+                guiStyles= new BookMarkGUIStyles();
+            }
             
-            // DoToolbar();
-            // DoTreeView();
-            // CalculateRects();
-            // this.ResizeHandling(this.position.width, this.position.height - this.m_ToolbarHeight);
-            // BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
-            // // this.BottomBar();
-            // HandleCommandEvents();
+            DoToolbar();
+            DoTreeView();
+            CalculateRects();
+            this.ResizeHandling(this.position.width, this.position.height - this.m_ToolbarHeight);
+            BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
+            this.BottomBar();
+            HandleCommandEvents();
             
         }
 
