@@ -8,7 +8,7 @@ namespace LinBookMark
 {
     public class LinBookMarkWindow : EditorWindow
     {
-        [MenuItem("Tools/LinBookMark")]
+        [MenuItem("KyleKit/LinBookMark %k")]
         private static void ShowWindow()
         {
             var window = GetWindow<LinBookMarkWindow>();
@@ -92,7 +92,7 @@ namespace LinBookMark
                 EditorStyles.toolbarDropDown))
                 return;
             GUIUtility.hotControl = 0;
-            EditorUtility.DisplayPopupMenu(rect, "LinBookMark/Create", (MenuCommand) null);
+            EditorUtility.DisplayPopupMenu(rect, "KyleKit/Create", (MenuCommand) null);
         }
 
         void DoTreeView()
