@@ -31,10 +31,16 @@
           <e p="InputHandle" t="Include">
             <e p="TreeViewInputHandler.cs" t="Include" />
           </e>
-          <e p="LinBookMarkTreeView.cs" t="Include" />
-          <e p="LinBookMarkWindow.cs" t="Include" />
+          <e p="Interface" t="Include">
+            <e p="ISplittableWindow.cs" t="Include" />
+          </e>
           <e p="Util" t="Include">
             <e p="BookMarkGuiUtil.cs" t="Include" />
+          </e>
+          <e p="Views" t="Include">
+            <e p="LinBookMarkTreeView.cs" t="Include" />
+            <e p="LinBookMarkWindow.cs" t="Include" />
+            <e p="WindownSplitterDrawer.cs" t="Include" />
           </e>
         </e>
         <e p="TreeDataModel" t="Include">

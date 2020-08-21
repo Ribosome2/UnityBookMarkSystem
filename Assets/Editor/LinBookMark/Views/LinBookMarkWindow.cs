@@ -7,7 +7,7 @@ using UnityEditor.TreeViewExamples;
 using UnityEngine;
 namespace LinBookMark
 {
-    public class LinBookMarkWindow : EditorWindow
+    public class LinBookMarkWindow : EditorWindow,ISplittableWindow
     {
         [MenuItem("KyleKit/LinBookMarkd %k")]
         private static void ShowWindow()
@@ -29,8 +29,10 @@ namespace LinBookMark
         SearchField m_SearchField;
         public GUIContent m_CreateDropdownContent = new GUIContent("Create");
         private BookMarkGUIStyles guiStyles;
+        private WindowSplitterDrawer splitter ;
         void OnEnable()
         {
+            splitter = new WindowSplitterDrawer(this,this);
             // Check if we already had a serialized view state (state 
             // that survived assembly reloading)
             if (m_TreeViewState == null)
@@ -75,13 +77,14 @@ namespace LinBookMark
             
             DoToolbar();
             DoTreeView();
-            CalculateRects();
-            this.ResizeHandling(this.position.width, this.position.height - this.m_ToolbarHeight);
-            BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
-            this.BottomBar();
+            splitter.OnGUI(guiStyles);
+            // ResizeHandling(position.width, position.height);
+            // BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
+            // this.BottomBar();
             HandleCommandEvents();
             
         }
+
 
         private float m_DirectoriesAreaWidth = 115f;
         private const float k_MinHeight = 250f;
@@ -91,15 +94,15 @@ namespace LinBookMark
         private const float k_BottomBarHeight = 17f;
         private const float k_ResizerWidth = 5f;
         private const float k_SliderWidth = 55f;
-        [NonSerialized]
-        private Rect m_ListAreaRect;
-        [NonSerialized]
-        private Rect m_TreeViewRect;
-        [NonSerialized]
-        private Rect m_BottomBarRect;
-        [NonSerialized]
-        private Rect m_ListHeaderRect;
-        private float k_MinDirectoriesAreaWidth = 110f;
+        // [NonSerialized]
+        // private Rect m_ListAreaRect;
+        // [NonSerialized]
+        // private Rect m_TreeViewRect;
+        // [NonSerialized]
+        // private Rect m_BottomBarRect;
+        // [NonSerialized]
+        // private Rect m_ListHeaderRect;
+        // private float k_MinDirectoriesAreaWidth = 110f;
         [NonSerialized]
         private float m_SearchAreaMenuOffset = -1f;
         private string m_SelectedPath;
@@ -111,71 +114,45 @@ namespace LinBookMark
         private int m_MinGridSize = 16;
         private int m_MaxGridSize = 96;
         
-        private void ResizeHandling(float width, float height)
-        {
-           
-            Rect dragRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight, 5f, height);
-            dragRect = BookMarkGuiUtil.HandleHorizontalSplitter(dragRect, this.position.width, this.k_MinDirectoriesAreaWidth, 230f - this.k_MinDirectoriesAreaWidth);
-            this.m_DirectoriesAreaWidth = dragRect.x;
-            float num = this.position.width - this.m_DirectoriesAreaWidth;
-            if ((double) num != (double) this.m_LastListWidth)
-            {
-                this.RefreshSplittedSelectedPath();
-            }
-            this.m_LastListWidth = num;
-        }
-        private float GetBottomBarHeight()
+        // private void ResizeHandling(float width, float height)
+        // {
+        //    
+        //     Rect dragRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight, 5f, height);
+        //     dragRect = BookMarkGuiUtil.HandleHorizontalSplitter(dragRect, this.position.width, this.k_MinDirectoriesAreaWidth, 230f - this.k_MinDirectoriesAreaWidth);
+        //     this.m_DirectoriesAreaWidth = dragRect.x;
+        //     float num = this.position.width - this.m_DirectoriesAreaWidth;
+        //     if ((double) num != (double) this.m_LastListWidth)
+        //     {
+        //         this.RefreshSplittedSelectedPath();
+        //     }
+        //     this.m_LastListWidth = num;
+        // }
+        public float GetBottomBarHeight()
         {
             if (this.m_SelectedPathSplitted.Count == 0)
                 this.RefreshSplittedSelectedPath();
             return   17f * (float) this.m_SelectedPathSplitted.Count;
         }
 
-        private float GetListHeaderHeight()
+        public float GetListHeaderHeight()
         {
             return this.m_SearchField.HasFocus() ? 18f : 0.0f;
         }
-        private void CalculateRects()
-        {
-            float bottomBarHeight = this.GetBottomBarHeight();
-            float listHeaderHeight = this.GetListHeaderHeight();
-           
-
-            float width = this.position.width - this.m_DirectoriesAreaWidth;
-            this.m_ListAreaRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight + listHeaderHeight, width, this.position.height - this.m_ToolbarHeight - listHeaderHeight - bottomBarHeight);
-            this.m_TreeViewRect = new Rect(0.0f, 18, this.m_DirectoriesAreaWidth, this.position.height - this.m_ToolbarHeight);
-            this.m_BottomBarRect = new Rect(this.m_DirectoriesAreaWidth, this.position.height - bottomBarHeight, width, bottomBarHeight);
-            this.m_ListHeaderRect = new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, this.m_ListAreaRect.width, listHeaderHeight);
-        }
+        // private void CalculateRects()
+        // {
+        //     float bottomBarHeight = this.GetBottomBarHeight();
+        //     float listHeaderHeight = this.GetListHeaderHeight();
+        //    
+        //
+        //     float width = this.position.width - this.m_DirectoriesAreaWidth;
+        //     this.m_ListAreaRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight + listHeaderHeight, width, this.position.height - this.m_ToolbarHeight - listHeaderHeight - bottomBarHeight);
+        //     this.m_TreeViewRect = new Rect(0.0f, 18, this.m_DirectoriesAreaWidth, this.position.height - this.m_ToolbarHeight);
+        //     this.m_BottomBarRect = new Rect(this.m_DirectoriesAreaWidth, this.position.height - bottomBarHeight, width, bottomBarHeight);
+        //     this.m_ListHeaderRect = new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, this.m_ListAreaRect.width, listHeaderHeight);
+        // }
         
-        private void BottomBar()
-        {
-            if ((double) this.m_BottomBarRect.height == 0.0)
-                return;
-            Rect bottomBarRect = this.m_BottomBarRect;
-            GUI.Label(bottomBarRect, GUIContent.none, guiStyles.bottomBarBg);
-            this.IconSizeSlider(new Rect((float) ((double) bottomBarRect.x + (double) bottomBarRect.width - 55.0 - 16.0), (float) ((double) bottomBarRect.y + (double) bottomBarRect.height - 17.0), 55f, 17f));
-            EditorGUIUtility.SetIconSize(new Vector2(16f, 16f));
-            bottomBarRect.width -= 4f;
-            bottomBarRect.x += 2f;
-            bottomBarRect.height = 17f;
-            for (int index = this.m_SelectedPathSplitted.Count - 1; index >= 0; --index)
-            {
-                if (index == 0)
-                    bottomBarRect.width = (float) ((double) bottomBarRect.width - 55.0 - 14.0);
-                GUI.Label(bottomBarRect, this.m_SelectedPathSplitted[index], guiStyles.selectedPathLabel);
-                bottomBarRect.y += 17f;
-            }
-            EditorGUIUtility.SetIconSize(new Vector2(0.0f, 0.0f));
-        }
-        private void IconSizeSlider(Rect r)
-        {
-            EditorGUI.BeginChangeCheck();
-            int num = (int) GUI.HorizontalSlider(r, (float) gridSize, (float) m_MinGridSize, (float) m_MaxGridSize);
-            if (!EditorGUI.EndChangeCheck())
-                return;
-            this.gridSize = num;
-        }
+
+
 
         private void RefreshSplittedSelectedPath()
         {
@@ -241,7 +218,7 @@ namespace LinBookMark
         {
             if (m_TreeView != null)
             {
-                m_TreeView.OnGUI(m_TreeViewRect);
+                m_TreeView.OnGUI(splitter.m_TreeViewRect);
             }
         }
 
