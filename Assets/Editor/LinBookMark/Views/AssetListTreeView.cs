@@ -72,5 +72,61 @@ namespace LinBookMark
                 result.Add(item);
             }
         }
+
+
+        protected override bool CanStartDrag(CanStartDragArgs args)
+        {
+            return true;
+        }
+
+        protected override void SetupDragAndDrop(SetupDragAndDropArgs args)
+        {
+            DragAndDrop.PrepareStartDrag();
+            List<string> paths = new List<string>();
+            List<Object> objects = new List<Object>();
+            foreach (var draggedItemID in args.draggedItemIDs)
+            {
+                var obj = EditorUtility.InstanceIDToObject(draggedItemID);
+                if (obj)
+                {
+                    paths.Add(AssetDatabase.GetAssetPath(obj));
+                    objects.Add(obj);
+                }
+            }
+            
+            if (objects.Count > 0)
+            {
+                string title = objects.Count > 1 ? "<Multiple>" : objects.GetType().Name;
+                DragAndDrop.StartDrag(title);
+            }
+            else
+            {
+                DragAndDrop.StartDrag("nothing to drag");
+            }
+
+            DragAndDrop.paths = paths.ToArray();
+            DragAndDrop.objectReferences = objects.ToArray();
+
+        }
+
+
+        protected override DragAndDropVisualMode HandleDragAndDrop(DragAndDropArgs args)
+        {
+            // First check if the dragged objects are GameObjects
+            var draggedObjects = DragAndDrop.objectReferences;
+            if (draggedObjects.Length == 0 && DragAndDrop.paths.Length==0 )
+            {
+                return DragAndDropVisualMode.None;
+            }
+
+
+            // Reparent
+            if (args.performDrop)
+            {
+                
+            }
+
+            return DragAndDropVisualMode.Move;
+        }
     }
 }
