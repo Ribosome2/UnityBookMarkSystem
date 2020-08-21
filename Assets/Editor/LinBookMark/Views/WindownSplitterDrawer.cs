@@ -38,6 +38,7 @@ namespace LinBookMark
             CalculateRects();
             ResizeHandling(_window,_window.position.height - this.m_ToolbarHeight);
             BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
+            BottomBar(guiStyles);
         }
         
         public void ResizeHandling(EditorWindow window, float height)

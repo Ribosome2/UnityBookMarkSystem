@@ -64,7 +64,6 @@ namespace LinBookMark
         private void OnProjectChanged()
         {
             RebuildTreeView();
-            
         }
 
 
@@ -78,55 +77,18 @@ namespace LinBookMark
             DoToolbar();
             DoTreeView();
             splitter.OnGUI(guiStyles);
-            // ResizeHandling(position.width, position.height);
-            // BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
-            // this.BottomBar();
             HandleCommandEvents();
             
         }
 
 
-        private float m_DirectoriesAreaWidth = 115f;
-        private const float k_MinHeight = 250f;
-        private const float k_MinWidthOneColumn = 230f;
-        private const float k_MinWidthTwoColumns = 230f;
-        private float m_ToolbarHeight=18f;
-        private const float k_BottomBarHeight = 17f;
-        private const float k_ResizerWidth = 5f;
-        private const float k_SliderWidth = 55f;
-        // [NonSerialized]
-        // private Rect m_ListAreaRect;
-        // [NonSerialized]
-        // private Rect m_TreeViewRect;
-        // [NonSerialized]
-        // private Rect m_BottomBarRect;
-        // [NonSerialized]
-        // private Rect m_ListHeaderRect;
-        // private float k_MinDirectoriesAreaWidth = 110f;
         [NonSerialized]
         private float m_SearchAreaMenuOffset = -1f;
         private string m_SelectedPath;
-        private float m_LastListWidth;
         private List<GUIContent> m_SelectedPathSplitted = new List<GUIContent>();
         private string m_AssetStoreError = "";
-        private int m_MinIconSize = 32;
-        private int gridSize = 20;
-        private int m_MinGridSize = 16;
-        private int m_MaxGridSize = 96;
-        
-        // private void ResizeHandling(float width, float height)
-        // {
-        //    
-        //     Rect dragRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight, 5f, height);
-        //     dragRect = BookMarkGuiUtil.HandleHorizontalSplitter(dragRect, this.position.width, this.k_MinDirectoriesAreaWidth, 230f - this.k_MinDirectoriesAreaWidth);
-        //     this.m_DirectoriesAreaWidth = dragRect.x;
-        //     float num = this.position.width - this.m_DirectoriesAreaWidth;
-        //     if ((double) num != (double) this.m_LastListWidth)
-        //     {
-        //         this.RefreshSplittedSelectedPath();
-        //     }
-        //     this.m_LastListWidth = num;
-        // }
+  
+
         public float GetBottomBarHeight()
         {
             if (this.m_SelectedPathSplitted.Count == 0)
@@ -138,19 +100,6 @@ namespace LinBookMark
         {
             return this.m_SearchField.HasFocus() ? 18f : 0.0f;
         }
-        // private void CalculateRects()
-        // {
-        //     float bottomBarHeight = this.GetBottomBarHeight();
-        //     float listHeaderHeight = this.GetListHeaderHeight();
-        //    
-        //
-        //     float width = this.position.width - this.m_DirectoriesAreaWidth;
-        //     this.m_ListAreaRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight + listHeaderHeight, width, this.position.height - this.m_ToolbarHeight - listHeaderHeight - bottomBarHeight);
-        //     this.m_TreeViewRect = new Rect(0.0f, 18, this.m_DirectoriesAreaWidth, this.position.height - this.m_ToolbarHeight);
-        //     this.m_BottomBarRect = new Rect(this.m_DirectoriesAreaWidth, this.position.height - bottomBarHeight, width, bottomBarHeight);
-        //     this.m_ListHeaderRect = new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, this.m_ListAreaRect.width, listHeaderHeight);
-        // }
-        
 
 
 
@@ -169,7 +118,7 @@ namespace LinBookMark
                     str1 = this.m_SelectedPath.Substring("assets/".Length);
               
                 {
-                    float num = (float) ((double) this.position.width - (double) this.m_DirectoriesAreaWidth - 55.0 - 16.0);
+                    float num = (float) ((double) this.position.width - (double) splitter.m_DirectoriesAreaWidth - 55.0 - 16.0);
                     if ((double) GUI.skin.label.CalcSize(new GUIContent(str1)).x + 25.0 > (double) num)
                     {
                         string[] strArray = str1.Split('/');
