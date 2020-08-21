@@ -97,6 +97,8 @@
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\TreeViewInputHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Interface\ISplittableWindow.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Util\BookMarkGuiUtil.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Views\AssetListTreeView.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Views\FolderAssetListView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\LinBookMarkTreeView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\LinBookMarkWindow.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\WindownSplitterDrawer.cs" />

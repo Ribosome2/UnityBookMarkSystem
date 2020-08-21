@@ -30,6 +30,7 @@ namespace LinBookMark
         public GUIContent m_CreateDropdownContent = new GUIContent("Create");
         private BookMarkGUIStyles guiStyles;
         private WindowSplitterDrawer splitter ;
+        public FolderAssetListView  assetListView = new FolderAssetListView();
         void OnEnable()
         {
             splitter = new WindowSplitterDrawer(this,this);
@@ -39,14 +40,47 @@ namespace LinBookMark
                 m_TreeViewState = new TreeViewState();
 
             m_TreeView = new LinBookMarkTreeView(m_TreeViewState);
+            m_TreeView.OnSelectionChange += OnTreeSelectionChange;
             m_SearchField = new SearchField();
             m_SearchField.downOrUpArrowKeyPressed += m_TreeView.SetFocusAndEnsureSelectedItem;
             BookMarkDataCenter.instance.BookMarkDataChangeEvent += m_TreeView.Reload;
             EditorApplication.projectWindowChanged += new EditorApplication.CallbackFunction(this.OnProjectChanged);
             AssemblyReloadEvents.afterAssemblyReload += new AssemblyReloadEvents.AssemblyReloadCallback(this.OnAfterAssemblyReload);
+            
+            OnTreeSelectionChange(m_TreeView.GetSelection());
+        }
+
+     
+
+        private void OnDisable()
+        {
+            m_SearchField.downOrUpArrowKeyPressed -= m_TreeView.SetFocusAndEnsureSelectedItem;
+            BookMarkDataCenter.instance.BookMarkDataChangeEvent += m_TreeView.Reload;
+            EditorApplication.projectWindowChanged -= new EditorApplication.CallbackFunction(this.OnProjectChanged);
+            AssemblyReloadEvents.afterAssemblyReload -= new AssemblyReloadEvents.AssemblyReloadCallback(this.OnAfterAssemblyReload);
+
+            m_TreeView.OnSelectionChange -= OnTreeSelectionChange;
 
         }
 
+        private void OnTreeSelectionChange(IList<int> list)
+        {
+            List<string> folderList = new List<string>();
+            foreach (var id in list)
+            {
+                var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(id);
+                if (element != null && string.IsNullOrEmpty(element.AssetGuild)==false)
+                {
+                    var projectPath = AssetDatabase.GUIDToAssetPath(element.AssetGuild);
+                    if (string.IsNullOrEmpty(projectPath) == false)
+                    {
+                        folderList.Add(projectPath);
+                    }
+                }
+            }
+            assetListView.SetFolderList(folderList);
+        }
+        
         private void OnAfterAssemblyReload()
         {
             RebuildTreeView();
@@ -78,7 +112,7 @@ namespace LinBookMark
             DoTreeView();
             splitter.OnGUI(guiStyles);
             HandleCommandEvents();
-            
+            assetListView.OnGUI(splitter.ListAreaRect);
         }
 
 
@@ -102,7 +136,11 @@ namespace LinBookMark
         }
 
 
-
+        private void RefreshSelectedPath()
+        {
+            this.m_SelectedPath = !(Selection.activeObject != (UnityEngine.Object) null) ? "" : AssetDatabase.GetAssetPath(Selection.activeObject);
+            this.m_SelectedPathSplitted.Clear();
+        }
         private void RefreshSplittedSelectedPath()
         {
      

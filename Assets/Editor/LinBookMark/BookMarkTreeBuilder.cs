@@ -33,7 +33,6 @@ namespace LinBookMark
             }
 
             return root;
-
         }
 
         private static void AddToTreeItemList(List<TreeViewItem> allItems, TreeViewItem treeItem)

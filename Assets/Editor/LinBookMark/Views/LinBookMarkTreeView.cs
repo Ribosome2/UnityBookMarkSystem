@@ -11,7 +11,8 @@ namespace LinBookMark
 {
     public class LinBookMarkTreeView : TreeView
     {
-       
+        public Action<IList<int>> OnSelectionChange;
+
         BookMarkTreeBuilder _treeBuilder = new BookMarkTreeBuilder();
         BookMarkDragDropHandler _dragDropHandler = new BookMarkDragDropHandler();
 
@@ -138,6 +139,16 @@ namespace LinBookMark
                     }
                 }
             }
+        }
+
+        protected override void SelectionChanged(IList<int> selectedIds)
+        {
+            base.SelectionChanged(selectedIds);
+            if (OnSelectionChange != null)
+            {
+                OnSelectionChange(selectedIds);
+            }
+            
         }
     }
 }

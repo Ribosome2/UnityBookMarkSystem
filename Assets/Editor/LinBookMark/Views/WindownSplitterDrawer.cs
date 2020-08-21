@@ -22,7 +22,7 @@ namespace LinBookMark
         public Action onSplitSizeChange;
         
         [NonSerialized]
-        private Rect m_ListAreaRect;
+        public Rect ListAreaRect;
         [NonSerialized] public Rect m_TreeViewRect;
         [NonSerialized]
         private Rect m_BottomBarRect;
@@ -37,7 +37,7 @@ namespace LinBookMark
         {
             CalculateRects();
             ResizeHandling(_window,_window.position.height - this.m_ToolbarHeight);
-            BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
+            BookMarkGuiUtil.DrawHorizontalSplitter(new Rect(this.ListAreaRect.x, this.m_ToolbarHeight, 1f, this.m_TreeViewRect.height));
             BottomBar(guiStyles);
         }
         
@@ -65,10 +65,10 @@ namespace LinBookMark
            
 
             float width = _window.position.width - this.m_DirectoriesAreaWidth;
-            this.m_ListAreaRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight + listHeaderHeight, width, _window.position.height - this.m_ToolbarHeight - listHeaderHeight - bottomBarHeight);
+            this.ListAreaRect = new Rect(this.m_DirectoriesAreaWidth, this.m_ToolbarHeight + listHeaderHeight, width, _window.position.height - this.m_ToolbarHeight - listHeaderHeight - bottomBarHeight);
             this.m_TreeViewRect = new Rect(0.0f, 18, this.m_DirectoriesAreaWidth, _window.position.height - this.m_ToolbarHeight);
             this.m_BottomBarRect = new Rect(this.m_DirectoriesAreaWidth, _window.position.height - bottomBarHeight, width, bottomBarHeight);
-            this.m_ListHeaderRect = new Rect(this.m_ListAreaRect.x, this.m_ToolbarHeight, this.m_ListAreaRect.width, listHeaderHeight);
+            this.m_ListHeaderRect = new Rect(this.ListAreaRect.x, this.m_ToolbarHeight, this.ListAreaRect.width, listHeaderHeight);
         }
         
         private void BottomBar(BookMarkGUIStyles guiStyles)
