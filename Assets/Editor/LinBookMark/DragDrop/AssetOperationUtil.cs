@@ -48,7 +48,7 @@ namespace LinBookMark
 
         private static bool DeleteProjectAsset(IList<int> treeItemIds, bool askIfSure)
         {
-            List<string> list = BookMarkDataCenter.instance.GetMainPathsOfAssets(treeItemIds);
+            List<string> list = BookMarkDataCenter.instance.GetMainPathsOfAssetsFromAutoExpandNodes(treeItemIds);
             if (list.Count == 0)
                 return false;
             if (askIfSure)

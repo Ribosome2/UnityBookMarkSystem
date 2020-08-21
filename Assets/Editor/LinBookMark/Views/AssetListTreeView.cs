@@ -46,7 +46,6 @@ namespace LinBookMark
                         var subFiles = Directory.GetFiles(path).Where(x => x.EndsWith(".meta")==false);
                         foreach (var subFile in subFiles)
                         {
-                            var fileInfo = new FileInfo(subFile);
                             AddOneFileItem(subFile, result);
                         }
                     }

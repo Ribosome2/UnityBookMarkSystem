@@ -95,7 +95,7 @@ namespace LinBookMark
             }
         }
         
-        public  List<string> GetMainPathsOfAssets(IList<int> treeItemIds)
+        public  List<string> GetMainPathsOfAssetsFromAutoExpandNodes(IList<int> treeItemIds)
         {
             List<string> result = new List<string>();
             foreach (int treeItemId in treeItemIds)

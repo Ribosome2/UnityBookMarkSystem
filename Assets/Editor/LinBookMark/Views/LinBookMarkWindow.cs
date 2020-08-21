@@ -65,7 +65,7 @@ namespace LinBookMark
 
         private void OnTreeSelectionChange(IList<int> list)
         {
-            List<string> folderList = new List<string>();
+            List<string> asstPathList = new List<string>();
             foreach (var id in list)
             {
                 var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(id);
@@ -74,11 +74,14 @@ namespace LinBookMark
                     var projectPath = AssetDatabase.GUIDToAssetPath(element.AssetGuild);
                     if (string.IsNullOrEmpty(projectPath) == false)
                     {
-                        folderList.Add(projectPath);
+                        asstPathList.Add(projectPath);
                     }
                 }
+                
             }
-            assetListView.SetFolderList(folderList);
+            List<string> expandList  = BookMarkDataCenter.instance.GetMainPathsOfAssetsFromAutoExpandNodes(list);
+            asstPathList.AddRange(expandList);
+            assetListView.SetAssetList(asstPathList);
         }
         
         private void OnAfterAssemblyReload()

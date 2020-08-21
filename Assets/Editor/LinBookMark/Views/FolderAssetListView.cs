@@ -18,7 +18,7 @@ namespace LinBookMark
         }
 
 
-        public void SetFolderList(IList<string> folderList)
+        public void SetAssetList(IList<string> folderList)
         {
             CheckInit();
             m_TreeView.SetAssetPathList(folderList);
