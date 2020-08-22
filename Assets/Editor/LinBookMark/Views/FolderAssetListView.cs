@@ -23,7 +23,14 @@ namespace LinBookMark
             CheckInit();
             m_TreeView.SetAssetPathList(folderList);
         }
-        
+
+        public void RefreshAssetList()
+        {
+            if (m_TreeView != null)
+            {
+                m_TreeView.Reload();
+            }
+        }
         void CheckInit()
         {
             if (m_TreeViewState == null)

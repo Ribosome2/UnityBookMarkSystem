@@ -95,6 +95,11 @@ namespace LinBookMark
             {
                 m_TreeView.Reload();
             }
+
+            if (assetListView != null)
+            {
+                assetListView.RefreshAssetList();
+            }
         }
 
 
