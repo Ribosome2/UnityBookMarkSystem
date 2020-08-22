@@ -54,6 +54,7 @@ namespace LinBookMark
 
         protected override DragAndDropVisualMode HandleDragAndDrop(DragAndDropArgs args)
         {
+           
             // First check if the dragged objects are GameObjects
             var draggedObjects = DragAndDrop.objectReferences;
             if (draggedObjects.Length == 0 && DragAndDrop.paths.Length==0 && DragAndDrop.GetGenericData("BookMarkNodeDragging")==null)
@@ -65,6 +66,7 @@ namespace LinBookMark
             // Reparent
             if (args.performDrop)
             {
+                DragDropUtil.FixDragDropFromOutSideProject();
                 HandleDropOperation(args);
             }
 
@@ -73,6 +75,7 @@ namespace LinBookMark
 
         private void HandleDropOperation(DragAndDropArgs args)
         {
+            
             switch (args.dragAndDropPosition)
             {
                 case DragAndDropPosition.UponItem:

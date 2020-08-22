@@ -42,7 +42,7 @@ namespace LinBookMark
                 Debug.LogError("error node depth , I dont want you ! : "+treeItem.displayName);
                 return;
             }
-            Debug.Log("add "+treeItem.id+treeItem.displayName);
+//            Debug.Log("add "+treeItem.id+treeItem.displayName);
             allItems.Add(treeItem);
         }
 

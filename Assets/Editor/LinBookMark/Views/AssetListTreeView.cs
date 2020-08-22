@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace LinBookMark
 {
@@ -18,9 +20,9 @@ namespace LinBookMark
         {
         }
 
-        public void SetAssetPathList(IList<string> rootPaths)
+        public void SetAssetPathList(IList<string> assetPaths)
         {
-            pathList = rootPaths;
+            pathList = assetPaths;
             BuildRoot();
             Reload();
         }
@@ -108,9 +110,23 @@ namespace LinBookMark
 
         }
 
+        string GetTargetAssetPath(DragAndDropArgs args)
+        {
+            string result = string.Empty;
+            if (args.parentItem != null)
+            {
+                var obj = EditorUtility.InstanceIDToObject(args.parentItem.id);
+                if (obj)
+                {
+                    result = AssetDatabase.GetAssetPath(obj);
+                }
+            }
+            return result;
+        }
 
         protected override DragAndDropVisualMode HandleDragAndDrop(DragAndDropArgs args)
         {
+           
             // First check if the dragged objects are GameObjects
             var draggedObjects = DragAndDrop.objectReferences;
             if (draggedObjects.Length == 0 && DragAndDrop.paths.Length==0 )
@@ -118,14 +134,31 @@ namespace LinBookMark
                 return DragAndDropVisualMode.None;
             }
 
-
             // Reparent
             if (args.performDrop)
             {
-                
+                DragDropUtil.FixDragDropFromOutSideProject();
+                if (DragDropUtil.IsDraggingNonProjectPath())
+                {
+                    CheckImportAssetByPath(args);
+                }
+                else
+                {
+
+                }
+               
             }
 
             return DragAndDropVisualMode.Move;
+        }
+
+        private void CheckImportAssetByPath(DragAndDropArgs args)
+        {
+            var assetPath = GetTargetAssetPath(args);
+            if (args.dragAndDropPosition == DragAndDropPosition.UponItem)
+            {
+                DragDropUtil.TryReplaceAsset(assetPath);
+            }
         }
     }
 }
