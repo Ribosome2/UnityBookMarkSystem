@@ -126,15 +126,12 @@ namespace LinBookMark
 
         protected override DragAndDropVisualMode HandleDragAndDrop(DragAndDropArgs args)
         {
-           
-            // First check if the dragged objects are GameObjects
             var draggedObjects = DragAndDrop.objectReferences;
             if (draggedObjects.Length == 0 && DragAndDrop.paths.Length==0 )
             {
                 return DragAndDropVisualMode.None;
             }
 
-            // Reparent
             if (args.performDrop)
             {
                 DragDropUtil.FixDragDropFromOutSideProject();
@@ -159,6 +156,55 @@ namespace LinBookMark
             {
                 DragDropUtil.TryReplaceAsset(assetPath);
             }
+            else
+            {
+                var parentFolderPath = GetSharedParentFolderPath();
+                DragDropUtil.TryImportDragAssets(parentFolderPath);
+            }
+        }
+
+
+
+        string GetSharedParentFolderPath()
+        {
+            var result = string.Empty;
+            foreach (var path in pathList)
+            {
+                var parentPath = GetFolderPathFromPathString(path);
+                if (string.IsNullOrEmpty(parentPath)==false)
+                {
+                    
+                    if (string.IsNullOrEmpty(result))
+                    {
+                        result = parentPath;
+                    }
+                    else
+                    {
+                        if (parentPath == result)
+                        {
+                            // only return the parent path when all asset share same one
+                            return string.Empty;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        private static string GetFolderPathFromPathString(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                return path;
+            }
+            else
+            {
+                if (File.Exists(path))
+                {
+                    return Path.GetDirectoryName(path);
+                }
+            }
+            return string.Empty;
         }
     }
 }

@@ -313,7 +313,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\LinBookMark\BookMarkTreeBuilder.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Commands\BookMarkCreateCommand.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkData.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkDataCenter.cs" />
@@ -329,6 +328,7 @@
     <Compile Include="Assets\Editor\LinBookMark\GUIStyles\BookMarkGUIStyles.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\TreeViewInputHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Interface\ISplittableWindow.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\TreeBuilder\BookMarkTreeBuilder.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Util\BookMarkGuiUtil.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\AssetListTreeView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\FolderAssetListView.cs" />

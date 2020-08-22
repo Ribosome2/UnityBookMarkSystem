@@ -75,5 +75,59 @@ namespace LinBookMark
             }
             return needRefresh;
         }
+
+        public static bool TryImportDragAssets(string folderPath)
+        {
+            var needRefresh = false;
+            if (string.IsNullOrEmpty(folderPath) == false && Directory.Exists(folderPath))
+            {
+                foreach (var path in DragAndDrop.paths)
+                {
+                    if (TryImportOneAsset(folderPath, path))
+                    {
+                        needRefresh = true;
+                    }
+                }
+                if (needRefresh)
+                {
+                    AssetDatabase.Refresh();
+                }
+            }
+            return needRefresh;
+        }
+
+        private static bool TryImportOneAsset(string folderPath, string path)
+        {
+            if (File.Exists(path) == false)
+            {
+                return false;
+            }
+
+            var newFileName = Path.GetFileName(path);
+            if (string.IsNullOrEmpty(newFileName) == false)
+            {
+                var targetPath = Path.Combine(folderPath, newFileName);
+                Debug.Log("target"+targetPath);
+                if (File.Exists(targetPath))
+                {
+                    //drop on asset node ,try replace 
+                    if (EditorUtility.DisplayDialog("Add Asset  ",
+                        string.Format("Do you want to replace file content of {0} with  file {1}", folderPath, path), "Yes"))
+                    {
+                        var newBytes = File.ReadAllBytes(path);
+                        File.WriteAllBytes(targetPath, newBytes);
+                        return true;
+                    }
+                }
+                else
+                {
+                    var newBytes = File.ReadAllBytes(path);
+                    File.WriteAllBytes(targetPath, newBytes);
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
