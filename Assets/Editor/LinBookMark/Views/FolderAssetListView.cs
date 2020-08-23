@@ -13,13 +13,18 @@ namespace LinBookMark
         // The TreeView is not serializable it should be reconstructed from the tree data.
         AssetListTreeView m_TreeView;
         private IList<string> _assetPathList;
-
+        SearchField m_SearchField;
+        private int toolBarHeight = 18;
+        private Rect _drawRect;
         public void OnGUI(Rect rect)
         {
-            
+            _drawRect = rect;
+           GUI.BeginClip(rect);
             // if (CheckDrawSingleTexturePreview(rect)) return;
             CheckInit();
-            m_TreeView.OnGUI(rect);
+            DoToolbar();
+            m_TreeView.OnGUI(new Rect(0,toolBarHeight,rect.width,rect.height));
+            GUI.EndClip();
            
         }
 
@@ -67,6 +72,23 @@ namespace LinBookMark
             if (m_TreeView == null)
             {
                 m_TreeView = new AssetListTreeView(m_TreeViewState);
+            }
+            if (m_SearchField == null)
+            {
+                m_SearchField = new SearchField();
+            }
+        }
+        
+        void DoToolbar()
+        {
+
+            if (m_TreeView != null)
+            {
+                GUILayout.BeginHorizontal(EditorStyles.toolbar);
+                GUILayout.Space(100+_drawRect.x);
+                GUILayout.FlexibleSpace();
+                m_TreeView.searchString = m_SearchField.OnToolbarGUI(m_TreeView.searchString);
+                GUILayout.EndHorizontal();
             }
         }
         
