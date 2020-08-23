@@ -193,6 +193,13 @@ namespace LinBookMark
             return result;
         }
 
+        protected override void DoubleClickedItem(int id)
+        {
+            base.DoubleClickedItem(id);
+            var obj = EditorUtility.InstanceIDToObject(id);
+            EditorGUIUtility.PingObject(obj);
+        }
+
         private static string GetFolderPathFromPathString(string path)
         {
             if (Directory.Exists(path))
