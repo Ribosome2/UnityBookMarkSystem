@@ -14,6 +14,7 @@ namespace LinBookMark
         {
             var window = GetWindow<LinBookMarkWindow>();
             window.titleContent = new GUIContent("BookMark", (Texture2D) EditorGUIUtility.Load(("FilterByLabel")));
+            window.minSize = new Vector2(230, 250);
 //            window.position = new Rect(0,100f,500f,500f);
             window.Show();
         }
@@ -30,14 +31,12 @@ namespace LinBookMark
         public GUIContent m_CreateDropdownContent = new GUIContent("Create");
         private BookMarkGUIStyles guiStyles;
         private WindowSplitterDrawer splitter ;
-        public FolderAssetListView  assetListView = new FolderAssetListView();
+        public FolderAssetListView assetListView;
         void OnEnable()
         {
             splitter = new WindowSplitterDrawer(this,this);
-            // Check if we already had a serialized view state (state 
-            // that survived assembly reloading)
-            if (m_TreeViewState == null)
-                m_TreeViewState = new TreeViewState();
+            CheckInitState();
+
 
             m_TreeView = new LinBookMarkTreeView(m_TreeViewState);
             m_TreeView.OnSelectionChange += OnTreeSelectionChange;
@@ -50,7 +49,22 @@ namespace LinBookMark
             OnTreeSelectionChange(m_TreeView.GetSelection());
         }
 
-     
+        private void CheckInitState()
+        {
+            // Check if we already had a serialized view state (state 
+            // that survived assembly reloading)
+            if (m_TreeViewState == null)
+            {
+                m_TreeViewState = new TreeViewState();
+                Debug.Log("new treedd");
+            }
+
+            if (assetListView == null)
+            {
+                assetListView = new FolderAssetListView();
+            }
+        }
+
 
         private void OnDisable()
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace LinBookMark
 {
+    [System.Serializable]
     public class FolderAssetListView
     {
         [SerializeField] TreeViewState m_TreeViewState;
