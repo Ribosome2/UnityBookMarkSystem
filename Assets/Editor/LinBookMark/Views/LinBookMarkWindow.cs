@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.TreeViewExamples;
@@ -240,26 +242,70 @@ namespace LinBookMark
                 case UnityEngine.EventType.ValidateCommand:
                 case UnityEngine.EventType.ExecuteCommand:
                     bool flag = type == UnityEngine.EventType.ExecuteCommand;
+                    // Debug.Log(Event.current.commandName);
                     if (Event.current.commandName == "Delete" || Event.current.commandName == "SoftDelete")
                     {
-                        Event.current.Use();
-                        if (flag)
-                        {
-                            bool askIfSure = Event.current.commandName == "SoftDelete";
-                            if (AssetOperationUtil.DeleteAssets(m_TreeView.GetSelection(), askIfSure))
-                            {
-                                m_TreeView.Reload();
-                            }
-                            if (askIfSure)
-                                this.Focus();
-                        }
-                        GUIUtility.ExitGUI();
+                        HandleDelete(flag);
+                    }else if (Event.current.commandName == "Copy")
+                    {
+                        HandleCopy();
+                    }else if (Event.current.commandName == "Paste")
+                    {
+                        HandlePaste();
                     }
 
                     break;
             }
 
             return false;
+        }
+
+        private void HandleCopy()
+        {
+            var selectedIds = m_TreeView.GetSelection();
+            StringBuilder sb = new StringBuilder();
+            foreach (var treeId in selectedIds)
+            {
+                var assetPath = BookMarkDataCenter.instance.GetAssetPath(treeId);
+                if (!string.IsNullOrEmpty(assetPath))
+                {
+                    if (sb.Length > 0)
+                    {
+                        sb.Append(',');
+                    }
+                    sb.Append(assetPath);
+                }
+            }
+
+            GUIUtility.systemCopyBuffer = sb.ToString();
+        }
+
+        private void HandlePaste()
+        {
+            var selectedIds = m_TreeView.GetSelection();
+            if (selectedIds.Count == 1)
+            {
+                var folderPath = BookMarkDataCenter.instance.GetAssetPath(selectedIds[0]);
+                FileUtil.CheckPasteFiles(folderPath);
+            }
+        }
+
+        private void HandleDelete(bool flag)
+        {
+            Event.current.Use();
+            if (flag)
+            {
+                bool askIfSure = Event.current.commandName == "SoftDelete";
+                if (AssetOperationUtil.DeleteAssets(m_TreeView.GetSelection(), askIfSure))
+                {
+                    m_TreeView.Reload();
+                }
+
+                if (askIfSure)
+                    this.Focus();
+            }
+
+            GUIUtility.ExitGUI();
         }
     }
 }

@@ -48,7 +48,7 @@ namespace LinBookMark
             var bookMarkData = DataSaver.ReadFromDisk<BookMarkData>(DataSaver.DataFileName);
             if (bookMarkData != null)
             {
-                Debug.Log("read list from file ");
+                // Debug.Log("read list from file ");
                 var saveList = bookMarkData.bookMarks;
                 for (int i = 0; i < saveList.Count; i++)
                 {
