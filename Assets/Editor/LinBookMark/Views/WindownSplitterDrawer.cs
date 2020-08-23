@@ -76,6 +76,8 @@ namespace LinBookMark
 
         public void BreadCrumbBar(string selectPathDesc,BookMarkGUIStyles guiStyles)
         {
+            selectPathDesc = selectPathDesc.Replace('/', '▶');
+            selectPathDesc = selectPathDesc.Replace('\\', '▶');
             GUI.Label(this.m_ListHeaderRect, GUIContent.none, guiStyles.topBarBg);
             GUI.Label(m_ListHeaderRect, new GUIContent(selectPathDesc), EditorStyles.miniLabel);
         }
