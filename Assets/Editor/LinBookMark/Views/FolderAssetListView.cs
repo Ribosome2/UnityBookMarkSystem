@@ -19,13 +19,12 @@ namespace LinBookMark
         public void OnGUI(Rect rect)
         {
             _drawRect = rect;
-           GUI.BeginClip(rect);
+            GUI.BeginClip(new Rect(rect.x,rect.y-15,rect.width,rect.height));
             // if (CheckDrawSingleTexturePreview(rect)) return;
             CheckInit();
             DoToolbar();
-            m_TreeView.OnGUI(new Rect(0,toolBarHeight,rect.width,rect.height));
+            m_TreeView.OnGUI(new Rect(0-10,40,rect.width,rect.height));
             GUI.EndClip();
-           
         }
 
         private bool CheckDrawSingleTexturePreview(Rect rect)
@@ -81,13 +80,13 @@ namespace LinBookMark
         
         void DoToolbar()
         {
-
             if (m_TreeView != null)
             {
                 GUILayout.BeginHorizontal(EditorStyles.toolbar);
-                GUILayout.Space(100+_drawRect.x);
-                GUILayout.FlexibleSpace();
+                GUILayout.Space(10);
                 m_TreeView.searchString = m_SearchField.OnToolbarGUI(m_TreeView.searchString);
+                GUILayout.Space(10);
+                GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
             }
         }
