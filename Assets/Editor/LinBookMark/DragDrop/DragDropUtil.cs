@@ -34,7 +34,8 @@ namespace LinBookMark
 
         public static bool IsNonProjectPath(string path)
         {
-           return string.IsNullOrEmpty(AssetDatabase.AssetPathToGUID(path));
+           return path.StartsWith("Assets")==false;
+//           return string.IsNullOrEmpty(AssetDatabase.AssetPathToGUID(path));
         }
 
         public static bool IsDraggingNonProjectPath()
