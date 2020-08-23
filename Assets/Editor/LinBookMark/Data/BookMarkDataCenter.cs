@@ -124,5 +124,24 @@ namespace LinBookMark
             return result;
         }
 
+        public string GetAssetPath(int treeItemId)
+        {
+            var result = string.Empty;
+            var element = bookMarkDataModel.Find(treeItemId);
+            if (element != null)
+            {
+                result = element.GetProjectPath();
+            }
+            else
+            {
+                var item = ExpandDataMgr.GetExpandData(treeItemId);
+                if (!string.IsNullOrEmpty(item.AssetPath))
+                {
+                    result = item.AssetPath;
+                }
+            }
+            return result;
+        }
+
     }
 }

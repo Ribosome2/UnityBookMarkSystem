@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
@@ -73,9 +74,42 @@ namespace LinBookMark
             return DragAndDropVisualMode.Move;
         }
 
+        private void CheckImportAssetByPath(DragAndDropArgs args)
+        {
+            if (args.parentItem != null)
+            {
+                var assetPath = BookMarkDataCenter.instance.GetAssetPath(args.parentItem.id);
+                DragDropUtil.TryImportDragAssets(assetPath);
+
+                if (args.dragAndDropPosition == DragAndDropPosition.UponItem && Path.HasExtension(assetPath))
+                {
+                    _dragDropHandler.CheckDropToReplace(args.parentItem.id);
+                }
+                else
+                {
+                    DragDropUtil.TryImportDragAssets(assetPath);
+                }
+            }
+           
+        }
+
         private void HandleDropOperation(DragAndDropArgs args)
         {
-            
+            if (DragDropUtil.IsDraggingNonProjectPath())
+            {
+                CheckImportAssetByPath(args);
+            }
+            else
+            {
+                HandleOperationInSideProject(args);
+            }
+
+            Reload();
+            // SetSelection (transforms.Select (t => t.gameObject.GetInstanceID ()).ToList (), TreeViewSelectionOptions.RevealAndFrame);
+        }
+
+        private void HandleOperationInSideProject(DragAndDropArgs args)
+        {
             switch (args.dragAndDropPosition)
             {
                 case DragAndDropPosition.UponItem:
@@ -89,9 +123,6 @@ namespace LinBookMark
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            Reload();
-            // SetSelection (transforms.Select (t => t.gameObject.GetInstanceID ()).ToList (), TreeViewSelectionOptions.RevealAndFrame);
         }
 
         protected override bool CanRename(TreeViewItem item)

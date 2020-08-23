@@ -139,11 +139,6 @@ namespace LinBookMark
                 {
                     CheckImportAssetByPath(args);
                 }
-                else
-                {
-
-                }
-               
             }
 
             return DragAndDropVisualMode.Move;

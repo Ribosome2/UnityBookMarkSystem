@@ -240,5 +240,11 @@ namespace LinBookMark
             AddObjectToParent(insertIndex,BookMarkDataCenter.instance.bookMarkDataModel.root);
             Debug.Log("drag outside  ");
         }
+
+        public void CheckDropToReplace(int treeItemId)
+        {
+            var assetPath = BookMarkDataCenter.instance.GetAssetPath(treeItemId);
+            DragDropUtil.TryReplaceAsset(assetPath);
+        }
     }
 }
