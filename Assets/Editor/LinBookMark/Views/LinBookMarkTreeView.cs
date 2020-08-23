@@ -121,6 +121,7 @@ namespace LinBookMark
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            BookMarkDataCenter.instance.SaveCurrentTreeModel();
         }
 
         protected override bool CanRename(TreeViewItem item)

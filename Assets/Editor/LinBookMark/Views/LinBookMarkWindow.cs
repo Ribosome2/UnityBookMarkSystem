@@ -14,7 +14,7 @@ namespace LinBookMark
         {
             var window = GetWindow<LinBookMarkWindow>();
             window.titleContent = new GUIContent("BookMark", (Texture2D) EditorGUIUtility.Load(("FilterByLabel")));
-            window.position = new Rect(0,100f,500f,500f);
+//            window.position = new Rect(0,100f,500f,500f);
             window.Show();
         }
 
@@ -119,8 +119,10 @@ namespace LinBookMark
             DoToolbar();
             DoTreeView();
             splitter.OnGUI(guiStyles);
+            splitter.BreadCrumbBar(assetListView.GetParentFolderDesc(),guiStyles);
             HandleCommandEvents();
             assetListView.OnGUI(splitter.ListAreaRect);
+            
         }
 
 
@@ -140,7 +142,7 @@ namespace LinBookMark
 
         public float GetListHeaderHeight()
         {
-            return this.m_SearchField.HasFocus() ? 18f : 0.0f;
+            return  18f ;
         }
 
 

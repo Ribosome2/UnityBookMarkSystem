@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace LinBookMark
 
         // The TreeView is not serializable it should be reconstructed from the tree data.
         AssetListTreeView m_TreeView;
+        private IList<string> _folderList;
 
         public void OnGUI(Rect rect)
         {
@@ -21,6 +23,7 @@ namespace LinBookMark
         public void SetAssetList(IList<string> folderList)
         {
             CheckInit();
+            _folderList = folderList;
             m_TreeView.SetAssetPathList(folderList);
         }
 
@@ -31,6 +34,7 @@ namespace LinBookMark
                 m_TreeView.Reload();
             }
         }
+      
         void CheckInit()
         {
             if (m_TreeViewState == null)
@@ -43,5 +47,11 @@ namespace LinBookMark
                 m_TreeView = new AssetListTreeView(m_TreeViewState);
             }
         }
+        
+        public string GetParentFolderDesc()
+        {
+            return m_TreeView == null ? string.Empty : m_TreeView.GetParentFolderDesc();
+        }
+
     }
 }

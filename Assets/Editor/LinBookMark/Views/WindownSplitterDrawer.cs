@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,6 +33,8 @@ namespace LinBookMark
         private int gridSize = 20;
         private int m_MinGridSize = 16;
         private int m_MaxGridSize = 96;
+        private List<KeyValuePair<GUIContent, string>> m_BreadCrumbs = new List<KeyValuePair<GUIContent, string>>();
+
     
         public void OnGUI(BookMarkGUIStyles guiStyles)
         {
@@ -70,7 +73,13 @@ namespace LinBookMark
             this.m_BottomBarRect = new Rect(this.m_DirectoriesAreaWidth, _window.position.height - bottomBarHeight, width, bottomBarHeight);
             this.m_ListHeaderRect = new Rect(this.ListAreaRect.x, this.m_ToolbarHeight, this.ListAreaRect.width, listHeaderHeight);
         }
-        
+
+        public void BreadCrumbBar(string selectPathDesc,BookMarkGUIStyles guiStyles)
+        {
+            GUI.Label(this.m_ListHeaderRect, GUIContent.none, guiStyles.topBarBg);
+            GUI.Label(m_ListHeaderRect, new GUIContent(selectPathDesc), EditorStyles.miniLabel);
+        }
+
         private void BottomBar(BookMarkGUIStyles guiStyles)
         {
             if ((double) this.m_BottomBarRect.height == 0.0)

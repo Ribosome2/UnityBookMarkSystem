@@ -11,7 +11,8 @@ namespace LinBookMark
 {
     public class AssetListTreeView:TreeView
     {
-        public IList<string> pathList; 
+        public IList<string> pathList;
+        private EditorWindow parentWindow;
         public AssetListTreeView(TreeViewState state) : base(state)
         {
         }
@@ -154,11 +155,17 @@ namespace LinBookMark
             else
             {
                 var parentFolderPath = GetSharedParentFolderPath();
-                DragDropUtil.TryImportDragAssets(parentFolderPath);
+                if (string.IsNullOrEmpty(parentFolderPath))
+                {
+                    EditorUtility.DisplayDialog("add item ?", "Multiple   folders or none  selected ,I don't know where to drop ",
+                        "Got it");
+                }
+                else
+                {
+                    DragDropUtil.TryImportDragAssets(parentFolderPath);
+                }
             }
         }
-
-
 
         string GetSharedParentFolderPath()
         {
@@ -175,7 +182,7 @@ namespace LinBookMark
                     }
                     else
                     {
-                        if (parentPath == result)
+                        if (parentPath != result)
                         {
                             // only return the parent path when all asset share same one
                             return string.Empty;
@@ -200,6 +207,29 @@ namespace LinBookMark
                 }
             }
             return string.Empty;
+        }
+
+        public string GetParentFolderDesc()
+        {
+            if (pathList.Count == 1)
+            {
+                return pathList[0];
+            }else if (pathList.Count == 0)
+            {
+                return "No root selected";
+            }
+            else
+            {
+                var shareFolder = GetSharedParentFolderPath();
+                if (string.IsNullOrEmpty(shareFolder))
+                {
+                    return "Showing MultipleFolders ...";
+                }
+                else
+                {
+                    return shareFolder;
+                }
+            }
         }
     }
 }

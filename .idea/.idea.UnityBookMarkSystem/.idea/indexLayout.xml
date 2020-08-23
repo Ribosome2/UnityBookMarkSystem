@@ -3,7 +3,6 @@
   <component name="ContentModelUserStore">
     <attachedFolders />
     <explicitIncludes>
-      <Path>Assets</Path>
       <Path>ProjectSettings</Path>
     </explicitIncludes>
     <explicitExcludes>

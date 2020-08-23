@@ -13,6 +13,7 @@ namespace LinBookMark
 
         public void SetupDragAndDrop(IList<int> sortedDraggedIDs)
         {
+            
             DragAndDrop.PrepareStartDrag();
 
             List<Object> objList;
@@ -145,8 +146,6 @@ namespace LinBookMark
                     }
                 }
             }
-
-            Debug.Log("dragFrom hierarchy");
         }
 
         private static void CheckDropCustomBookMarkNode(int insertIndex, LinBookMarkElement parentElement)
@@ -177,12 +176,11 @@ namespace LinBookMark
             else if (parentElement.type == BookMarkType.CustomRoot)
             {
                 BookMarkType bookMarkType = GetBookMarkTypeForAsset(path);
-                Debug.Log("drop path " + path + " asset type " + bookMarkType);
+                // Debug.Log("drop path " + path + " asset type " + bookMarkType);
                 var addElement = ProjectPathToBookMarkElement(path);
                 addElement.depth = parentElement.depth + 1;
                 addElement.id = TreeItemIdGenerator.NextId;
                 insertIndex = CovertInsertIndex(insertIndex, parentElement);
-                Debug.Log("try add to " + parentElement.name);
                 BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
                 BookMarkDataCenter.instance.SaveCurrentTreeModel();
             }
