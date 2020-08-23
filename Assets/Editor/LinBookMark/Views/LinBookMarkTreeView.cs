@@ -79,8 +79,6 @@ namespace LinBookMark
             if (args.parentItem != null)
             {
                 var assetPath = BookMarkDataCenter.instance.GetAssetPath(args.parentItem.id);
-                DragDropUtil.TryImportDragAssets(assetPath);
-
                 if (args.dragAndDropPosition == DragAndDropPosition.UponItem && Path.HasExtension(assetPath))
                 {
                     _dragDropHandler.CheckDropToReplace(args.parentItem.id);
