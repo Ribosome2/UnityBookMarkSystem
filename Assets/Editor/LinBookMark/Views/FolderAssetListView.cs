@@ -16,6 +16,7 @@ namespace LinBookMark
         SearchField m_SearchField;
         private int toolBarHeight = 18;
         private Rect _drawRect;
+        int treeViewYOffset =40;
         public void OnGUI(Rect rect)
         {
             _drawRect = rect;
@@ -23,7 +24,7 @@ namespace LinBookMark
             // if (CheckDrawSingleTexturePreview(rect)) return;
             CheckInit();
             DoToolbar();
-            m_TreeView.OnGUI(new Rect(0-10,40,rect.width,rect.height));
+            m_TreeView.OnGUI(new Rect(0-10,treeViewYOffset,rect.width,rect.height-treeViewYOffset+15));
             GUI.EndClip();
         }
 
