@@ -142,7 +142,9 @@ namespace LinBookMark
                     if (go)
                     {
                         var prefabPath = string.Format("{0}/{1}.prefab", parentProjectPath, go.name);
-                        PrefabUtility.CreatePrefab(prefabPath, go);
+                        var prefab =  PrefabUtility.CreatePrefab(prefabPath, go);
+                        PrefabUtility.ReplacePrefab(go, prefab, ReplacePrefabOptions.ConnectToPrefab);
+                        
                     }
                 }
             }
