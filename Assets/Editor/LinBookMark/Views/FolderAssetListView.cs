@@ -17,14 +17,23 @@ namespace LinBookMark
         private int toolBarHeight = 18;
         private Rect _drawRect;
         int treeViewYOffset =40;
-        public void OnGUI(Rect rect)
+        private AssetListGridView _gridView =new AssetListGridView();
+        IList<string> _assetFileList = new List<string>();
+        public void OnGUI(Rect rect,float iconSize )
         {
             _drawRect = rect;
             GUI.BeginClip(new Rect(rect.x,rect.y-15,rect.width,rect.height));
             // if (CheckDrawSingleTexturePreview(rect)) return;
             CheckInit();
             DoToolbar();
-            m_TreeView.OnGUI(new Rect(0-10,treeViewYOffset,rect.width,rect.height-treeViewYOffset+15));
+            if (iconSize > 16)
+            {
+                _gridView.OnGUI(_drawRect,_assetFileList,(int)iconSize);
+            }
+            else
+            {
+                m_TreeView.OnGUI(new Rect(0-10,treeViewYOffset,rect.width,rect.height-treeViewYOffset+15));
+            }
             GUI.EndClip();
         }
 
@@ -47,11 +56,12 @@ namespace LinBookMark
         }
 
 
-        public void SetAssetList(IList<string> folderList)
+        public void SetAssetList(IList<string> assetList)
         {
             CheckInit();
-            _assetPathList = folderList;
-            m_TreeView.SetAssetPathList(folderList);
+            _assetPathList = assetList;
+            m_TreeView.SetAssetPathList(assetList);
+            _assetFileList = FileUtil.GetAssetFileList(assetList);
         }
 
         public void RefreshAssetList()

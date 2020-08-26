@@ -30,7 +30,7 @@ namespace LinBookMark
         [NonSerialized]
         private Rect m_ListHeaderRect;
         private List<GUIContent> m_SelectedPathSplitted = new List<GUIContent>();
-        private int gridSize = 20;
+        public int GridSize = 20;
         private int m_MinGridSize = 16;
         private int m_MaxGridSize = 96;
         private List<KeyValuePair<GUIContent, string>> m_BreadCrumbs = new List<KeyValuePair<GUIContent, string>>();
@@ -108,12 +108,10 @@ namespace LinBookMark
         private void IconSizeSlider(Rect r)
         {
             EditorGUI.BeginChangeCheck();
-            int num = (int) GUI.HorizontalSlider(r, (float) gridSize, (float) m_MinGridSize, (float) m_MaxGridSize);
+            int num = (int) GUI.HorizontalSlider(r, (float) GridSize, (float) m_MinGridSize, (float) m_MaxGridSize);
             if (!EditorGUI.EndChangeCheck())
                 return;
-            this.gridSize = num;
+            this.GridSize = num;
         }
-        
-
     }
 }

@@ -135,7 +135,7 @@ namespace LinBookMark
             DoToolbar();
             DoTreeView();
             splitter.OnGUI(guiStyles);
-            assetListView.OnGUI(splitter.ListAreaRect);
+            assetListView.OnGUI(splitter.ListAreaRect,splitter.GridSize);
             splitter.BreadCrumbBar(assetListView.GetParentFolderDesc(),guiStyles);
             HandleCommandEvents();
         }

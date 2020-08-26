@@ -93,6 +93,7 @@
     <Compile Include="Assets\Editor\LinBookMark\IO\FileUtil.cs" />
     <Compile Include="Assets\Editor\LinBookMark\TreeBuilder\BookMarkTreeBuilder.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Util\BookMarkGuiUtil.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Views\AssetListGridView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\AssetListTreeView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\FolderAssetListView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\LinBookMarkTreeView.cs" />
