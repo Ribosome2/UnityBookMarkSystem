@@ -22,10 +22,10 @@ namespace LinBookMark
         {
             cellSize = gridSize;
             showPaths = paths;
-            DrawSprites((int)drawRect.width);
+            DrawAssets((int)drawRect.width);
         }
 
-        public void DrawSprites(int scrollWidth )
+        public void DrawAssets(int scrollWidth )
         {
             GUILayout.BeginVertical();
             GUILayout.Space(10);
@@ -42,7 +42,7 @@ namespace LinBookMark
                 GUILayout.BeginHorizontal();
                 for (int colIndex = 0; colIndex < colShowCount && gridIndex < totalCount; ++colIndex)
                 {
-                    DrawSprite(row_index, colIndex, showPaths[gridIndex]);
+                    DrawSingleAsset(row_index, colIndex, showPaths[gridIndex]);
                     ++gridIndex;
                 }
                 GUILayout.EndHorizontal();
@@ -57,31 +57,26 @@ namespace LinBookMark
             GUILayout.EndVertical();
         }
 
-        void DrawSprite(int rowIndex, int colIndex, string assetPath)
+        void DrawSingleAsset(int rowIndex, int colIndex, string assetPath)
         {
             GUILayout.BeginVertical();
-
             Rect drawRect = new Rect(colIndex * (cellSize + 10),rowIndex * (cellSize + SPRITE_LABEL_HEIGHT + 2), cellSize, cellSize);
-
             if (IsVisible(drawRect))
             {
+                
                 var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
+                if (GUI.Button(drawRect, ""))
+                {
+                    if (ItemClickDelegate != null)
+                    {
+                        ItemClickDelegate.Invoke(obj);
+                    }
+                }
                 var assetIcon = AssetPreview.GetAssetPreview(obj);
                 if (assetIcon)
                 {
-                    DrawTexture(drawRect,assetIcon);
+                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon,cellSize);
                 }
-                // var sprite = LoadAssetByPath<Sprite>(spritePath);
-                // var assetObj = LoadAssetByPath<Object>(spritePath);
-                // if (sprite)
-                // {
-                //     DrawSprite(sprite, drawRect);
-                // }
-                // else
-                // {
-                //     DrawTexture(spritePath, drawRect);
-                // }
-
             }
             else
             {
@@ -93,72 +88,33 @@ namespace LinBookMark
 
         }
 
-        private void DrawTexture(string spritePath, Rect drawRect)
-        {
-            var texture = LoadAssetByPath<Texture>(spritePath);
-            if (texture)
-            {
-                DrawTexture(drawRect, texture);
-            }
-        }
 
-        private void DrawTexture(Rect drawRect, Texture texture)
-        {
-            DrawRectOutline(drawRect, Color.red);
-            float textureWidth = texture.width;
-            float textureHeight = texture.height;
-            float scale = textureWidth / textureWidth;
-            drawRect = CalculateDrawRect(textureWidth, textureHeight, drawRect, scale);
-            GUI.DrawTexture(drawRect, texture);
-        }
+
 
         private void DrawSprite( Sprite sprite, Rect drawRect)
         {
-            Texture2D handle_texture = sprite.texture;
-            Rect uv = new Rect(sprite.rect.x / handle_texture.width, sprite.rect.y / handle_texture.height,
-                sprite.rect.width / handle_texture.width, sprite.rect.height / handle_texture.height);
+            Texture2D handleTexture = sprite.texture;
+            Rect uv = new Rect(sprite.rect.x / handleTexture.width, sprite.rect.y / handleTexture.height,
+                sprite.rect.width / handleTexture.width, sprite.rect.height / handleTexture.height);
             GUI.backgroundColor = new Color(.6f, 1.0f, 1.0f, 0.5f);
-            if (GUI.Button(drawRect, ""))
-            {
-                if (ItemClickDelegate != null)
-                {
-                    ItemClickDelegate.Invoke(sprite);
-                }
-            }
 
             GUI.backgroundColor = Color.white;
             var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,SPRITE_LABEL_HEIGHT);
             EditorGUI.TextField(nameRect, "", sprite.name, "ProgressBarBack");
             if (cur_select_sprite_name == sprite.name)
             {
-                DrawRectOutline(drawRect, Color.green);
+                BookMarkGuiUtil.DrawRectOutline(drawRect, Color.green);
             }
 
             float spriteWidth = sprite.rect.width;
             float spriteHeight = sprite.rect.height;
             float scale = spriteWidth / spriteHeight;
-            drawRect = CalculateDrawRect(spriteWidth, spriteHeight, drawRect, scale);
-
-            GUI.DrawTextureWithTexCoords(drawRect, handle_texture, uv);
+            drawRect = BookMarkGuiUtil.CalculateDrawRect(spriteWidth, spriteHeight, drawRect, scale,cellSize);
+            GUI.DrawTextureWithTexCoords(drawRect, handleTexture, uv);
            
         }
 
-        private Rect CalculateDrawRect(float spriteWidth, float spriteHeight, Rect draw_rect, float scale)
-        {
-            if (spriteWidth < spriteHeight)
-            {
-                draw_rect.height = UseMinSize ? Mathf.Min(spriteHeight, cellSize):cellSize;
-                draw_rect.width = draw_rect.height * scale;
-            }
-            else
-            {
-                draw_rect.width =UseMinSize ? Mathf.Min(spriteWidth,cellSize):cellSize;
-                draw_rect.height = draw_rect.width / scale;
-            }
-            draw_rect.x += (cellSize - draw_rect.width) / 2;
-            draw_rect.y += (cellSize - draw_rect.height) / 2;
-            return draw_rect;
-        }
+
 
         bool IsVisible(Rect drawRect)
          {
@@ -172,19 +128,7 @@ namespace LinBookMark
          {
              return AssetDatabase.LoadAssetAtPath<T>("Assets" +spritePath);
          }
-         public void DrawRectOutline(Rect rect, Color color)
-         {
-             if (Event.current.type == EventType.Repaint)
-             {
-                 Texture2D tex = EditorGUIUtility.whiteTexture;
-                 GUI.color = color;
-                 GUI.DrawTexture(new Rect(rect.xMin, rect.yMin, 1f, rect.height), tex);
-                 GUI.DrawTexture(new Rect(rect.xMax, rect.yMin, 1f, rect.height), tex);
-                 GUI.DrawTexture(new Rect(rect.xMin, rect.yMin, rect.width, 1f), tex);
-                 GUI.DrawTexture(new Rect(rect.xMin, rect.yMax, rect.width, 1f), tex);
-                 GUI.color = Color.white;
-             }
-         }
+
          
     }
 }

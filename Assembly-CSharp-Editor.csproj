@@ -89,10 +89,12 @@
     <Compile Include="Assets\Editor\LinBookMark\DragDrop\IDragDropHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\GUIStyles\BookMarkGUIStyles.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\TreeViewInputHandler.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Interface\IAssetDrawer.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Interface\ISplittableWindow.cs" />
     <Compile Include="Assets\Editor\LinBookMark\IO\FileUtil.cs" />
     <Compile Include="Assets\Editor\LinBookMark\TreeBuilder\BookMarkTreeBuilder.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Util\BookMarkGuiUtil.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Views\AssetDrawers\DefaultAssetDrawer.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\AssetListGridView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\AssetListTreeView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\FolderAssetListView.cs" />

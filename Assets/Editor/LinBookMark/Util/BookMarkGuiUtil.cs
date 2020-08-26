@@ -76,5 +76,46 @@ namespace LinBookMark
             GUI.DrawTexture(new Rect(dragRect.x - 1f, dragRect.y, 1f, dragRect.height), (Texture) EditorGUIUtility.whiteTexture);
             GUI.color = color;
         }
+        
+        public static void DrawRectOutline(Rect rect, Color color)
+        {
+            if (Event.current.type == EventType.Repaint)
+            {
+                Texture2D tex = EditorGUIUtility.whiteTexture;
+                GUI.color = color;
+                GUI.DrawTexture(new Rect(rect.xMin, rect.yMin, 1f, rect.height), tex);
+                GUI.DrawTexture(new Rect(rect.xMax, rect.yMin, 1f, rect.height), tex);
+                GUI.DrawTexture(new Rect(rect.xMin, rect.yMin, rect.width, 1f), tex);
+                GUI.DrawTexture(new Rect(rect.xMin, rect.yMax, rect.width, 1f), tex);
+                GUI.color = Color.white;
+            }
+        }
+
+        public static void DrawTexture(Rect drawRect, Texture texture,int cellSize)
+        {
+            BookMarkGuiUtil.DrawRectOutline(drawRect, Color.red);
+            float textureWidth = texture.width;
+            float textureHeight = texture.height;
+            float scale = textureWidth / textureWidth;
+            drawRect = CalculateDrawRect(textureWidth, textureHeight, drawRect, scale,cellSize);
+            GUI.DrawTexture(drawRect, texture);
+        }
+
+        public static Rect CalculateDrawRect(float iconWidth, float iconHeight, Rect drawRect, float scale,int cellSize)
+        {
+            if (iconWidth < iconHeight)
+            {
+                drawRect.height =  Mathf.Min(iconHeight, cellSize);
+                drawRect.width = drawRect.height * scale;
+            }
+            else
+            {
+                drawRect.width = Mathf.Min(iconWidth,cellSize);
+                drawRect.height = drawRect.width / scale;
+            }
+            drawRect.x += (cellSize - drawRect.width) / 2;
+            drawRect.y += (cellSize - drawRect.height) / 2;
+            return drawRect;
+        }
     }
 }
