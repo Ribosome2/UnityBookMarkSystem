@@ -77,6 +77,11 @@ namespace LinBookMark
                 {
                     BookMarkGuiUtil.DrawTexture(drawRect,assetIcon,cellSize);
                 }
+                else
+                {
+                    assetIcon =(Texture2D) AssetDatabase.GetCachedIcon(assetPath);
+                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon,cellSize);
+                }
             }
             else
             {
