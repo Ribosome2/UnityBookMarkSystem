@@ -9,19 +9,19 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1013899365373282}
+  m_RootGameObject: {fileID: 1993089506546354}
   m_IsPrefabParent: 1
---- !u!1 &1013899365373282
+--- !u!1 &1993089506546354
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4941591658883788}
-  - component: {fileID: 20976094028130894}
-  - component: {fileID: 124101315802970610}
-  - component: {fileID: 81090621388146076}
+  - component: {fileID: 4679537746068024}
+  - component: {fileID: 20219480487165122}
+  - component: {fileID: 124515492802209286}
+  - component: {fileID: 81931712844817022}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -29,12 +29,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4941591658883788
+--- !u!4 &4679537746068024
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013899365373282}
+  m_GameObject: {fileID: 1993089506546354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -42,12 +42,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20976094028130894
+--- !u!20 &20219480487165122
 Camera:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013899365373282}
+  m_GameObject: {fileID: 1993089506546354}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -78,17 +78,17 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81090621388146076
+--- !u!81 &81931712844817022
 AudioListener:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013899365373282}
+  m_GameObject: {fileID: 1993089506546354}
   m_Enabled: 1
---- !u!124 &124101315802970610
+--- !u!124 &124515492802209286
 Behaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013899365373282}
+  m_GameObject: {fileID: 1993089506546354}
   m_Enabled: 1

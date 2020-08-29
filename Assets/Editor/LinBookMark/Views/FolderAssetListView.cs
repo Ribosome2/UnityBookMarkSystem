@@ -14,7 +14,6 @@ namespace LinBookMark
         AssetListTreeView m_TreeView;
         private IList<string> _assetPathList;
         SearchField _mSearchField;
-        private int toolBarHeight = 18;
         private Rect _drawRect;
         int _treeViewYOffset =40;
         private AssetListGridView _gridView =new AssetListGridView();
@@ -26,7 +25,7 @@ namespace LinBookMark
             // if (CheckDrawSingleTexturePreview(rect)) return;
             CheckInit();
             DoToolbar();
-            if (iconSize > 18 )
+            if (iconSize > 20 )
             {
                 _gridView.OnGUI(_drawRect,_assetFileList,(int)iconSize);
             }

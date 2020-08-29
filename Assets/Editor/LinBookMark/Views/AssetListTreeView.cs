@@ -139,6 +139,9 @@ namespace LinBookMark
                 if (DragDropUtil.IsDraggingNonProjectPath())
                 {
                     CheckImportAssetByPath(args);
+                }else  if (DragAndDrop.paths.Length == 0 && DragAndDrop.objectReferences.Length > 0)
+                {
+                    AssetOperationUtil.CreatePrefab(GetSharedParentFolderPath());
                 }
             }
 

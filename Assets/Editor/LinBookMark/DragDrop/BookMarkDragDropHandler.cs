@@ -120,7 +120,6 @@ namespace LinBookMark
                         
                     var addElement = new LinBookMarkElement()
                         {name = obj.name, depth = parentElement.depth + 1, id = TreeItemIdGenerator.NextId};
-                    Debug.Log("try add to " + parentElement.name);
                     BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
                 }
 
@@ -134,21 +133,10 @@ namespace LinBookMark
         private static void CheckCreatePrefabFromHierarchy(LinBookMarkElement parentElement)
         {
             var parentProjectPath = parentElement.GetProjectPath();
-            if (string.IsNullOrEmpty(parentProjectPath) == false)
-            {
-                foreach (var objectReference in DragAndDrop.objectReferences)
-                {
-                    var go = objectReference as GameObject;
-                    if (go)
-                    {
-                        var prefabPath = string.Format("{0}/{1}.prefab", parentProjectPath, go.name);
-                        var prefab =  PrefabUtility.CreatePrefab(prefabPath, go);
-                        PrefabUtility.ReplacePrefab(go, prefab, ReplacePrefabOptions.ConnectToPrefab);
-                        
-                    }
-                }
-            }
+            AssetOperationUtil.CreatePrefab(parentProjectPath);
         }
+
+
 
         private static void CheckDropCustomBookMarkNode(int insertIndex, LinBookMarkElement parentElement)
         {
@@ -195,7 +183,6 @@ namespace LinBookMark
                 var fileInfo = new FileInfo(path);
                 var parentPath = AssetDatabase.GUIDToAssetPath(parentElement.AssetGuild);
                 var newPath = Path.Combine(parentPath, fileInfo.Name);
-                Debug.Log("move " + path + " to " + newPath);
                 AssetDatabase.MoveAsset(path, newPath);
             }
         }

@@ -82,5 +82,22 @@ namespace LinBookMark
             AssetDatabase.StopAssetEditing();
             return flag;
         }
+        
+        public static void CreatePrefab(string parentProjectPath)
+        {
+            if (string.IsNullOrEmpty(parentProjectPath) == false)
+            {
+                foreach (var objectReference in DragAndDrop.objectReferences)
+                {
+                    var go = objectReference as GameObject;
+                    if (go)
+                    {
+                        var prefabPath = string.Format("{0}/{1}.prefab", parentProjectPath, go.name);
+                        var prefab = PrefabUtility.CreatePrefab(prefabPath, go);
+                        PrefabUtility.ReplacePrefab(go, prefab, ReplacePrefabOptions.ConnectToPrefab);
+                    }
+                }
+            }
+        }
     }
 }
