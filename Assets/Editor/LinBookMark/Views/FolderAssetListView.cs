@@ -13,26 +13,26 @@ namespace LinBookMark
         // The TreeView is not serializable it should be reconstructed from the tree data.
         AssetListTreeView m_TreeView;
         private IList<string> _assetPathList;
-        SearchField m_SearchField;
+        SearchField _mSearchField;
         private int toolBarHeight = 18;
         private Rect _drawRect;
-        int treeViewYOffset =40;
+        int _treeViewYOffset =40;
         private AssetListGridView _gridView =new AssetListGridView();
         IList<string> _assetFileList = new List<string>();
         public void OnGUI(Rect rect,float iconSize )
         {
             _drawRect = rect;
-            GUI.BeginClip(new Rect(rect.x,rect.y-15,rect.width,rect.height));
+            GUI.BeginClip(new Rect(rect.x,rect.y-10,rect.width,rect.height));
             // if (CheckDrawSingleTexturePreview(rect)) return;
             CheckInit();
             DoToolbar();
-            if (iconSize > 16)
+            if (iconSize > 18 )
             {
                 _gridView.OnGUI(_drawRect,_assetFileList,(int)iconSize);
             }
             else
             {
-                m_TreeView.OnGUI(new Rect(0-10,treeViewYOffset,rect.width,rect.height-treeViewYOffset+15));
+                m_TreeView.OnGUI(new Rect(0-10,_treeViewYOffset,rect.width,rect.height-_treeViewYOffset+10));
             }
             GUI.EndClip();
         }
@@ -83,9 +83,9 @@ namespace LinBookMark
             {
                 m_TreeView = new AssetListTreeView(m_TreeViewState);
             }
-            if (m_SearchField == null)
+            if (_mSearchField == null)
             {
-                m_SearchField = new SearchField();
+                _mSearchField = new SearchField();
             }
         }
         
@@ -95,7 +95,7 @@ namespace LinBookMark
             {
                 GUILayout.BeginHorizontal(EditorStyles.toolbar);
                 GUILayout.Space(10);
-                m_TreeView.searchString = m_SearchField.OnToolbarGUI(m_TreeView.searchString);
+                m_TreeView.searchString = _mSearchField.OnToolbarGUI(m_TreeView.searchString);
                 GUILayout.Space(10);
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();

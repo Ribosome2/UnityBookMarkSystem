@@ -91,26 +91,25 @@ namespace LinBookMark
             }
         }
 
-        public static void DrawTexture(Rect drawRect, Texture texture,int cellSize)
+        public static void DrawTexture(Rect drawRect, Texture texture)
         {
-            BookMarkGuiUtil.DrawRectOutline(drawRect, Color.red);
+            // BookMarkGuiUtil.DrawRectOutline(drawRect, Color.red);
             float textureWidth = texture.width;
             float textureHeight = texture.height;
-            float scale = textureWidth / textureWidth;
-            drawRect = CalculateDrawRect(textureWidth, textureHeight, drawRect, scale,cellSize);
+            drawRect = CalculateDrawRect(textureWidth, textureHeight, drawRect);
             GUI.DrawTexture(drawRect, texture);
         }
 
-        public static Rect CalculateDrawRect(float iconWidth, float iconHeight, Rect drawRect, float scale,int cellSize)
+        public static Rect CalculateDrawRect(float iconWidth, float iconHeight, Rect drawRect)
         {
+            float scale = iconWidth / iconHeight;
+            var cellSize = drawRect.width;
             if (iconWidth < iconHeight)
             {
-                drawRect.height =  Mathf.Min(iconHeight, cellSize);
                 drawRect.width = drawRect.height * scale;
             }
             else
             {
-                drawRect.width = Mathf.Min(iconWidth,cellSize);
                 drawRect.height = drawRect.width / scale;
             }
             drawRect.x += (cellSize - drawRect.width) / 2;

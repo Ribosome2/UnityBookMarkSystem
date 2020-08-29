@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -9,14 +10,12 @@ namespace LinBookMark
     public class AssetListGridView
     {
         private int cellSize = 100;
-        private int SPRITE_LABEL_HEIGHT = 22;
+        private int AssetLabelHeight = 22;
         private int heightGap = 125;
         private Vector2 scroll_pos = Vector2.zero;
-        private string cur_select_sprite_name;
+        private string _curSelectSpriteName;
         public Action<Object> ItemClickDelegate;
-        public bool UseMinSize = true;
         public IList<string> showPaths;
-
 
         public void OnGUI(Rect drawRect,IList<string> paths,int gridSize)
         {
@@ -28,8 +27,6 @@ namespace LinBookMark
         public void DrawAssets(int scrollWidth )
         {
             GUILayout.BeginVertical();
-            GUILayout.Space(10);
-            GUILayout.Space(10);
             scrollWidth = Mathf.Max(100, scrollWidth);
             scroll_pos = GUILayout.BeginScrollView(scroll_pos, GUILayout.Width(scrollWidth));
 
@@ -49,7 +46,7 @@ namespace LinBookMark
                 row_index++;
             }
 
-            GUILayout.Space(row_index * (cellSize + SPRITE_LABEL_HEIGHT + 2));
+            GUILayout.Space(row_index * (cellSize + AssetLabelHeight + 2));
 
             GUILayout.EndScrollView();
 
@@ -60,12 +57,12 @@ namespace LinBookMark
         void DrawSingleAsset(int rowIndex, int colIndex, string assetPath)
         {
             GUILayout.BeginVertical();
-            Rect drawRect = new Rect(colIndex * (cellSize + 10),rowIndex * (cellSize + SPRITE_LABEL_HEIGHT + 2), cellSize, cellSize);
+            Rect drawRect = new Rect(colIndex * (cellSize + 10),rowIndex * (cellSize + AssetLabelHeight + 2), cellSize, cellSize);
             if (IsVisible(drawRect))
             {
                 
                 var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
-                if (GUI.Button(drawRect, ""))
+                // if (GUI.Button(drawRect, ""))
                 {
                     if (ItemClickDelegate != null)
                     {
@@ -75,13 +72,17 @@ namespace LinBookMark
                 var assetIcon = AssetPreview.GetAssetPreview(obj);
                 if (assetIcon)
                 {
-                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon,cellSize);
+                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon);
                 }
                 else
                 {
                     assetIcon =(Texture2D) AssetDatabase.GetCachedIcon(assetPath);
-                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon,cellSize);
+                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon);
                 }
+
+                var assetName = Path.GetFileNameWithoutExtension(assetPath);
+                var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,AssetLabelHeight);
+                EditorGUI.TextField(nameRect, "", assetName, "ProgressBarBack");
             }
             else
             {
@@ -104,9 +105,9 @@ namespace LinBookMark
             GUI.backgroundColor = new Color(.6f, 1.0f, 1.0f, 0.5f);
 
             GUI.backgroundColor = Color.white;
-            var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,SPRITE_LABEL_HEIGHT);
+            var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,AssetLabelHeight);
             EditorGUI.TextField(nameRect, "", sprite.name, "ProgressBarBack");
-            if (cur_select_sprite_name == sprite.name)
+            if (_curSelectSpriteName == sprite.name)
             {
                 BookMarkGuiUtil.DrawRectOutline(drawRect, Color.green);
             }
@@ -114,7 +115,7 @@ namespace LinBookMark
             float spriteWidth = sprite.rect.width;
             float spriteHeight = sprite.rect.height;
             float scale = spriteWidth / spriteHeight;
-            drawRect = BookMarkGuiUtil.CalculateDrawRect(spriteWidth, spriteHeight, drawRect, scale,cellSize);
+            drawRect = BookMarkGuiUtil.CalculateDrawRect(spriteWidth, spriteHeight, drawRect);
             GUI.DrawTextureWithTexCoords(drawRect, handleTexture, uv);
            
         }
