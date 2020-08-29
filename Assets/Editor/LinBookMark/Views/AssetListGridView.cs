@@ -97,9 +97,9 @@ namespace LinBookMark
                 if (Event.current.type == EventType.MouseDown)
                 {
                     mouseDownAsset = assetPath;
+                    
                 }else if (Event.current.type == EventType.MouseUp  && assetPath == mouseDownAsset)
                 {
-                    Debug.Log("click "+assetPath);
                     if (ItemClickDelegate != null)
                     {
                         ItemClickDelegate.Invoke(assetPath);
