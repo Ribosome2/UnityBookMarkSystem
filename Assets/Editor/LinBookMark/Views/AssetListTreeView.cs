@@ -216,6 +216,14 @@ namespace LinBookMark
             }
         }
 
+        protected override void ContextClickedItem(int id)
+        {
+            base.ContextClickedItem(id);
+            // Event current = Event.current;
+            // EditorUtility.DisplayPopupMenu(new Rect(current.mousePosition.x, current.mousePosition.y, 0.0f, 0.0f), "Assets/", (MenuCommand) null);
+            // current.Use();
+        }
+
         private static string GetFolderPathFromPathString(string path)
         {
             if (Directory.Exists(path))

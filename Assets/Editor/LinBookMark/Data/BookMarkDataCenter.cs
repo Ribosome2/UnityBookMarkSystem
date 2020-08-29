@@ -74,7 +74,7 @@ namespace LinBookMark
             }
             BookMarkData bookMarkData =new BookMarkData();
             bookMarkData.bookMarks = listToSave;
-            Debug.Log(DataSaver.GetBookMarkFilePath(DataSaver.DataFileName));
+            // Debug.Log(DataSaver.GetBookMarkFilePath(DataSaver.DataFileName));
             DataSaver.WriteToDisk(DataSaver.DataFileName,bookMarkData);
         }
         

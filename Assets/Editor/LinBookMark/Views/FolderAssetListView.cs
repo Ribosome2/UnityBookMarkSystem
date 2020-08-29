@@ -16,16 +16,17 @@ namespace LinBookMark
         SearchField _mSearchField;
         private Rect _drawRect;
         int _treeViewYOffset =40;
-        private AssetListGridView _gridView =new AssetListGridView();
+        private AssetListGridView _gridView;
         IList<string> _assetFileList = new List<string>();
+        public IAssetClickHandler clickHandler = new TextureAssetClickHandler();
         public void OnGUI(Rect rect,float iconSize )
         {
             _drawRect = rect;
+            CheckInit();
             GUI.BeginClip(new Rect(rect.x,rect.y-15,rect.width,rect.height));
             // if (CheckDrawSingleTexturePreview(rect)) return;
-            CheckInit();
             DoToolbar();
-            if (iconSize > 20 )
+            if (iconSize > 25 )
             {
                 _gridView.OnGUI(_drawRect,_assetFileList,(int)iconSize);
             }
@@ -85,6 +86,18 @@ namespace LinBookMark
             if (_mSearchField == null)
             {
                 _mSearchField = new SearchField();
+            }
+
+            if (_gridView == null)
+            {
+                _gridView= new AssetListGridView();
+                _gridView.ItemClickDelegate += obj =>
+                {
+                    if (clickHandler != null)
+                    {
+                        clickHandler.HandleClickAsset(obj);
+                    }
+                };
             }
         }
         

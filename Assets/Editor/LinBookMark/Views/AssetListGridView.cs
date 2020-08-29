@@ -13,8 +13,9 @@ namespace LinBookMark
         private int AssetLabelHeight = 22;
         private int heightGap = 125;
         private Vector2 scroll_pos = Vector2.zero;
-        private string _curSelectSpriteName;
-        public Action<Object> ItemClickDelegate;
+        private string _curSelectAssetName;
+        public string mouseDownAsset;
+        public Action<string> ItemClickDelegate;
         public IList<string> showPaths;
 
         public void OnGUI(Rect drawRect,IList<string> paths,int gridSize)
@@ -61,14 +62,8 @@ namespace LinBookMark
             if (IsVisible(drawRect))
             {
                 
+                HandleDrawRectInput(drawRect, assetPath);
                 var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
-                // if (GUI.Button(drawRect, ""))
-                {
-                    if (ItemClickDelegate != null)
-                    {
-                        ItemClickDelegate.Invoke(obj);
-                    }
-                }
                 var assetIcon = AssetPreview.GetAssetPreview(obj);
                 if (assetIcon)
                 {
@@ -82,7 +77,7 @@ namespace LinBookMark
 
                 var assetName = Path.GetFileNameWithoutExtension(assetPath);
                 var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,AssetLabelHeight);
-                EditorGUI.TextField(nameRect, "", assetName, "ProgressBarBack");
+                EditorGUI.TextField(nameRect, "", assetName);
             }
             else
             {
@@ -94,7 +89,24 @@ namespace LinBookMark
 
         }
 
+        private void HandleDrawRectInput(Rect drawRect, string assetPath)
+        {
 
+            if (Event.current.isMouse && drawRect.Contains(Event.current.mousePosition))
+            {
+                if (Event.current.type == EventType.MouseDown)
+                {
+                    mouseDownAsset = assetPath;
+                }else if (Event.current.type == EventType.MouseUp  && assetPath == mouseDownAsset)
+                {
+                    Debug.Log("click "+assetPath);
+                    if (ItemClickDelegate != null)
+                    {
+                        ItemClickDelegate.Invoke(assetPath);
+                    }
+                }
+            }
+        }
 
 
         private void DrawSprite( Sprite sprite, Rect drawRect)
@@ -107,7 +119,7 @@ namespace LinBookMark
             GUI.backgroundColor = Color.white;
             var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,AssetLabelHeight);
             EditorGUI.TextField(nameRect, "", sprite.name, "ProgressBarBack");
-            if (_curSelectSpriteName == sprite.name)
+            if (_curSelectAssetName == sprite.name)
             {
                 BookMarkGuiUtil.DrawRectOutline(drawRect, Color.green);
             }
