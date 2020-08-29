@@ -203,6 +203,19 @@ namespace LinBookMark
             EditorGUIUtility.PingObject(obj);
         }
 
+        protected override void SelectionChanged(IList<int> selectedIds)
+        {
+            base.SelectionChanged(selectedIds);
+            foreach (var selectedId in selectedIds)
+            {
+                var obj = EditorUtility.InstanceIDToObject(selectedId);
+                if (obj)
+                {
+                    Selection.SetActiveObjectWithContext(obj,null);
+                }
+            }
+        }
+
         private static string GetFolderPathFromPathString(string path)
         {
             if (Directory.Exists(path))

@@ -21,7 +21,7 @@ namespace LinBookMark
         public void OnGUI(Rect rect,float iconSize )
         {
             _drawRect = rect;
-            GUI.BeginClip(new Rect(rect.x,rect.y-10,rect.width,rect.height));
+            GUI.BeginClip(new Rect(rect.x,rect.y-15,rect.width,rect.height));
             // if (CheckDrawSingleTexturePreview(rect)) return;
             CheckInit();
             DoToolbar();
@@ -31,7 +31,7 @@ namespace LinBookMark
             }
             else
             {
-                m_TreeView.OnGUI(new Rect(0-10,_treeViewYOffset,rect.width,rect.height-_treeViewYOffset+10));
+                m_TreeView.OnGUI(new Rect(0,_treeViewYOffset,rect.width,rect.height-_treeViewYOffset+15));
             }
             GUI.EndClip();
         }
