@@ -8,7 +8,7 @@ namespace LinBookMark
     {
         public bool HandleClickAsset(string assetPath)
         {
-            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(assetPath);
+            var sprite = AssetDatabase.LoadAssetAtPath<Texture>(assetPath);
             if (sprite)
             {
                 SetSpriteToSelectedGameObjectInScene(sprite);
@@ -18,18 +18,18 @@ namespace LinBookMark
             return false;
         }
 
-        private static void SetSpriteToSelectedGameObjectInScene(Sprite sprite)
+        private static void SetSpriteToSelectedGameObjectInScene(Texture sprite)
         {
             foreach (var obj in Selection.objects)
             {
                 var go = obj as GameObject;
                 if (go)
                 {
-                    var uiImages = go.GetComponents<Image>();
+                    var uiImages = go.GetComponents<RawImage>();
                     foreach (var uiImage in uiImages)
                     {
-                        Undo.RecordObject(uiImage, "changeSprite");
-                        uiImage.sprite = sprite;
+                        Undo.RecordObject(uiImage, "changeRawImageTexture");
+                        uiImage.texture = sprite;
                     }
                 }
             }

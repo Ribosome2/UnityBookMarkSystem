@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
@@ -18,7 +19,8 @@ namespace LinBookMark
         int _treeViewYOffset =40;
         private AssetListGridView _gridView;
         IList<string> _assetFileList = new List<string>();
-        public IAssetClickHandler clickHandler = new TextureAssetClickHandler();
+        [NonSerialized]
+        IAssetClickHandler _clickHandler = new AssetClickManager();
         public void OnGUI(Rect rect,float iconSize )
         {
             _drawRect = rect;
@@ -93,9 +95,9 @@ namespace LinBookMark
                 _gridView= new AssetListGridView();
                 _gridView.ItemClickDelegate += obj =>
                 {
-                    if (clickHandler != null)
+                    if (_clickHandler != null)
                     {
-                        clickHandler.HandleClickAsset(obj);
+                        _clickHandler.HandleClickAsset(obj);
                     }
                 };
             }
