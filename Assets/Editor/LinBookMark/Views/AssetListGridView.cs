@@ -116,32 +116,41 @@ namespace LinBookMark
 
         private void HandleDrawRectInput(Rect drawRect, string assetPath)
         {
-
-            if (Event.current.isMouse && drawRect.Contains(Event.current.mousePosition))
+            if (Event.current.button == 0)
             {
-                if (Event.current.type == EventType.MouseDown)
+                if (Event.current.isMouse && drawRect.Contains(Event.current.mousePosition))
                 {
-                    mouseDownAsset = assetPath;
-                    DragDropUtil.SetupDragAsset(assetPath);
-                }
-                else if (Event.current.type == EventType.MouseUp  && assetPath == mouseDownAsset)
-                {
-                    if (ItemClickDelegate != null)
+                    if (Event.current.type == EventType.MouseDown )
                     {
-                        ItemClickDelegate.Invoke(assetPath);
+                        mouseDownAsset = assetPath;
+                   
+                    }else if (Event.current.type == EventType.MouseDrag)
+                    {
+                        if (assetPath.Equals(mouseDownAsset, StringComparison.Ordinal))
+                        {
+                            DragDropUtil.SetupDragAsset(assetPath);
+                        }
                     }
-                } 
-                
-               
-            }
-            if (Event.current.type == EventType.DragPerform && drawRect.Contains(Event.current.mousePosition))
-            {
-                DragDropUtil.TryReplaceAsset(assetPath);
-                Event.current.Use();
-            }
-            if (Event.current.type == EventType.DragUpdated)
-            {
-                DragAndDrop.visualMode = DragAndDropVisualMode.Link;
+                    else if (Event.current.type == EventType.MouseUp  && assetPath == mouseDownAsset)
+                    {
+                        if (ItemClickDelegate != null)
+                        {
+                            ItemClickDelegate.Invoke(assetPath);
+                        }
+                    } 
+                }
+                if (Event.current.type == EventType.DragPerform && drawRect.Contains(Event.current.mousePosition))
+                {
+                    if (assetPath.Equals(mouseDownAsset, StringComparison.Ordinal)==false)
+                    {
+                        Event.current.Use();
+                        DragDropUtil.TryReplaceAsset(assetPath);
+                    }
+                }
+                if (Event.current.type == EventType.DragUpdated)
+                {
+                    DragAndDrop.visualMode = DragAndDropVisualMode.Link;
+                }
             }
         }
 
