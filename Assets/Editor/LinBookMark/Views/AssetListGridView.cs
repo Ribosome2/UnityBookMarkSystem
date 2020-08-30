@@ -24,6 +24,30 @@ namespace LinBookMark
             cellSize = gridSize;
             showPaths = paths;
             DrawAssets((int)drawRect.width);
+
+            CheckDropToSelectFolder(drawRect);
+        }
+
+        private void CheckDropToSelectFolder(Rect drawRect)
+        {
+            if (Event.current.type == EventType.DragPerform && drawRect.Contains(Event.current.mousePosition))
+            {
+                var parentFolder = FileUtil.GetSharedParentFolderPath(showPaths);
+                if (string.IsNullOrEmpty(parentFolder) == false)
+                {
+                    if (DragDropUtil.IsDraggingProjectAsset())
+                    {
+                        DragDropUtil.MoveDraggingAssetToFolder(parentFolder);
+                    }
+                    else if(DragDropUtil.IsDraggingNonProjectPath())
+                    {
+                        DragDropUtil.TryImportDragAssets(parentFolder);
+                    }else if (DragDropUtil.IsDraggingHierarchyObject())
+                    {
+                        AssetOperationUtil.CreatePrefab(parentFolder);
+                    }
+                }
+            }
         }
 
         private void DrawAssets(int scrollWidth )
@@ -107,8 +131,14 @@ namespace LinBookMark
                         ItemClickDelegate.Invoke(assetPath);
                     }
                 } 
+                
+               
             }
-            
+            if (Event.current.type == EventType.DragPerform && drawRect.Contains(Event.current.mousePosition))
+            {
+                DragDropUtil.TryReplaceAsset(assetPath);
+                Event.current.Use();
+            }
             if (Event.current.type == EventType.DragUpdated)
             {
                 DragAndDrop.visualMode = DragAndDropVisualMode.Link;

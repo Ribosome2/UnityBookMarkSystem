@@ -141,7 +141,7 @@ namespace LinBookMark
                     CheckImportAssetByPath(args);
                 }else  if (DragAndDrop.paths.Length == 0 && DragAndDrop.objectReferences.Length > 0)
                 {
-                    AssetOperationUtil.CreatePrefab(GetSharedParentFolderPath());
+                    AssetOperationUtil.CreatePrefab(FileUtil.GetSharedParentFolderPath(pathList));
                 }
                 else
                 {
@@ -163,7 +163,7 @@ namespace LinBookMark
                 }
                 case DragAndDropPosition.BetweenItems:
                 case DragAndDropPosition.OutsideItems:
-                    var parentFolderPath = GetSharedParentFolderPath();
+                    var parentFolderPath = FileUtil.GetSharedParentFolderPath(pathList);
                     if (string.IsNullOrEmpty(parentFolderPath))
                     {
                         EditorUtility.DisplayDialog("add item ?", "Multiple   folders or none  selected ,I don't know where to drop ",
@@ -188,7 +188,7 @@ namespace LinBookMark
             }
             else
             {
-                var parentFolderPath = GetSharedParentFolderPath();
+                var parentFolderPath = FileUtil.GetSharedParentFolderPath(pathList);
                 if (string.IsNullOrEmpty(parentFolderPath))
                 {
                     EditorUtility.DisplayDialog("add item ?", "Multiple   folders or none  selected ,I don't know where to drop ",
@@ -201,31 +201,7 @@ namespace LinBookMark
             }
         }
 
-        string GetSharedParentFolderPath()
-        {
-            var result = string.Empty;
-            foreach (var path in pathList)
-            {
-                var parentPath = GetFolderPathFromPathString(path);
-                if (string.IsNullOrEmpty(parentPath)==false)
-                {
-                    
-                    if (string.IsNullOrEmpty(result))
-                    {
-                        result = parentPath;
-                    }
-                    else
-                    {
-                        if (parentPath != result)
-                        {
-                            // only return the parent path when all asset share same one
-                            return string.Empty;
-                        }
-                    }
-                }
-            }
-            return result;
-        }
+
 
         protected override void DoubleClickedItem(int id)
         {
@@ -248,21 +224,7 @@ namespace LinBookMark
         }
 
 
-        private static string GetFolderPathFromPathString(string path)
-        {
-            if (Directory.Exists(path))
-            {
-                return path;
-            }
-            else
-            {
-                if (File.Exists(path))
-                {
-                    return Path.GetDirectoryName(path);
-                }
-            }
-            return string.Empty;
-        }
+
 
         public string GetParentFolderDesc()
         {
@@ -275,7 +237,7 @@ namespace LinBookMark
             }
             else
             {
-                var shareFolder = GetSharedParentFolderPath();
+                var shareFolder = FileUtil.GetSharedParentFolderPath(pathList);
                 if (string.IsNullOrEmpty(shareFolder))
                 {
                     return "Showing MultipleFolders ...";

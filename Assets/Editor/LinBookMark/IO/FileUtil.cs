@@ -49,7 +49,48 @@ namespace LinBookMark
 
             return result;
         }
+
+        public static string GetSharedParentFolderPath(IList<string> pathList)
+        {
+            var result = string.Empty;
+            foreach (var path in pathList)
+            {
+                var parentPath = GetFolderPathFromPathString(path);
+                if (string.IsNullOrEmpty(parentPath)==false)
+                {
+                    
+                    if (string.IsNullOrEmpty(result))
+                    {
+                        result = parentPath;
+                    }
+                    else
+                    {
+                        if (parentPath != result)
+                        {
+                            // only return the parent path when all asset share same one
+                            return string.Empty;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
         
+        private static string GetFolderPathFromPathString(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                return path;
+            }
+            else
+            {
+                if (File.Exists(path))
+                {
+                    return Path.GetDirectoryName(path);
+                }
+            }
+            return string.Empty;
+        }
 
     }
 }
