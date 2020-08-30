@@ -93,11 +93,19 @@ namespace LinBookMark
 
         public static void DrawTexture(Rect drawRect, Texture texture)
         {
-            // BookMarkGuiUtil.DrawRectOutline(drawRect, Color.red);
-            float textureWidth = texture.width;
-            float textureHeight = texture.height;
-            drawRect = CalculateDrawRect(textureWidth, textureHeight, drawRect);
-            GUI.DrawTexture(drawRect, texture);
+            if (texture == null)
+            {
+                GUI.Box(drawRect,"null texture");
+               
+            }
+            else
+            {
+                // BookMarkGuiUtil.DrawRectOutline(drawRect, Color.red);
+                float textureWidth = texture.width;
+                float textureHeight = texture.height;
+                drawRect = CalculateDrawRect(textureWidth, textureHeight, drawRect);
+                GUI.DrawTexture(drawRect, texture);
+            }
         }
 
         public static Rect CalculateDrawRect(float iconWidth, float iconHeight, Rect drawRect)

@@ -97,8 +97,9 @@ namespace LinBookMark
                 if (Event.current.type == EventType.MouseDown)
                 {
                     mouseDownAsset = assetPath;
-                    
-                }else if (Event.current.type == EventType.MouseUp  && assetPath == mouseDownAsset)
+                    SetupDrag(assetPath);
+                }
+                else if (Event.current.type == EventType.MouseUp  && assetPath == mouseDownAsset)
                 {
                     if (ItemClickDelegate != null)
                     {
@@ -108,6 +109,30 @@ namespace LinBookMark
             }
         }
 
+        void SetupDrag(string assetPath)
+        {
+            DragAndDrop.PrepareStartDrag();
+            List<string> paths = new List<string>();
+            List<Object> objects = new List<Object>();
+            var obj = AssetDatabase.LoadMainAssetAtPath(assetPath);
+            if (obj)
+            {
+                paths.Add(AssetDatabase.GetAssetPath(obj));
+                objects.Add(obj);
+            }
+         
+            if (objects.Count > 0)
+            {
+                string title = objects.Count > 1 ? "<Multiple>" : objects.GetType().Name;
+                DragAndDrop.StartDrag(title);
+            }
+            else
+            {
+                DragAndDrop.StartDrag("nothing to drag");
+            }
+            DragAndDrop.paths = paths.ToArray();
+            DragAndDrop.objectReferences = objects.ToArray();
+        }
 
         private void DrawSprite( Sprite sprite, Rect drawRect)
         {
