@@ -143,11 +143,42 @@ namespace LinBookMark
                 {
                     AssetOperationUtil.CreatePrefab(GetSharedParentFolderPath());
                 }
+                else
+                {
+                    HandleOperationInSideProject(args);
+                }
             }
 
             return DragAndDropVisualMode.Move;
         }
 
+        private void HandleOperationInSideProject(DragAndDropArgs args)
+        {
+            switch (args.dragAndDropPosition)
+            {
+                case DragAndDropPosition.UponItem:
+                {
+                    
+                    break;
+                }
+                case DragAndDropPosition.BetweenItems:
+                case DragAndDropPosition.OutsideItems:
+                    var parentFolderPath = GetSharedParentFolderPath();
+                    if (string.IsNullOrEmpty(parentFolderPath))
+                    {
+                        EditorUtility.DisplayDialog("add item ?", "Multiple   folders or none  selected ,I don't know where to drop ",
+                            "Got it");
+                    }
+                    else
+                    {
+                        DragDropUtil.MoveDraggingAssetToFolder(parentFolderPath);
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
         private void CheckImportAssetByPath(DragAndDropArgs args)
         {
             var assetPath = GetTargetAssetPath(args);
@@ -216,13 +247,6 @@ namespace LinBookMark
             }
         }
 
-        protected override void ContextClickedItem(int id)
-        {
-            base.ContextClickedItem(id);
-            // Event current = Event.current;
-            // EditorUtility.DisplayPopupMenu(new Rect(current.mousePosition.x, current.mousePosition.y, 0.0f, 0.0f), "Assets/", (MenuCommand) null);
-            // current.Use();
-        }
 
         private static string GetFolderPathFromPathString(string path)
         {

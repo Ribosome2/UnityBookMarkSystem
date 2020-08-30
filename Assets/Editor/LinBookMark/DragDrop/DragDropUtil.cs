@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace LinBookMark
 {
@@ -129,6 +130,60 @@ namespace LinBookMark
             }
 
             return false;
+        }
+
+        public static void SetupDragAsset(string assetPath)
+        {
+            DragAndDrop.PrepareStartDrag();
+            List<string> paths = new List<string>();
+            List<Object> objects = new List<Object>();
+            var obj = AssetDatabase.LoadMainAssetAtPath(assetPath);
+            if (obj)
+            {
+                paths.Add(AssetDatabase.GetAssetPath(obj));
+                objects.Add(obj);
+            }
+         
+            if (objects.Count > 0)
+            {
+                string title = objects.Count > 1 ? "<Multiple>" : objects.GetType().Name;
+                DragAndDrop.StartDrag(title);
+            }
+            else
+            {
+                DragAndDrop.StartDrag("nothing to drag");
+            }
+            DragAndDrop.paths = paths.ToArray();
+            DragAndDrop.objectReferences = objects.ToArray();
+        }
+
+        public static void MoveDraggingAssetToFolder(string parentPath)
+        {
+            if (Directory.Exists(parentPath) == false)
+            {
+                Debug.LogWarning(string.Format("Directory: {0} not exist ",parentPath));
+                return;
+            }
+            foreach (var path in DragAndDrop.paths)
+            {
+               MoveAssetsToFolder(parentPath,path);
+            }
+        }
+        private static void MoveAssetsToFolder(string parentPath , string path)
+        {
+            var assetObj = AssetDatabase.LoadAssetAtPath<Object>(path);
+            if (assetObj && string.IsNullOrEmpty(path)==false)
+            {
+                var newPath = Path.Combine(parentPath, Path.GetFileName(path));
+                if (File.Exists(newPath))
+                {
+                    if (EditorUtility.DisplayDialog("Replace ?", string.Format("Do you want to replace file content of {0} ", newPath), "Yes")==false)
+                    {
+                        return;
+                    }
+                }
+                AssetDatabase.MoveAsset(path, newPath);
+            }
         }
     }
 }
