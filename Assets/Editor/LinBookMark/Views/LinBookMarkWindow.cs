@@ -17,14 +17,10 @@ namespace LinBookMark
             var window = GetWindow<LinBookMarkWindow>();
             window.titleContent = new GUIContent("BookMark", (Texture2D) EditorGUIUtility.Load(("FilterByLabel")));
             window.minSize = new Vector2(230, 250);
-//            window.position = new Rect(0,100f,500f,500f);
             window.Show();
         }
 
-        // We are using SerializeField here to make sure view state is written to the window 
-        // layout file. This means that the state survives restarting Unity as long as the window
-        // is not closed. If omitting the attribute then the state just survives assembly reloading 
-        // (i.e. it still gets serialized/deserialized)
+  
         [SerializeField] TreeViewState m_TreeViewState;
 
         // The TreeView is not serializable it should be reconstructed from the tree data.
@@ -81,11 +77,17 @@ namespace LinBookMark
 
         private void OnTreeSelectionChange(IList<int> list)
         {
+            RefreshAssetList();
+        }
+
+        private void RefreshAssetList()
+        {
+            var treeItemIds = m_TreeView.GetSelection();
             List<string> asstPathList = new List<string>();
-            foreach (var id in list)
+            foreach (var id in treeItemIds)
             {
                 var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(id);
-                if (element != null && string.IsNullOrEmpty(element.AssetGuild)==false)
+                if (element != null && string.IsNullOrEmpty(element.AssetGuild) == false)
                 {
                     var projectPath = AssetDatabase.GUIDToAssetPath(element.AssetGuild);
                     if (string.IsNullOrEmpty(projectPath) == false)
@@ -93,13 +95,13 @@ namespace LinBookMark
                         asstPathList.Add(projectPath);
                     }
                 }
-                
             }
-            List<string> expandList  = BookMarkDataCenter.instance.GetMainPathsOfAssetsFromAutoExpandNodes(list);
+
+            List<string> expandList = BookMarkDataCenter.instance.GetMainPathsOfAssetsFromAutoExpandNodes(treeItemIds);
             asstPathList.AddRange(expandList);
             assetListView.SetAssetList(asstPathList);
         }
-        
+
         private void OnAfterAssemblyReload()
         {
             RebuildTreeView();
@@ -122,6 +124,7 @@ namespace LinBookMark
         private void OnProjectChanged()
         {
             RebuildTreeView();
+            RefreshAssetList();
         }
 
 

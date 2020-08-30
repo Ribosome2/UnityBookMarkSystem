@@ -100,7 +100,6 @@ namespace LinBookMark
             }
             else
             {
-                // BookMarkGuiUtil.DrawRectOutline(drawRect, Color.red);
                 float textureWidth = texture.width;
                 float textureHeight = texture.height;
                 drawRect = CalculateDrawRect(textureWidth, textureHeight, drawRect);

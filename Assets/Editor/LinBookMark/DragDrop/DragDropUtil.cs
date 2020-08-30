@@ -155,6 +155,7 @@ namespace LinBookMark
             }
             DragAndDrop.paths = paths.ToArray();
             DragAndDrop.objectReferences = objects.ToArray();
+            DragAndDrop.visualMode = DragAndDropVisualMode.Link;
         }
 
         public static void MoveDraggingAssetToFolder(string parentPath)
