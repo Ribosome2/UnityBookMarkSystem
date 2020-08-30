@@ -106,6 +106,21 @@ namespace LinBookMark
                 GUI.DrawTexture(drawRect, texture);
             }
         }
+        
+        public static void DrawSprite( Rect drawRect,Sprite sprite)
+        {
+            Texture2D handleTexture = sprite.texture;
+            Rect uv = new Rect(sprite.rect.x / handleTexture.width, sprite.rect.y / handleTexture.height,
+                sprite.rect.width / handleTexture.width, sprite.rect.height / handleTexture.height);
+            GUI.backgroundColor = new Color(.6f, 1.0f, 1.0f, 0.5f);
+        
+            GUI.backgroundColor = Color.white;
+            float spriteWidth = sprite.rect.width;
+            float spriteHeight = sprite.rect.height;
+            float scale = spriteWidth / spriteHeight;
+            drawRect = BookMarkGuiUtil.CalculateDrawRect(spriteWidth, spriteHeight, drawRect);
+            GUI.DrawTextureWithTexCoords(drawRect, handleTexture, uv);
+        }
 
         public static Rect CalculateDrawRect(float iconWidth, float iconHeight, Rect drawRect)
         {
