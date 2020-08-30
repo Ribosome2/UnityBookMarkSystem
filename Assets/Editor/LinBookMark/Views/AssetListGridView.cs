@@ -18,6 +18,7 @@ namespace LinBookMark
         public Action<string> ItemClickDelegate;
         public IList<string> showPaths;
         private Rect _drawRect;
+        private IAssetDrawer _assetDrawer = new DefaultAssetDrawer();
         public void OnGUI(Rect drawRect,IList<string> paths,int gridSize)
         {
             _drawRect = drawRect;
@@ -88,18 +89,7 @@ namespace LinBookMark
             {
                 
                 HandleDrawRectInput(drawRect, assetPath);
-                var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
-                var assetIcon = AssetPreview.GetAssetPreview(obj);
-                if (assetIcon)
-                {
-                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon);
-                }
-                else
-                {
-                    assetIcon =(Texture2D) AssetDatabase.GetCachedIcon(assetPath);
-                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon);
-                }
-
+                _assetDrawer.DrawAsset(drawRect,assetPath);
                 var assetName = Path.GetFileNameWithoutExtension(assetPath);
                 var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,AssetLabelHeight);
                 EditorGUI.TextField(nameRect, "", assetName);
@@ -108,10 +98,7 @@ namespace LinBookMark
             {
                 GUI.Box(drawRect, "Empty");
             }
-
-
             GUILayout.EndVertical();
-
         }
 
         private void HandleDrawRectInput(Rect drawRect, string assetPath)

@@ -16,11 +16,16 @@ namespace LinBookMark
             var assetIcon = AssetPreview.GetAssetPreview(obj);
             if (assetIcon)
             {
-                // BookMarkGuiUtil.Draw(drawRect,assetIcon);
+                BookMarkGuiUtil.DrawTexture(drawRect,assetIcon);
             }
             else
             {
-                    
+                var cachedIcon = AssetDatabase.GetCachedIcon(assetPath);
+                if (cachedIcon)
+                {
+                    assetIcon =(Texture2D) cachedIcon;
+                    BookMarkGuiUtil.DrawTexture(drawRect,assetIcon);
+                }
             }
         }
     }
