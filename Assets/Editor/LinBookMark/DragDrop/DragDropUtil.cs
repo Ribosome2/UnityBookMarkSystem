@@ -165,9 +165,13 @@ namespace LinBookMark
                 Debug.LogWarning(string.Format("Directory: {0} not exist ",parentPath));
                 return;
             }
+
             foreach (var path in DragAndDrop.paths)
             {
-               MoveAssetsToFolder(parentPath,path);
+                if (string.Equals(parentPath, Path.GetDirectoryName(path),StringComparison.Ordinal) == false)
+                {
+                    MoveAssetsToFolder(parentPath,path);
+                }
             }
         }
         private static void MoveAssetsToFolder(string parentPath , string path)

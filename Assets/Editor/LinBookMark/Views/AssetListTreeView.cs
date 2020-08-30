@@ -158,7 +158,7 @@ namespace LinBookMark
             {
                 case DragAndDropPosition.UponItem:
                 {
-                    
+                    DragDropUtil.TryReplaceAsset(AssetDatabase.GetAssetPath(args.parentItem.id));
                     break;
                 }
                 case DragAndDropPosition.BetweenItems:

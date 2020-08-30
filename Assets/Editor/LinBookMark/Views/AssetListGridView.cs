@@ -106,10 +106,12 @@ namespace LinBookMark
                     {
                         ItemClickDelegate.Invoke(assetPath);
                     }
-                }else if (Event.current.type == EventType.DragUpdated)
-                {
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Link;
-                }
+                } 
+            }
+            
+            if (Event.current.type == EventType.DragUpdated)
+            {
+                DragAndDrop.visualMode = DragAndDropVisualMode.Link;
             }
         }
 
