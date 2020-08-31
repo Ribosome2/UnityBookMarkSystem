@@ -6,11 +6,12 @@ using UnityEngine;
 
 namespace LinBookMark
 {
+    [System.Serializable]
     public class WindowSplitterDrawer
     {
         private EditorWindow _window;
         private ISplittableWindow _splittableWindow;
-        public WindowSplitterDrawer(EditorWindow window,ISplittableWindow splittableWindow)
+        public void SetOwnerWindow(EditorWindow window,ISplittableWindow splittableWindow)
         {
             _window = window;
             _splittableWindow = splittableWindow;

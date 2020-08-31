@@ -28,11 +28,12 @@ namespace LinBookMark
         SearchField m_SearchField;
         public GUIContent m_CreateDropdownContent = new GUIContent("Create");
         private BookMarkGUIStyles guiStyles;
+        [SerializeField]
         private WindowSplitterDrawer splitter ;
         public FolderAssetListView assetListView;
         void OnEnable()
         {
-            splitter = new WindowSplitterDrawer(this,this);
+            
             CheckInitState();
 
 
@@ -61,6 +62,12 @@ namespace LinBookMark
             {
                 assetListView = new FolderAssetListView();
             }
+
+            if (splitter == null)
+            {
+                splitter = new WindowSplitterDrawer();
+            }
+            splitter.SetOwnerWindow(this,this);
         }
 
 
@@ -68,6 +75,7 @@ namespace LinBookMark
         {
             m_SearchField.downOrUpArrowKeyPressed -= m_TreeView.SetFocusAndEnsureSelectedItem;
             BookMarkDataCenter.instance.BookMarkDataChangeEvent += m_TreeView.Reload;
+            // EditorApplication.playModeStateChanged += new Action<PlayModeStateChange>(this.OnPlayModeStateChanged);
             EditorApplication.projectWindowChanged -= new EditorApplication.CallbackFunction(this.OnProjectChanged);
             AssemblyReloadEvents.afterAssemblyReload -= new AssemblyReloadEvents.AssemblyReloadCallback(this.OnAfterAssemblyReload);
 
