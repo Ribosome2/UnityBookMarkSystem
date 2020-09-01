@@ -7,7 +7,6 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assets\Editor" t="Include">
         <e p="LinBookMark" t="Include">
-          <e p="BookMarkTreeBuilder.cs" t="Include" />
           <e p="Commands" t="Include">
             <e p="BookMarkCreateCommand.cs" t="Include" />
           </e>
@@ -23,21 +22,40 @@
           <e p="DragDrop" t="Include">
             <e p="AssetOperationUtil.cs" t="Include" />
             <e p="BookMarkDragDropHandler.cs" t="Include" />
+            <e p="DragDropUtil.cs" t="Include" />
             <e p="IDragDropHandler.cs" t="Include" />
           </e>
           <e p="GUIStyles" t="Include">
             <e p="BookMarkGUIStyles.cs" t="Include" />
           </e>
           <e p="InputHandle" t="Include">
+            <e p="AssetClickManager.cs" t="Include" />
+            <e p="IAssetClickHandler.cs" t="Include" />
+            <e p="SpriteAssetClickHandler.cs" t="Include" />
+            <e p="TextureAssetClickHandler.cs" t="Include" />
             <e p="TreeViewInputHandler.cs" t="Include" />
           </e>
           <e p="Interface" t="Include">
+            <e p="IAssetDrawer.cs" t="Include" />
             <e p="ISplittableWindow.cs" t="Include" />
+          </e>
+          <e p="IO" t="Include">
+            <e p="FileUtil.cs" t="Include" />
+          </e>
+          <e p="Menu" t="Include">
+            <e p="FolderMenuOptions.cs" t="Include" />
+          </e>
+          <e p="TreeBuilder" t="Include">
+            <e p="BookMarkTreeBuilder.cs" t="Include" />
           </e>
           <e p="Util" t="Include">
             <e p="BookMarkGuiUtil.cs" t="Include" />
           </e>
           <e p="Views" t="Include">
+            <e p="AssetDrawers" t="Include">
+              <e p="DefaultAssetDrawer.cs" t="Include" />
+            </e>
+            <e p="AssetListGridView.cs" t="Include" />
             <e p="AssetListTreeView.cs" t="Include" />
             <e p="FolderAssetListView.cs" t="Include" />
             <e p="LinBookMarkTreeView.cs" t="Include" />

@@ -117,7 +117,6 @@ namespace LinBookMark
             GUI.backgroundColor = Color.white;
             float spriteWidth = sprite.rect.width;
             float spriteHeight = sprite.rect.height;
-            float scale = spriteWidth / spriteHeight;
             drawRect = BookMarkGuiUtil.CalculateDrawRect(spriteWidth, spriteHeight, drawRect);
             GUI.DrawTextureWithTexCoords(drawRect, handleTexture, uv);
         }
@@ -126,6 +125,8 @@ namespace LinBookMark
         {
             float scale = iconWidth / iconHeight;
             var cellSize = drawRect.width;
+            drawRect.width = Mathf.Min(iconWidth, cellSize);
+            drawRect.height = Mathf.Min(iconHeight, cellSize);
             if (iconWidth < iconHeight)
             {
                 drawRect.width = drawRect.height * scale;
