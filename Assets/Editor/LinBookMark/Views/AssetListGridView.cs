@@ -141,28 +141,6 @@ namespace LinBookMark
             }
         }
 
-        // private void DrawSprite( Sprite sprite, Rect drawRect)
-        // {
-        //     Texture2D handleTexture = sprite.texture;
-        //     Rect uv = new Rect(sprite.rect.x / handleTexture.width, sprite.rect.y / handleTexture.height,
-        //         sprite.rect.width / handleTexture.width, sprite.rect.height / handleTexture.height);
-        //     GUI.backgroundColor = new Color(.6f, 1.0f, 1.0f, 0.5f);
-        //
-        //     GUI.backgroundColor = Color.white;
-        //     var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,AssetLabelHeight);
-        //     EditorGUI.TextField(nameRect, "", sprite.name, "ProgressBarBack");
-        //     if (_curSelectAssetName == sprite.name)
-        //     {
-        //         BookMarkGuiUtil.DrawRectOutline(drawRect, Color.green);
-        //     }
-        //     float spriteWidth = sprite.rect.width;
-        //     float spriteHeight = sprite.rect.height;
-        //     float scale = spriteWidth / spriteHeight;
-        //     drawRect = BookMarkGuiUtil.CalculateDrawRect(spriteWidth, spriteHeight, drawRect);
-        //     GUI.DrawTextureWithTexCoords(drawRect, handleTexture, uv);
-        // }
-
-
 
         bool IsVisible(Rect drawRect)
          {

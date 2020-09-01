@@ -106,6 +106,13 @@ namespace LinBookMark
             // SetSelection (transforms.Select (t => t.gameObject.GetInstanceID ()).ToList (), TreeViewSelectionOptions.RevealAndFrame);
         }
 
+        protected override void ContextClickedItem(int id)
+        {
+            base.ContextClickedItem(id);
+            var rect = GetRowRect(id);
+            EditorUtility.DisplayPopupMenu(rect, "KyleKit/FolderMark", (MenuCommand) null);
+        }
+
         private void HandleOperationInSideProject(DragAndDropArgs args)
         {
             switch (args.dragAndDropPosition)

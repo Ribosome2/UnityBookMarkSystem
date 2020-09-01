@@ -11,7 +11,7 @@ namespace LinBookMark
 {
     public class LinBookMarkWindow : EditorWindow,ISplittableWindow
     {
-        [MenuItem("KyleKit/LinBookMarkd %k")]
+        [MenuItem("KyleKit/LinBookMark %k")]
         private static void ShowWindow()
         {
             var window = GetWindow<LinBookMarkWindow>();
