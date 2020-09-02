@@ -47,6 +47,7 @@ namespace LinBookMark
                     {
                         AssetOperationUtil.CreatePrefab(parentFolder);
                     }
+                    Event.current.Use();
                 }
             }
         }
@@ -110,6 +111,7 @@ namespace LinBookMark
                     if (Event.current.type == EventType.MouseDown )
                     {
                         mouseDownAsset = assetPath;
+                        Event.current.Use();
                    
                     }else if (Event.current.type == EventType.MouseDrag)
                     {
@@ -124,6 +126,7 @@ namespace LinBookMark
                         {
                             ItemClickDelegate.Invoke(assetPath);
                         }
+                        Event.current.Use();
                     } 
                 }
                 if (Event.current.type == EventType.DragPerform && drawRect.Contains(Event.current.mousePosition))

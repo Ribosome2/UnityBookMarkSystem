@@ -22,6 +22,7 @@ namespace LinBookMark
             string path = Application.persistentDataPath + "/" + GetBookMarkFilePath( fileName);
 #if UNITY_5_4_OR_NEWER
 			string str = JsonUtility.ToJson(serializeObject);
+            Debug.Log("mark "+ str);
             File.AppendAllText(path, str + Environment.NewLine);
 #else
 			BinaryFormatter bf = new BinaryFormatter();

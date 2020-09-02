@@ -55,7 +55,6 @@ namespace LinBookMark
             if (m_TreeViewState == null)
             {
                 m_TreeViewState = new TreeViewState();
-                Debug.Log("new treedd");
             }
 
             if (assetListView == null)
@@ -108,6 +107,7 @@ namespace LinBookMark
             List<string> expandList = BookMarkDataCenter.instance.GetMainPathsOfAssetsFromAutoExpandNodes(treeItemIds);
             asstPathList.AddRange(expandList);
             assetListView.SetAssetList(asstPathList);
+            KyleSelections.assetGUIDs = asstPathList.ToArray();
         }
 
         private void OnAfterAssemblyReload()

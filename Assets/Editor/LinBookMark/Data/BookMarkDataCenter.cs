@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.TreeViewExamples;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace LinBookMark
                 return _instance;
             }
         }
-        public Dictionary<string,string> FoldersMark = new Dictionary<string, string>();
+       
         List<LinBookMarkElement> bookMarks = new List<LinBookMarkElement>();
         public TreeModel<LinBookMarkElement> bookMarkDataModel;
         public ExpandDataMgr ExpandDataMgr = new ExpandDataMgr();
@@ -57,6 +58,7 @@ namespace LinBookMark
                     bookMarks.Add(item);
                 }
             }
+            AssetMarkDataMgr.Init();
         }
 
         public void SaveCurrentTreeModel()

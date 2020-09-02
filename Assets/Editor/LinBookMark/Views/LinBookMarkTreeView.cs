@@ -38,7 +38,23 @@ namespace LinBookMark
         protected override void RowGUI(RowGUIArgs args)
         {
             base.RowGUI(args);
-            
+            var path = BookMarkDataCenter.instance.GetAssetPath(args.item.id);
+            if (string.IsNullOrEmpty(path) == false)
+            {
+                string assetMark;
+                // path = AssetDatabase.AssetPathToGUID(path);
+                if (AssetMarkDataMgr.AssetsMarkDict.TryGetValue(path, out assetMark))
+                {
+                    var icon = (Texture2D) EditorGUIUtility.Load(assetMark);
+                    if (icon)
+                    {
+                        var rowRect = args.rowRect;
+                        var iconSize = rowRect.height;
+                        var drawRect = new Rect(rowRect.x+rowRect.width-rowRect.height,rowRect.y,iconSize,iconSize);
+                        BookMarkGuiUtil.DrawTexture(drawRect, icon);
+                    }
+                }
+            }
         }
 
         protected override bool CanStartDrag(CanStartDragArgs args)
@@ -109,8 +125,8 @@ namespace LinBookMark
         protected override void ContextClickedItem(int id)
         {
             base.ContextClickedItem(id);
-            var rect = GetRowRect(id);
-            EditorUtility.DisplayPopupMenu(rect, "KyleKit/FolderMark", (MenuCommand) null);
+            var rect = new Rect(Event.current.mousePosition.x,Event.current.mousePosition.y,100,16);
+            EditorUtility.DisplayPopupMenu(rect, "KyleKit/Assets", (MenuCommand) null);
         }
 
         private void HandleOperationInSideProject(DragAndDropArgs args)

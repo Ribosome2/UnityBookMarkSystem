@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LinBookMark
 {
@@ -6,6 +7,19 @@ namespace LinBookMark
     public class BookMarkData
     {
         public List<LinBookMarkElement> bookMarks = new List<LinBookMarkElement>();
-        public Dictionary<string,string> foldersMark = new Dictionary<string, string>();
     }
+
+    [Serializable]
+    public class AssetMarkRecord
+    {
+        public string AssetPath;
+        public string Icon;
+    }
+    
+    [System.Serializable]
+    public class AssetMarkData
+    {
+        public List<AssetMarkRecord> AssetsMarkList = new List<AssetMarkRecord>();
+    }
+    
 }
