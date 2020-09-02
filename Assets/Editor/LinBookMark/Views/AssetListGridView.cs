@@ -19,6 +19,7 @@ namespace LinBookMark
         public IList<string> showPaths;
         private Rect _drawRect;
         private IAssetDrawer _assetDrawer = new DefaultAssetDrawer();
+        private string _selectAssetPath;
         public void OnGUI(Rect drawRect,IList<string> paths,int gridSize)
         {
             _drawRect = drawRect;
@@ -88,12 +89,7 @@ namespace LinBookMark
             Rect drawRect = new Rect(colIndex * (cellSize + 10),rowIndex * (cellSize + AssetLabelHeight + 2), cellSize, cellSize);
             if (IsVisible(drawRect))
             {
-                
-                HandleDrawRectInput(drawRect, assetPath);
-                _assetDrawer.DrawAsset(drawRect,assetPath);
-                var assetName = Path.GetFileNameWithoutExtension(assetPath);
-                var nameRect = new Rect(drawRect.x,drawRect.yMax, cellSize,AssetLabelHeight);
-                EditorGUI.TextField(nameRect, "", assetName);
+                DrawVisibleAsset(assetPath, drawRect);
             }
             else
             {
@@ -102,8 +98,22 @@ namespace LinBookMark
             GUILayout.EndVertical();
         }
 
+        private void DrawVisibleAsset(string assetPath, Rect drawRect)
+        {
+            HandleDrawRectInput(drawRect, assetPath);
+            _assetDrawer.DrawAsset(drawRect, assetPath);
+            var assetName = Path.GetFileNameWithoutExtension(assetPath);
+            var nameRect = new Rect(drawRect.x, drawRect.yMax, cellSize, AssetLabelHeight);
+            EditorGUI.TextField(nameRect, "", assetName);
+            if (assetPath.Equals(_selectAssetPath, StringComparison.Ordinal))
+            {
+                BookMarkGuiUtil.DrawRectOutline(drawRect, Color.green);
+            }
+        }
+
         private void HandleDrawRectInput(Rect drawRect, string assetPath)
         {
+            
             if (Event.current.button == 0)
             {
                 if (Event.current.isMouse && drawRect.Contains(Event.current.mousePosition))
@@ -122,10 +132,7 @@ namespace LinBookMark
                     }
                     else if (Event.current.type == EventType.MouseUp  && assetPath == mouseDownAsset)
                     {
-                        if (ItemClickDelegate != null)
-                        {
-                            ItemClickDelegate.Invoke(assetPath);
-                        }
+                        HandleClickAsset(assetPath);
                         Event.current.Use();
                     } 
                 }
@@ -141,6 +148,38 @@ namespace LinBookMark
                 {
                     DragAndDrop.visualMode = DragAndDropVisualMode.Link;
                 }
+            }
+
+            if (Event.current.button == 1 )
+            {
+                if (Event.current.type == EventType.MouseDown && drawRect.Contains(Event.current.mousePosition))
+                {
+                    mouseDownAsset = assetPath;
+                }
+
+                if (Event.current.type == EventType.MouseUp)
+                {
+                    if (drawRect.Contains(Event.current.mousePosition) && assetPath.Equals(mouseDownAsset, StringComparison.Ordinal))
+                    {
+                        var rect = new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 100, 20);
+                        var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
+                        EditorUtility.DisplayPopupMenu( rect,"KyleKit/Assets/AssetContext", new MenuCommand(obj));
+                        Event.current.Use();
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+            }
+        }
+
+        private void HandleClickAsset(string assetPath)
+        {
+            _selectAssetPath = assetPath;
+            if (ItemClickDelegate != null)
+            {
+                ItemClickDelegate.Invoke(assetPath);
             }
         }
 
