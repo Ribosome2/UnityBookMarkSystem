@@ -218,6 +218,10 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\LinBookMark\AssetFilter\AssetPathFilterByFileName.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Commands\BookMarkCreateCommand.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Commands\CommandBase.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Commands\CopyAssetCommand.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Commands\PasteAssetCommand.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Commands\PingSpriteInHierarchyCommand.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\AssetMarkDataMgr.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkData.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Data\BookMarkDataCenter.cs" />
@@ -234,10 +238,8 @@
     <Compile Include="Assets\Editor\LinBookMark\GUIStyles\BookMarkGUIStyles.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\AssetClickManager.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\AssetContextHandler.cs" />
-    <Compile Include="Assets\Editor\LinBookMark\InputHandle\CommandBase.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\CommandsHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\IAssetClickHandler.cs" />
-    <Compile Include="Assets\Editor\LinBookMark\InputHandle\PingSpriteInHierarchyCommand.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\SpriteAssetClickHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\TextureAssetClickHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\TreeViewInputHandler.cs" />

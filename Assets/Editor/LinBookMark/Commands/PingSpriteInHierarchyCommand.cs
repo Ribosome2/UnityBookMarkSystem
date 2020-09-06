@@ -1,10 +1,12 @@
-﻿using UnityEditor;
+﻿using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = System.Object;
 
 namespace LinBookMark
 {
+    [UsedImplicitly]
     public class PingSpriteInHierarchyCommand:CommandBase
     {
         public override void Execute(params object[] targets)
