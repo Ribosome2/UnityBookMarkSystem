@@ -21,6 +21,7 @@ namespace LinBookMark
         IList<string> _assetFileList = new List<string>();
         [NonSerialized]
         IAssetClickHandler _clickHandler = new AssetClickManager();
+        
         public void OnGUI(Rect rect,float iconSize )
         {
             _drawRect = rect;
@@ -30,7 +31,7 @@ namespace LinBookMark
             DoToolbar();
             if (iconSize > 25 )
             {
-                _gridView.OnGUI(_drawRect,_assetFileList,(int)iconSize);
+                _gridView.OnGUI(_drawRect,_assetFileList,m_TreeView.searchString,(int)iconSize);
             }
             else
             {

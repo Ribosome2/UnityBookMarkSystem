@@ -20,11 +20,12 @@ namespace LinBookMark
         private Rect _drawRect;
         private IAssetDrawer _assetDrawer = new DefaultAssetDrawer();
         private string _selectAssetPath;
-        public void OnGUI(Rect drawRect,IList<string> paths,int gridSize)
+        private IAssetPathFilter _pathFilter = new AssetPathFilterByFileName();
+        public void OnGUI(Rect drawRect,IList<string> paths,string searchStr,int gridSize)
         {
             _drawRect = drawRect;
             cellSize = gridSize;
-            showPaths = paths;
+            showPaths = _pathFilter.GetFilterPaths(paths,searchStr);
             DrawAssets((int)drawRect.width);
 
             CheckDropToSelectFolder(drawRect);
