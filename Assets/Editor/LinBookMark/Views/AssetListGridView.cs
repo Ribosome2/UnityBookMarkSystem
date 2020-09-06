@@ -21,6 +21,7 @@ namespace LinBookMark
         private IAssetDrawer _assetDrawer = new DefaultAssetDrawer();
         private string _selectAssetPath;
         private IAssetPathFilter _pathFilter = new AssetPathFilterByFileName();
+        IAssetContextHandler _assetContextHandler = new AssetContextHandler();
         public void OnGUI(Rect drawRect,IList<string> paths,string searchStr,int gridSize)
         {
             _drawRect = drawRect;
@@ -163,8 +164,9 @@ namespace LinBookMark
                     if (drawRect.Contains(Event.current.mousePosition) && assetPath.Equals(mouseDownAsset, StringComparison.Ordinal))
                     {
                         var rect = new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 100, 20);
-                        var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
-                        EditorUtility.DisplayPopupMenu( rect,"KyleKit/Assets/AssetContext", new MenuCommand(obj));
+                        // var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
+                        // EditorUtility.DisplayPopupMenu( rect,"KyleKit/Assets/AssetContext", new MenuCommand(obj));
+                        _assetContextHandler.HandlerAssetContextClick(mouseDownAsset);
                         Event.current.Use();
                     }
                     else

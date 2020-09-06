@@ -233,10 +233,15 @@
     <Compile Include="Assets\Editor\LinBookMark\DragDrop\IDragDropHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\GUIStyles\BookMarkGUIStyles.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\AssetClickManager.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\InputHandle\AssetContextHandler.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\InputHandle\CommandBase.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\InputHandle\CommandsHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\IAssetClickHandler.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\InputHandle\PingSpriteInHierarchyCommand.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\SpriteAssetClickHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\TextureAssetClickHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\InputHandle\TreeViewInputHandler.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Interface\IAssetContextHandler.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Interface\IAssetDrawer.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Interface\IAssetPathFilter.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Interface\ISplittableWindow.cs" />
