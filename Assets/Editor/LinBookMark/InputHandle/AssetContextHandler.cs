@@ -9,7 +9,6 @@ namespace LinBookMark
     {
         public static  void ShowContextMenu(string path)
         {
-            Debug.Log("show "+path);
             var obj = AssetDatabase.LoadAssetAtPath<Object>(path);
             var menu = new GenericMenu();
             menu.AddItem(new GUIContent("PingProject"), false, delegate (object data) {
