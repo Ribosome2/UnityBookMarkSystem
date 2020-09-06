@@ -30,6 +30,12 @@ namespace LinBookMark
             DrawAssets((int)drawRect.width);
 
             CheckDropToSelectFolder(drawRect);
+            
+            // if (Event.current.rawType == EventType.MouseUp && _drawRect.Contains(Event.current.mousePosition))
+            // {
+            //     _assetContextHandler.HandlerAssetContextClick( FileUtil.GetSharedParentFolderPath(showPaths));
+            //     Event.current.Use();
+            // }
         }
 
         private void CheckDropToSelectFolder(Rect drawRect)
@@ -163,15 +169,12 @@ namespace LinBookMark
                 {
                     if (drawRect.Contains(Event.current.mousePosition) && assetPath.Equals(mouseDownAsset, StringComparison.Ordinal))
                     {
-                        var rect = new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y, 100, 20);
-                        // var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
-                        // EditorUtility.DisplayPopupMenu( rect,"KyleKit/Assets/AssetContext", new MenuCommand(obj));
                         _assetContextHandler.HandlerAssetContextClick(mouseDownAsset);
                         Event.current.Use();
                     }
                     else
                     {
-                        
+                       
                     }
                 }
             }

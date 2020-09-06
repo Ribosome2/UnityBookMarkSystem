@@ -153,11 +153,9 @@ namespace LinBookMark
 
 
         [NonSerialized]
-        private float m_SearchAreaMenuOffset = -1f;
+        // private float m_SearchAreaMenuOffset = -1f;
         private string m_SelectedPath;
         private List<GUIContent> m_SelectedPathSplitted = new List<GUIContent>();
-        private string m_AssetStoreError = "";
-  
 
         public float GetBottomBarHeight()
         {

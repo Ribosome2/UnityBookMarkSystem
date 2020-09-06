@@ -15,7 +15,7 @@ namespace LinBookMark
             var images = GameObject.FindObjectsOfType<Image>();
             foreach (var img in images)
             {
-                if (img.sprite == (Object)targets[0])
+                if (img.sprite == (Sprite)targets[0])
                 {
                     EditorGUIUtility.PingObject(img.gameObject);
                 }

@@ -34,7 +34,7 @@ namespace LinBookMark
         public int GridSize = 20;
         private int m_MinGridSize = 16;
         private int m_MaxGridSize = 96;
-        private List<KeyValuePair<GUIContent, string>> m_BreadCrumbs = new List<KeyValuePair<GUIContent, string>>();
+        // private List<KeyValuePair<GUIContent, string>> m_BreadCrumbs = new List<KeyValuePair<GUIContent, string>>();
 
     
         public void OnGUI(BookMarkGUIStyles guiStyles)
