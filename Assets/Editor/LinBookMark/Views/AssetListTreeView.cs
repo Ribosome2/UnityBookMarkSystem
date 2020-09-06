@@ -18,11 +18,23 @@ namespace LinBookMark
         {
         }
 
+        protected override void ContextClicked()
+        {
+            
+            base.ContextClicked();
+            var parentFolderPath = FileUtil.GetSharedParentFolderPath(pathList);
+            if (string.IsNullOrEmpty(parentFolderPath)==false)
+            {
+                _assetContextHandler.HandlerAssetContextClick(parentFolderPath);
+            }
+        }
+
         protected override void ContextClickedItem(int id)
         {
             base.ContextClickedItem(id);
             
             _assetContextHandler.HandlerAssetContextClick(AssetDatabase.GetAssetPath(id));
+            Event.current.Use();
         }
 
         public AssetListTreeView(TreeViewState state, MultiColumnHeader multiColumnHeader) : base(state, multiColumnHeader)
