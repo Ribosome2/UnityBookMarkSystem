@@ -83,7 +83,7 @@ namespace LinBookMark
             var assetObject = AssetDatabase.LoadMainAssetAtPath(path);
             if (assetObject)
             {
-                Debug.Log("drop path "+ path+" asset type "+bookMarkType +" asset "+ assetObject.GetType());
+                // Debug.Log("drop path "+ path+" asset type "+bookMarkType +" asset "+ assetObject.GetType());
                 addElement.name = assetObject.name;
             }
             addElement.AssetGuild = AssetDatabase.AssetPathToGUID(path);
