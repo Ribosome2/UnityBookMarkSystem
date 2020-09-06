@@ -13,8 +13,16 @@ namespace LinBookMark
     {
         public IList<string> pathList;
         private EditorWindow parentWindow;
+        IAssetContextHandler _assetContextHandler = new AssetContextHandler();
         public AssetListTreeView(TreeViewState state) : base(state)
         {
+        }
+
+        protected override void ContextClickedItem(int id)
+        {
+            base.ContextClickedItem(id);
+            
+            _assetContextHandler.HandlerAssetContextClick(AssetDatabase.GetAssetPath(id));
         }
 
         public AssetListTreeView(TreeViewState state, MultiColumnHeader multiColumnHeader) : base(state, multiColumnHeader)
