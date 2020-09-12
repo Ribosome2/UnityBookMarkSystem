@@ -144,12 +144,12 @@ namespace LinBookMark
                         Event.current.Use();
                     } 
                 }
-                if (Event.current.type == EventType.DragPerform && drawRect.Contains(Event.current.mousePosition))
+                if (Event.current.type == EventType.DragPerform  )
                 {
-                    if (assetPath.Equals(mouseDownAsset, StringComparison.Ordinal)==false)
+                    if (drawRect.Contains(Event.current.mousePosition) && assetPath.Equals(mouseDownAsset, StringComparison.Ordinal))
                     {
-                        Event.current.Use();
                         DragDropUtil.TryReplaceAsset(assetPath);
+                        Event.current.Use();
                     }
                 }
                 if (Event.current.type == EventType.DragUpdated)

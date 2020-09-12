@@ -11,6 +11,7 @@
       <Path>.idea</Path>
       <Path>.vs</Path>
       <Path>.vscode</Path>
+      <Path>Images</Path>
       <Path>Library</Path>
       <Path>ReadMeImages</Path>
       <Path>Temp</Path>
