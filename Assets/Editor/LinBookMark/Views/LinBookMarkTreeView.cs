@@ -62,10 +62,10 @@ namespace LinBookMark
         {
             if (args.item.icon == null)
             {
-                var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(args.item.id);
-                if (element != null)
+                var path = BookMarkDataCenter.instance.GetAssetPath(args.item.id);
+                if (string.IsNullOrEmpty(path) == false)
                 {
-                    args.item.icon = element.GetIcon();
+                    args.item.icon =(Texture2D) AssetDatabase.GetCachedIcon(path);
                 }
             }
         }
