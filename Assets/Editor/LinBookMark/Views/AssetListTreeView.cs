@@ -57,6 +57,24 @@ namespace LinBookMark
             return root;
         }
 
+        protected override void RowGUI(RowGUIArgs args)
+        {
+            CheckRefreshAssetIcon(args);
+            base.RowGUI(args);
+        }
+
+        private static void CheckRefreshAssetIcon(RowGUIArgs args)
+        {
+            if (args.item.icon == null)
+            {
+                var obj = EditorUtility.InstanceIDToObject(args.item.id);
+                if (obj)
+                {
+                    args.item.icon = (Texture2D) AssetDatabase.GetCachedIcon(AssetDatabase.GetAssetPath(obj));
+                }
+            }
+        }
+
         IList<TreeViewItem> GetAssetItems()
         {
             List<TreeViewItem> result = new List<TreeViewItem>();
@@ -90,7 +108,6 @@ namespace LinBookMark
             if (obj)
             {
                 TreeViewItem item = new TreeViewItem(obj.GetInstanceID(), 0, obj.name);
-                item.icon = (Texture2D) AssetDatabase.GetCachedIcon(filePath);
                 result.Add(item);
             }
         }

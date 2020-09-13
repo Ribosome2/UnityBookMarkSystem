@@ -37,6 +37,7 @@ namespace LinBookMark
         
         protected override void RowGUI(RowGUIArgs args)
         {
+            CheckRefreshIcon(args);
             base.RowGUI(args);
             var path = BookMarkDataCenter.instance.GetAssetPath(args.item.id);
             if (string.IsNullOrEmpty(path) == false)
@@ -53,6 +54,18 @@ namespace LinBookMark
                         var drawRect = new Rect(rowRect.x+rowRect.width-rowRect.height,rowRect.y,iconSize,iconSize);
                         BookMarkGuiUtil.DrawTexture(drawRect, icon);
                     }
+                }
+            }
+        }
+
+        private static void CheckRefreshIcon(RowGUIArgs args)
+        {
+            if (args.item.icon == null)
+            {
+                var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(args.item.id);
+                if (element != null)
+                {
+                    args.item.icon = element.GetIcon();
                 }
             }
         }

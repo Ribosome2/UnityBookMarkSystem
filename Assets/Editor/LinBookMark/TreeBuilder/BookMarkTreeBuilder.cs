@@ -96,7 +96,6 @@ namespace LinBookMark
         {
             var id = element.id;
             var item = new TreeViewItem(id, element.depth, element.name);
-            item.icon = element.GetIcon();
             return item;
         }
         
