@@ -19,17 +19,6 @@ namespace LinBookMark
 
         public virtual Texture2D GetIcon()
         {
-            if (type == BookMarkType.AssetFolder || type == BookMarkType.SingleAsset)
-            {
-                var assetPath = GetProjectPath();
-                var iconTex =(Texture2D) AssetDatabase.GetCachedIcon(assetPath);
-                if (iconTex==null)
-                {
-                    iconTex= (Texture2D) EditorGUIUtility.Load(("CollabError"));
-                }
-
-                return iconTex;
-            }
             return (Texture2D) EditorGUIUtility.Load(("d_EditCollider"));
         }
 
