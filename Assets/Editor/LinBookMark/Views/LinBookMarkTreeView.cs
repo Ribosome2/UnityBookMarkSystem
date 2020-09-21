@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
+using UnityEditor.SceneManagement;
 using UnityEditor.TreeViewExamples;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityObject = UnityEngine.Object;
 
 namespace LinBookMark
@@ -188,24 +190,21 @@ namespace LinBookMark
         protected override void DoubleClickedItem(int id)
         {
             base.DoubleClickedItem(id);
-            var expandData = BookMarkDataCenter.instance.ExpandDataMgr.GetExpandData(id);
-            if (string.IsNullOrEmpty(expandData.AssetPath )==false)
+            var projectPath = BookMarkDataCenter.instance.GetAssetPath(id);
+            if (string.IsNullOrEmpty(projectPath )==false)
             {
-                var obj = AssetDatabase.LoadAssetAtPath<UnityObject>(expandData.AssetPath);
-                EditorGUIUtility.PingObject(obj);
-            }
-            else
-            {
-                var bookMarkElement = BookMarkDataCenter.instance.bookMarkDataModel.Find(id);
-                if (bookMarkElement != null)
+                if (Path.GetExtension(projectPath) == ".unity")
                 {
-                    if (bookMarkElement.type == BookMarkType.AssetFolder ||
-                        bookMarkElement.type == BookMarkType.SingleAsset)
+                    if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     {
-                        var assetPath =AssetDatabase.GUIDToAssetPath(bookMarkElement.AssetGuild);
-                        var obj = AssetDatabase.LoadAssetAtPath<UnityObject>(assetPath);
-                        EditorGUIUtility.PingObject(obj);
+                        EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+                        EditorSceneManager.OpenScene(projectPath);
                     }
+                }
+                else
+                {
+                    var obj = AssetDatabase.LoadAssetAtPath<UnityObject>(projectPath);
+                    EditorGUIUtility.PingObject(obj);
                 }
             }
         }
