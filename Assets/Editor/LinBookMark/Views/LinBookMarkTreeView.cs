@@ -197,7 +197,6 @@ namespace LinBookMark
                 {
                     if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
                     {
-                        EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
                         EditorSceneManager.OpenScene(projectPath);
                     }
                 }
