@@ -8,6 +8,7 @@ using UnityEditor.SceneManagement;
 using UnityEditor.TreeViewExamples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = System.Object;
 using UnityObject = UnityEngine.Object;
 
 namespace LinBookMark
@@ -68,6 +69,10 @@ namespace LinBookMark
                 if (string.IsNullOrEmpty(path) == false)
                 {
                     args.item.icon =(Texture2D) AssetDatabase.GetCachedIcon(path);
+                    if (args.item.icon == null && AssetDatabase.LoadAssetAtPath<UnityObject>(path)==null)
+                    {
+                        args.item.icon= (Texture2D) EditorGUIUtility.Load(("CollabError"));
+                    }
                 }
             }
         }
