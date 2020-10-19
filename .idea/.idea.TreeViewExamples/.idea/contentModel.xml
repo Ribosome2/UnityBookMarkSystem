@@ -7,15 +7,24 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assets\Editor" t="Include">
         <e p="LinBookMark" t="Include">
+          <e p="AssetFilter" t="Include">
+            <e p="AssetPathFilterByFileName.cs" t="Include" />
+          </e>
           <e p="Commands" t="Include">
             <e p="BookMarkCreateCommand.cs" t="Include" />
+            <e p="CommandBase.cs" t="Include" />
+            <e p="CopyAssetCommand.cs" t="Include" />
+            <e p="PasteAssetCommand.cs" t="Include" />
+            <e p="PingSpriteInHierarchyCommand.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
+            <e p="AssetMarkDataMgr.cs" t="Include" />
             <e p="BookMarkData.cs" t="Include" />
             <e p="BookMarkDataCenter.cs" t="Include" />
             <e p="DataSaver.cs" t="Include" />
             <e p="ExpandData.cs" t="Include" />
             <e p="ExpandDataMgr.cs" t="Include" />
+            <e p="KyleSelections.cs" t="Include" />
             <e p="LinBookMarkElement.cs" t="Include" />
             <e p="TreeItemIdGenerator.cs" t="Include" />
           </e>
@@ -30,20 +39,24 @@
           </e>
           <e p="InputHandle" t="Include">
             <e p="AssetClickManager.cs" t="Include" />
+            <e p="AssetContextHandler.cs" t="Include" />
+            <e p="CommandsHandler.cs" t="Include" />
             <e p="IAssetClickHandler.cs" t="Include" />
             <e p="SpriteAssetClickHandler.cs" t="Include" />
             <e p="TextureAssetClickHandler.cs" t="Include" />
             <e p="TreeViewInputHandler.cs" t="Include" />
           </e>
           <e p="Interface" t="Include">
+            <e p="IAssetContextHandler.cs" t="Include" />
             <e p="IAssetDrawer.cs" t="Include" />
+            <e p="IAssetPathFilter.cs" t="Include" />
             <e p="ISplittableWindow.cs" t="Include" />
           </e>
           <e p="IO" t="Include">
             <e p="FileUtil.cs" t="Include" />
           </e>
           <e p="Menu" t="Include">
-            <e p="FolderMenuOptions.cs" t="Include" />
+            <e p="AssetMarksMenuOptions.cs" t="Include" />
           </e>
           <e p="TreeBuilder" t="Include">
             <e p="BookMarkTreeBuilder.cs" t="Include" />

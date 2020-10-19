@@ -8,6 +8,7 @@ using UnityEditor.SceneManagement;
 using UnityEditor.TreeViewExamples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using Object = System.Object;
 using UnityObject = UnityEngine.Object;
 
@@ -42,6 +43,11 @@ namespace LinBookMark
         {
             CheckRefreshIcon(args);
             base.RowGUI(args);
+            CheckDrawAssetMark(args);
+        }
+
+        private static void CheckDrawAssetMark(RowGUIArgs args)
+        {
             var path = BookMarkDataCenter.instance.GetAssetPath(args.item.id);
             if (string.IsNullOrEmpty(path) == false)
             {
@@ -54,7 +60,9 @@ namespace LinBookMark
                     {
                         var rowRect = args.rowRect;
                         var iconSize = rowRect.height;
-                        var drawRect = new Rect(rowRect.x+rowRect.width-rowRect.height,rowRect.y,iconSize,iconSize);
+                        var renderSize = GUI.skin.label.CalcSize(new GUIContent(args.item.displayName, args.item.icon));
+                        var xPos = rowRect.x + renderSize.x + 16 + args.item.depth * 16;
+                        var drawRect = new Rect(xPos, rowRect.y, iconSize, iconSize);
                         BookMarkGuiUtil.DrawTexture(drawRect, icon);
                     }
                 }

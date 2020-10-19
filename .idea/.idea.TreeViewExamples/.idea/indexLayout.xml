@@ -10,7 +10,10 @@
       <Path>.git</Path>
       <Path>.idea</Path>
       <Path>.vscode</Path>
+      <Path>Images</Path>
       <Path>Library</Path>
+      <Path>ReadMeImages</Path>
+      <Path>Temp</Path>
       <Path>UnityPackageManager</Path>
       <Path>obj</Path>
     </explicitExcludes>
