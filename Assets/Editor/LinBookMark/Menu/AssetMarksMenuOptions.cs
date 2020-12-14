@@ -13,35 +13,35 @@ namespace LinBookMark
             MarkSelectedAssetPaths(assetIcon);
         }
 
-        [MenuItem("KyleKit/Assets/AssetMark/MarkAsSpriteFolder")]
+        [MenuItem("KyleKit/Assets/AssetMark/Sprite")]
         public static void MarkAsSpriteFolder(MenuCommand menuCommand)
         {
             var assetIcon = "Sprite Icon";
             MarkSelectedAssetPaths(assetIcon);
         }
 
-        [MenuItem("KyleKit/Assets/AssetMark/MarkAsPrefabFolder ")]
+        [MenuItem("KyleKit/Assets/AssetMark/Prefab ")]
         public static void MarkAsPrefabFolder(MenuCommand menuCommand)
         {
             var assetIcon = "PrefabNormal Icon";
             MarkSelectedAssetPaths(assetIcon);
         }
         
-        [MenuItem("KyleKit/Assets/AssetMark/MarkAsParticleFolder ")]
+        [MenuItem("KyleKit/Assets/AssetMark/Particle ")]
         public static void MarkAsParticleFolder(MenuCommand menuCommand)
         {
             var assetIcon = "d_ParticleSystem Icon";
             MarkSelectedAssetPaths(assetIcon);
         }
         
-        [MenuItem("KyleKit/Assets/AssetMark/MarkAsTextureFolder ")]
+        [MenuItem("KyleKit/Assets/AssetMark/Texture ")]
         public static void MarkAsTextureFolder(MenuCommand menuCommand)
         {
             var assetIcon = "RawImage Icon";
             MarkSelectedAssetPaths(assetIcon);
         }
         
-        [MenuItem("KyleKit/Assets/AssetMark/MarkAsTextFolder ")]
+        [MenuItem("KyleKit/Assets/AssetMark/Text ")]
         public static void MarkAsTextFolder(MenuCommand menuCommand)
         {
             var assetIcon = "Text Icon";
