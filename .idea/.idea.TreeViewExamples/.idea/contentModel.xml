@@ -61,6 +61,11 @@
           <e p="TreeBuilder" t="Include">
             <e p="BookMarkTreeBuilder.cs" t="Include" />
           </e>
+          <e p="TreeDataModel" t="Include">
+            <e p="TreeElement.cs" t="Include" />
+            <e p="TreeElementUtility.cs" t="Include" />
+            <e p="TreeModel.cs" t="Include" />
+          </e>
           <e p="Util" t="Include">
             <e p="BookMarkGuiUtil.cs" t="Include" />
           </e>
@@ -75,11 +80,6 @@
             <e p="LinBookMarkWindow.cs" t="Include" />
             <e p="WindownSplitterDrawer.cs" t="Include" />
           </e>
-        </e>
-        <e p="TreeDataModel" t="Include">
-          <e p="TreeElement.cs" t="Include" />
-          <e p="TreeElementUtility.cs" t="Include" />
-          <e p="TreeModel.cs" t="Include" />
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />

@@ -232,7 +232,7 @@ namespace LinBookMark
                 EditorStyles.toolbarDropDown))
                 return;
             GUIUtility.hotControl = 0;
-            EditorUtility.DisplayPopupMenu(rect, "KyleKit/Create", (MenuCommand) null);
+            EditorUtility.DisplayPopupMenu(rect, "CONTEXT/KyleKit/Create", (MenuCommand) null);
         }
 
         void DoTreeView()

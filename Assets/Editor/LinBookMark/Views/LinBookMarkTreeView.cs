@@ -154,7 +154,7 @@ namespace LinBookMark
         {
             base.ContextClickedItem(id);
             var rect = new Rect(Event.current.mousePosition.x,Event.current.mousePosition.y,100,16);
-            EditorUtility.DisplayPopupMenu(rect, "KyleKit/Assets", (MenuCommand) null);
+            EditorUtility.DisplayPopupMenu(rect, "CONTEXT/KyleKit/Assets", (MenuCommand) null);
         }
 
         private void HandleOperationInSideProject(DragAndDropArgs args)

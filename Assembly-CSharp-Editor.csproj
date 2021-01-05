@@ -73,12 +73,6 @@
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\mscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions">
-      <HintPath>C:\Program Files\Unity\Editor\Data\PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions">
-      <HintPath>C:\Program Files\Unity\Editor\Data\PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\LinBookMark\AssetFilter\AssetPathFilterByFileName.cs" />
@@ -115,6 +109,9 @@
     <Compile Include="Assets\Editor\LinBookMark\IO\FileUtil.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Menu\AssetMarksMenuOptions.cs" />
     <Compile Include="Assets\Editor\LinBookMark\TreeBuilder\BookMarkTreeBuilder.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\TreeDataModel\TreeElement.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\TreeDataModel\TreeElementUtility.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\TreeDataModel\TreeModel.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Util\BookMarkGuiUtil.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\AssetDrawers\DefaultAssetDrawer.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\AssetListGridView.cs" />
@@ -123,9 +120,6 @@
     <Compile Include="Assets\Editor\LinBookMark\Views\LinBookMarkTreeView.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\LinBookMarkWindow.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Views\WindownSplitterDrawer.cs" />
-    <Compile Include="Assets\Editor\TreeDataModel\TreeElement.cs" />
-    <Compile Include="Assets\Editor\TreeDataModel\TreeElementUtility.cs" />
-    <Compile Include="Assets\Editor\TreeDataModel\TreeModel.cs" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
@@ -324,12 +318,6 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.Android.Extensions">
-      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions">
-      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
@@ -353,12 +341,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/qinshilin/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
