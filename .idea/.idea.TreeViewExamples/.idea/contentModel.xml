@@ -76,6 +76,7 @@
             <e p="AssetListGridView.cs" t="Include" />
             <e p="AssetListTreeView.cs" t="Include" />
             <e p="FolderAssetListView.cs" t="Include" />
+            <e p="LinBookMarkSettingWnd.cs" t="Include" />
             <e p="LinBookMarkTreeView.cs" t="Include" />
             <e p="LinBookMarkWindow.cs" t="Include" />
             <e p="WindownSplitterDrawer.cs" t="Include" />

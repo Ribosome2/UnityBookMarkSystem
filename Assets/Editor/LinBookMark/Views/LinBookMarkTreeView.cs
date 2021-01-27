@@ -44,6 +44,8 @@ namespace LinBookMark
             CheckRefreshIcon(args);
             base.RowGUI(args);
             CheckDrawAssetMark(args);
+            var path = BookMarkDataCenter.instance.GetAssetPath(args.item.id);
+            BookMarkGuiUtil.CheckDrawInstantiatePrefabButton(ref path,args.rowRect);
         }
 
         private static void CheckDrawAssetMark(RowGUIArgs args)

@@ -60,7 +60,19 @@ namespace LinBookMark
         protected override void RowGUI(RowGUIArgs args)
         {
             CheckRefreshAssetIcon(args);
+            
+            CheckDrawPrefabCreate(args);
             base.RowGUI(args);
+        }
+
+        private void CheckDrawPrefabCreate(RowGUIArgs args)
+        {
+            var obj = EditorUtility.InstanceIDToObject(args.item.id);
+            if (obj)
+            {
+                var assetPath = AssetDatabase.GetAssetPath(obj);
+                BookMarkGuiUtil.CheckDrawInstantiatePrefabButton(ref assetPath, args.rowRect);
+            }
         }
 
         private static void CheckRefreshAssetIcon(RowGUIArgs args)

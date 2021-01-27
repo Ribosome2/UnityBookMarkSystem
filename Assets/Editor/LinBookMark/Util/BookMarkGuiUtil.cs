@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace LinBookMark
@@ -138,6 +139,45 @@ namespace LinBookMark
             drawRect.x += (cellSize - drawRect.width) / 2;
             drawRect.y += (cellSize - drawRect.height) / 2;
             return drawRect;
+        }
+
+        public static void CheckDrawInstantiatePrefabButton(ref string assetPath, Rect drawRect)
+        {
+            if (string.IsNullOrEmpty(assetPath) == false && Path.GetExtension(assetPath) == ".prefab")
+            {
+                float buttonSize = 20;
+                var buttonRect = new Rect(
+                    drawRect.x+ drawRect.width-buttonSize,
+                    drawRect.y,
+                    buttonSize,
+                    drawRect.height);
+                var buttonContent = new GUIContent("✔");
+                buttonContent.tooltip = "生成到配置的Hierarchy路径";
+                if(GUI.Button(buttonRect,buttonContent))
+                {
+                    AddPrefabToPopupRoot(assetPath);
+                }
+            }
+        }
+        
+        public static void AddPrefabToPopupRoot(string path)
+        {
+            var obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (obj)
+            {
+                var go = PrefabUtility.InstantiatePrefab(obj) as GameObject;
+                var rootPath = EditorPrefs.GetString("KyleTreeViewCreatePrefabRoot", "");
+                if (!string.IsNullOrEmpty(rootPath))
+                {
+                    GameObject root = GameObject.Find(rootPath);
+                    if (root)
+                    {
+                        go.transform.SetParent(root.transform, false);
+                        go.name = obj.name;
+                    }
+                    EditorGUIUtility.PingObject(go);
+                }
+            }
         }
     }
 }
