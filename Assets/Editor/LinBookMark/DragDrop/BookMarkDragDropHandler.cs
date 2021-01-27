@@ -42,18 +42,20 @@ namespace LinBookMark
                 if (string.IsNullOrEmpty(expandData.AssetPath) == false)
                 {
                     var assetPath = expandData.AssetPath;
-                    var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
-                    if (obj)
-                    {
-                        pathList.Add(assetPath);
-                        objList.Add(obj);
-                    }
+                    CheckAddDragObject(objList, pathList, assetPath);
                 }
                 else
                 {
                     var element = BookMarkDataCenter.instance.bookMarkDataModel.Find(draggedId);
+                  
                     if (element != null)
                     {
+                        var assetPath = AssetDatabase.GUIDToAssetPath(element.AssetGuild);
+                        if(string.IsNullOrEmpty(assetPath)==false)
+                        {
+                             CheckAddDragObject(objList, pathList, assetPath);
+                        }
+                        //   Debug.Log("drag "+ AssetDatabase.GUIDToAssetPath(element.AssetGuild));
                         DragAndDrop.SetGenericData("BookMarkNodeDragging",draggedId);
                     }
                 }
@@ -62,6 +64,15 @@ namespace LinBookMark
             return pathList;
         }
 
+        private static void CheckAddDragObject(List<UnityObject> objList, List<string> pathList, string assetPath)
+        {
+            var obj = AssetDatabase.LoadAssetAtPath<Object>(assetPath);
+            if (obj)
+            {
+                pathList.Add(assetPath);
+                objList.Add(obj);
+            }
+        }
 
         BookMarkType GetBookMarkTypeForAsset(string path)
         {
@@ -94,8 +105,13 @@ namespace LinBookMark
         private void AddObjectToParent(int insertIndex, LinBookMarkElement parentElement)
         {
             
-            if (DragAndDrop.paths.Length > 0 && DragAndDrop.objectReferences.Length== DragAndDrop.paths.Length)
+            
+            if (DragAndDrop.paths.Length > 0 && 
+                DragAndDrop.objectReferences.Length== DragAndDrop.paths.Length && 
+                DragAndDrop.GetGenericData("BookMarkNodeDragging")==null //
+                )
             {
+                
                 //drag from project browser
                 foreach (var path in DragAndDrop.paths)
                 {

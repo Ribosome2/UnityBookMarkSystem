@@ -4,8 +4,8 @@
     <e p="C:\Users\qinshilin\.Rider2019.3\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\qinshilin\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_TreeViewExamples.321780061.00" t="ExcludeRecursive" />
     <e p="E:\KyleFiles\UnityRelated\TreeViewExamples" t="IncludeRecursive">
-      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assets\Editor" t="Include">
+        <e p="KyleBookMark.asmdef" t="Include" />
         <e p="LinBookMark" t="Include">
           <e p="AssetFilter" t="Include">
             <e p="AssetPathFilterByFileName.cs" t="Include" />
@@ -82,6 +82,7 @@
           </e>
         </e>
       </e>
+      <e p="KyleBookMark.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
