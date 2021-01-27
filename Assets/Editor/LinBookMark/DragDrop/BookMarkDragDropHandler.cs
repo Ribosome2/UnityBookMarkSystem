@@ -15,7 +15,7 @@ namespace LinBookMark
         {
             
             DragAndDrop.PrepareStartDrag();
-
+            DragAndDrop.SetGenericData("BookMarkNodeDragging",null);
             List<Object> objList;
             var pathList = ExtractObjectListAndPathList(sortedDraggedIDs, out objList);
 
