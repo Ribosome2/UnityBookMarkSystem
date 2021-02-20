@@ -65,8 +65,7 @@ namespace LinBookMark
                     if (EditorUtility.DisplayDialog("replace ",
                         string.Format("Do you want to replace file content of {0} with  file {1}", assetPath, path), "Yes"))
                     {
-                        var newBytes = File.ReadAllBytes(path);
-                        File.WriteAllBytes(assetPath, newBytes);
+                        AskRenameAssetOrJustReplace(path,assetPath);
                         needRefresh = true;
                     }
                 }
@@ -116,20 +115,44 @@ namespace LinBookMark
                     if (EditorUtility.DisplayDialog("Add Asset  ",
                         string.Format("Do you want to replace file content of {0} with  file {1}", folderPath, path), "Yes"))
                     {
-                        var newBytes = File.ReadAllBytes(path);
-                        File.WriteAllBytes(targetPath, newBytes);
+                        AskRenameAssetOrJustReplace( path, targetPath);
                         return true;
                     }
                 }
                 else
                 {
-                    var newBytes = File.ReadAllBytes(path);
-                    File.WriteAllBytes(targetPath, newBytes);
+                    ReplaceFileContent(path, targetPath);
                     return true;
                 }
             }
 
             return false;
+        }
+
+        private static void AskRenameAssetOrJustReplace( string path, string targetPath)
+        {
+            string changeAssetName = null;
+            if (Path.GetFileName(path) != Path.GetFileName(targetPath))
+            {
+                if (EditorUtility.DisplayDialog("Change Name ?",
+                    string.Format("Do you want to change AssetName from {0} to  {1}",
+                        Path.GetFileName(targetPath), Path.GetFileName(path)), "Use New Name","Keep the  Old Name"))
+                {
+                    changeAssetName = Path.GetFileName(path);
+                }
+            }
+
+            ReplaceFileContent(path, targetPath, changeAssetName);
+        }
+
+        private static void ReplaceFileContent(string path, string targetPath,string fileNewName = null)
+        {
+            var newBytes = File.ReadAllBytes(path);
+            File.WriteAllBytes(targetPath, newBytes);
+            if (string.IsNullOrEmpty(fileNewName) == false)
+            {
+                AssetDatabase.RenameAsset(targetPath, fileNewName);
+            }
         }
 
         public static void SetupDragAsset(string assetPath)
