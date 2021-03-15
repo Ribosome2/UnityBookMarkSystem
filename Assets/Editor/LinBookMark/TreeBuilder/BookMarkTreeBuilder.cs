@@ -73,7 +73,7 @@ namespace LinBookMark
         private static TreeViewItem CreateFileTreeItem(TreeViewItem treeItemParent, FileInfo fileInfo, string subFile)
         {
             var treeItemId = TreeItemIdGenerator.NextId;
-            TreeViewItem subItem = new TreeViewItem(treeItemId, treeItemParent.depth + 1, fileInfo.Name);
+            TreeViewItem subItem = new TreeViewItem(treeItemId, treeItemParent.depth + 1, Path.GetFileNameWithoutExtension(fileInfo.Name));
             var expandData = new ExpandData() {AssetPath = subFile};
             BookMarkDataCenter.instance.ExpandDataMgr.SetExpandData(treeItemId, expandData);
             subItem.icon = (Texture2D) AssetDatabase.GetCachedIcon(subFile);
