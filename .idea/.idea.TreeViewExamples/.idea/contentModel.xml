@@ -51,6 +51,7 @@
             <e p="IAssetDrawer.cs" t="Include" />
             <e p="IAssetPathFilter.cs" t="Include" />
             <e p="ISplittableWindow.cs" t="Include" />
+            <e p="ITreeViewIdConverter.cs" t="Include" />
           </e>
           <e p="IO" t="Include">
             <e p="FileUtil.cs" t="Include" />

@@ -112,6 +112,7 @@
     <Compile Include="Assets\Editor\LinBookMark\Interface\IAssetDrawer.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Interface\IAssetPathFilter.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Interface\ISplittableWindow.cs" />
+    <Compile Include="Assets\Editor\LinBookMark\Interface\ITreeViewIdConverter.cs" />
     <Compile Include="Assets\Editor\LinBookMark\IO\FileUtil.cs" />
     <Compile Include="Assets\Editor\LinBookMark\Menu\AssetMarksMenuOptions.cs" />
     <Compile Include="Assets\Editor\LinBookMark\TreeBuilder\BookMarkTreeBuilder.cs" />

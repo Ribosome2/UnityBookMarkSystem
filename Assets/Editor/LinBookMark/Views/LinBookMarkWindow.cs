@@ -9,7 +9,7 @@ using UnityEditor.TreeViewExamples;
 using UnityEngine;
 namespace LinBookMark
 {
-    public class LinBookMarkWindow : EditorWindow,ISplittableWindow
+    public class LinBookMarkWindow : EditorWindow,ISplittableWindow,ITreeViewIdConverter
     {
         [MenuItem("KyleKit/LinBookMark %k")]
         private static void ShowWindow()
@@ -305,7 +305,9 @@ namespace LinBookMark
             if (flag)
             {
                 bool askIfSure = Event.current.commandName == "SoftDelete";
-                if (AssetOperationUtil.DeleteAssets(m_TreeView.GetSelection(), askIfSure))
+                var selectedItems = m_TreeView.GetSelection();
+                
+                if (AssetOperationUtil.DeleteAssets(m_TreeView.GetSelection(), askIfSure,this))
                 {
                     m_TreeView.Reload();
                 }
@@ -315,6 +317,12 @@ namespace LinBookMark
             }
 
             GUIUtility.ExitGUI();
+        }
+
+        public string GetItemName(int id)
+        {
+            var item = m_TreeView.GetTreeViewItem(id);
+            return item!=null ? item.displayName : id.ToString();
         }
     }
 }

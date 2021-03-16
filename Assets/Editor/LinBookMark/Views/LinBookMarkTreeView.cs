@@ -38,7 +38,37 @@ namespace LinBookMark
             SetupParentsAndChildrenFromDepths(root, allItems);
             return root;
         }
-        
+
+        public TreeViewItem GetTreeViewItem(int id)
+        {
+            if (rootItem != null)
+            {
+                var nodeRoot = rootItem;
+            }
+            
+            Queue<TreeViewItem> queque = new Queue<TreeViewItem>();
+            queque.Enqueue(rootItem);
+            while (queque.Count>0)
+            {
+                var item = queque.Dequeue();
+                if (item.id == id)
+                {
+                    return item;
+                }
+                else
+                {
+                    if (item.hasChildren)
+                    {
+                        foreach (var treeViewItem in item.children)
+                        {
+                            queque.Enqueue(treeViewItem);
+                        }
+                    }
+                }
+                
+            }
+            return null;
+        }
         protected override void RowGUI(RowGUIArgs args)
         {
             CheckRefreshIcon(args);
