@@ -9,7 +9,7 @@ using UnityEditor.TreeViewExamples;
 using UnityEngine;
 namespace LinBookMark
 {
-    public class LinBookMarkWindow : EditorWindow,ISplittableWindow,ITreeViewIdConverter
+    public class LinBookMarkWindow : EditorWindow,ISplittableWindow,ITreeViewIdConverter,IHasCustomMenu
     {
         [MenuItem("KyleKit/LinBookMark %k")]
         private static void ShowWindow()
@@ -31,6 +31,12 @@ namespace LinBookMark
         [SerializeField]
         private WindowSplitterDrawer splitter ;
         public FolderAssetListView assetListView;
+        private ViewMode mViewMode = ViewMode.TwoColumns;
+        private enum ViewMode
+        {
+            OneColumn,
+            TwoColumns,
+        }
         void OnEnable()
         {
             
@@ -145,9 +151,16 @@ namespace LinBookMark
             
             DoToolbar();
             DoTreeView();
-            splitter.OnGUI(guiStyles);
-            assetListView.OnGUI(splitter.ListAreaRect,splitter.GridSize);
-            splitter.BreadCrumbBar(assetListView.GetParentFolderDesc(),guiStyles);
+            if (mViewMode == ViewMode.TwoColumns)
+            {
+                splitter.OnGUI(guiStyles);
+                assetListView.OnGUI(splitter.ListAreaRect, splitter.GridSize);
+                splitter.BreadCrumbBar(assetListView.GetParentFolderDesc(), guiStyles);
+            }
+            else
+            {
+//                assetListView.OnGUI(new Rect(0,18,position.width,position.height), 16);
+            }
             HandleCommandEvents();
         }
 
@@ -239,7 +252,14 @@ namespace LinBookMark
         {
             if (m_TreeView != null)
             {
-                m_TreeView.OnGUI(splitter.m_TreeViewRect);
+                if (mViewMode == ViewMode.OneColumn)
+                {
+                    m_TreeView.OnGUI(new Rect(0, 18, position.width, position.height));
+                }
+                else
+                {
+                    m_TreeView.OnGUI(splitter.m_TreeViewRect);
+                }
             }
         }
 
@@ -324,5 +344,31 @@ namespace LinBookMark
             var item = m_TreeView.GetTreeViewItem(id);
             return item!=null ? item.displayName : id.ToString();
         }
+
+        public virtual void AddItemsToMenu(GenericMenu menu)
+        {
+            GUIContent content1 = new GUIContent("One Column Layout");
+            GUIContent content2 = new GUIContent("Two Column Layout");
+            menu.AddItem(content1, mViewMode == ViewMode.OneColumn, new GenericMenu.MenuFunction(this.SetOneColumn));
+            if ((double)this.position.width >= 230.0)
+                menu.AddItem(content2, mViewMode == ViewMode.TwoColumns, new GenericMenu.MenuFunction(this.SetTwoColumns));
+            else
+                menu.AddDisabledItem(content2);
+
+        }
+
+        void SetOneColumn()
+        {
+            mViewMode = ViewMode.OneColumn;
+            m_TreeView.Reload();
+        }
+
+        void SetTwoColumns()
+        {
+            mViewMode = ViewMode.TwoColumns;
+            m_TreeView.Reload();
+        }
+
+
     }
 }

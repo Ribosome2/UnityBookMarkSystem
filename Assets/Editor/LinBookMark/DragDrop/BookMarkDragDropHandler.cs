@@ -223,7 +223,6 @@ namespace LinBookMark
         {
          
             AddObjectToParent(insertIndex,BookMarkDataCenter.instance.bookMarkDataModel.root);
-            Debug.Log("drag outside  ");
         }
 
         public void CheckDropToReplace(int treeItemId)
