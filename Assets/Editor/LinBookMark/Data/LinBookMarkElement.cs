@@ -19,7 +19,7 @@ namespace LinBookMark
 
         public virtual Texture2D GetIcon()
         {
-            return (Texture2D) EditorGUIUtility.Load(("d_EditCollider"));
+            return (Texture2D) EditorGUIUtility.Load((EditorGUIUtility.isProSkin ?"d_EditCollider": "EditCollider"));
         }
 
         public string GetProjectPath()
