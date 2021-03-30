@@ -105,7 +105,6 @@ namespace LinBookMark
         private void AddObjectToParent(int insertIndex, LinBookMarkElement parentElement)
         {
             
-            
             if (DragAndDrop.paths.Length > 0 && 
                 DragAndDrop.objectReferences.Length== DragAndDrop.paths.Length && 
                 DragAndDrop.GetGenericData("BookMarkNodeDragging")==null //
@@ -124,21 +123,6 @@ namespace LinBookMark
             else
             {
                 insertIndex = CovertInsertIndex(insertIndex, parentElement);
-                //not project assets 
-                for (int i = 0; i < DragAndDrop.objectReferences.Length; i++)
-                {
-                    var obj = DragAndDrop.objectReferences[i];
-                    if (obj == null)
-                    {
-                        Debug.LogError("null obj, WTH ?");
-                        continue;
-                    }
-                        
-                    var addElement = new LinBookMarkElement()
-                        {name = obj.name, depth = parentElement.depth + 1, id = TreeItemIdGenerator.NextId};
-                    BookMarkDataCenter.instance.bookMarkDataModel.AddElement(addElement, parentElement, insertIndex);
-                }
-
                 CheckDropCustomBookMarkNode(insertIndex, parentElement);
             }
             
