@@ -24,3 +24,5 @@ Assets/Plugins/Editor/JetBrains.meta
 Assembly-CSharp-Editor.csproj
 .idea/.idea.UnityBookMarkSystem/.idea/indexLayout.xml
 LinkBookMarkDLL/.vs/
+LinkBookMarkDLL/LinkBookMarkDLL/bin/
+LinkBookMarkDLL/LinkBookMarkDLL/obj/

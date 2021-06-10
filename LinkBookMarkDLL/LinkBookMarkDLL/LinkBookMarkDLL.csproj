@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>ae7d54d6-fec9-48e9-8b18-3d863c3ddbd2</ProjectGuid>
+    <ProjectGuid>{AE7D54D6-FEC9-48E9-8B18-3D863C3DDBD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LinkBookMarkDLL</RootNamespace>
@@ -31,20 +31,71 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Program Files\Unity2017.4.26\Editor\Data\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity2017.4.26\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Program Files\Unity2017.4.26\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="LinBookMark\AssetFilter\AssetPathFilterByFileName.cs" />
+    <Compile Include="LinBookMark\Commands\BookMarkCreateCommand.cs" />
+    <Compile Include="LinBookMark\Commands\CommandBase.cs" />
+    <Compile Include="LinBookMark\Commands\CopyAssetCommand.cs" />
+    <Compile Include="LinBookMark\Commands\PasteAssetCommand.cs" />
+    <Compile Include="LinBookMark\Commands\PingSpriteInHierarchyCommand.cs" />
+    <Compile Include="LinBookMark\Data\AssetMarkDataMgr.cs" />
+    <Compile Include="LinBookMark\Data\BookMarkData.cs" />
+    <Compile Include="LinBookMark\Data\BookMarkDataCenter.cs" />
+    <Compile Include="LinBookMark\Data\DataSaver.cs" />
+    <Compile Include="LinBookMark\Data\ExpandData.cs" />
+    <Compile Include="LinBookMark\Data\ExpandDataMgr.cs" />
+    <Compile Include="LinBookMark\Data\KyleSelections.cs" />
+    <Compile Include="LinBookMark\Data\LinBookMarkElement.cs" />
+    <Compile Include="LinBookMark\Data\TreeItemIdGenerator.cs" />
+    <Compile Include="LinBookMark\DragDrop\AssetOperationUtil.cs" />
+    <Compile Include="LinBookMark\DragDrop\BookMarkDragDropHandler.cs" />
+    <Compile Include="LinBookMark\DragDrop\DragDropUtil.cs" />
+    <Compile Include="LinBookMark\DragDrop\IDragDropHandler.cs" />
+    <Compile Include="LinBookMark\GUIStyles\BookMarkGUIStyles.cs" />
+    <Compile Include="LinBookMark\InputHandle\AssetClickManager.cs" />
+    <Compile Include="LinBookMark\InputHandle\AssetContextHandler.cs" />
+    <Compile Include="LinBookMark\InputHandle\CommandsHandler.cs" />
+    <Compile Include="LinBookMark\InputHandle\IAssetClickHandler.cs" />
+    <Compile Include="LinBookMark\InputHandle\SpriteAssetClickHandler.cs" />
+    <Compile Include="LinBookMark\InputHandle\TextureAssetClickHandler.cs" />
+    <Compile Include="LinBookMark\InputHandle\TreeViewInputHandler.cs" />
+    <Compile Include="LinBookMark\Interface\IAssetContextHandler.cs" />
+    <Compile Include="LinBookMark\Interface\IAssetDrawer.cs" />
+    <Compile Include="LinBookMark\Interface\IAssetPathFilter.cs" />
+    <Compile Include="LinBookMark\Interface\ISplittableWindow.cs" />
+    <Compile Include="LinBookMark\Interface\ITreeViewIdConverter.cs" />
+    <Compile Include="LinBookMark\IO\FileUtil.cs" />
+    <Compile Include="LinBookMark\Menu\AssetMarksMenuOptions.cs" />
+    <Compile Include="LinBookMark\TreeBuilder\BookMarkTreeBuilder.cs" />
+    <Compile Include="LinBookMark\TreeDataModel\TreeElement.cs" />
+    <Compile Include="LinBookMark\TreeDataModel\TreeElementUtility.cs" />
+    <Compile Include="LinBookMark\TreeDataModel\TreeModel.cs" />
+    <Compile Include="LinBookMark\Util\BookMarkGuiUtil.cs" />
+    <Compile Include="LinBookMark\Views\AssetDrawers\DefaultAssetDrawer.cs" />
+    <Compile Include="LinBookMark\Views\AssetListGridView.cs" />
+    <Compile Include="LinBookMark\Views\AssetListTreeView.cs" />
+    <Compile Include="LinBookMark\Views\FolderAssetListView.cs" />
+    <Compile Include="LinBookMark\Views\LinBookMarkSettingWnd.cs" />
+    <Compile Include="LinBookMark\Views\LinBookMarkTreeView.cs" />
+    <Compile Include="LinBookMark\Views\LinBookMarkWindow.cs" />
+    <Compile Include="LinBookMark\Views\WindownSplitterDrawer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
- </Project>
+</Project>
