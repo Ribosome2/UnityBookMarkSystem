@@ -10,6 +10,11 @@ namespace LinBookMark
     {
         public const string DataFileName = "LinBookMarkTree";
 
+        public static string GetDataFilePath()
+        {
+            string path = Application.persistentDataPath + "/" + GetBookMarkFilePath(DataFileName);
+            return path;
+        }
         public static string GetBookMarkFilePath(string fileName)
         {
             var projPath = Application.dataPath.Replace('/', '_');
@@ -31,6 +36,8 @@ namespace LinBookMark
 			fs.Close();
 #endif
 		}
+
+
         public static T ReadFromDisk<T>(string fileName)
         {
             string path = Application.persistentDataPath + "/" + GetBookMarkFilePath( fileName);

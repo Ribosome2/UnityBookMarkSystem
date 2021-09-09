@@ -353,6 +353,8 @@ namespace LinBookMark
             else
                 menu.AddDisabledItem(content2);
 
+            GUIContent content3 = new GUIContent("OpenSetting");
+            menu.AddItem(content3,  false,new GenericMenu.MenuFunction(this.OpenSettingFile));
         }
 
         void SetOneColumn()
@@ -365,6 +367,13 @@ namespace LinBookMark
         {
             mViewMode = ViewMode.TwoColumns;
             m_TreeView.Reload();
+        }
+
+        void OpenSettingFile()
+        {
+            var path = DataSaver.GetDataFilePath();
+            Debug.Log("SettingPath: "+ path);
+            EditorUtility.RevealInFinder(path);
         }
 
 
