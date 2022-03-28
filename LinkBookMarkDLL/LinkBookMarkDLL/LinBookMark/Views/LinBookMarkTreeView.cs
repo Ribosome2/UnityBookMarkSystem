@@ -214,8 +214,8 @@ namespace LinBookMark
             {
                 return true;
             }
-            
-            return base.CanRename(item);
+
+            return true;
         }
 
         protected override void RenameEnded(RenameEndedArgs args)
