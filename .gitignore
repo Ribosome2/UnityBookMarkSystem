@@ -26,3 +26,10 @@ Assembly-CSharp-Editor.csproj
 LinkBookMarkDLL/.vs/
 LinkBookMarkDLL/LinkBookMarkDLL/bin/
 LinkBookMarkDLL/LinkBookMarkDLL/obj/
+Assembly-CSharp.csproj
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp-Editor-firstpass.csproj
+Logs/Packages-Update.log
+Logs/
+LinBookMark.csproj
+UnityBookMarkSystem.sln

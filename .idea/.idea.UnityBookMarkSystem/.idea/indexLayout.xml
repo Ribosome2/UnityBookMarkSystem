@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ContentModelUserStore">
+  <component name="UserContentModel">
     <attachedFolders />
-    <explicitIncludes>
-      <Path>Assets</Path>
-      <Path>ProjectSettings</Path>
-    </explicitIncludes>
-    <explicitExcludes>
-      <Path>.git</Path>
-      <Path>.idea</Path>
-      <Path>.vs</Path>
-      <Path>.vscode</Path>
-      <Path>Images</Path>
-      <Path>Library</Path>
-      <Path>ReadMeImages</Path>
-      <Path>Temp</Path>
-      <Path>UnityPackageManager</Path>
-      <Path>obj</Path>
-    </explicitExcludes>
+    <explicitIncludes />
+    <explicitExcludes />
   </component>
 </project>
